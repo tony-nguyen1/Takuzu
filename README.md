@@ -11,3 +11,7 @@ En collaboration avec Pierre-Antoine CHERON - Nassim EZZAMARI - Mathieu GRIMAUD 
 <ul><li>autant de 1 et de 0 sur chaque ligne et sur chaque colonne&nbsp;;</li>
 <li>pas plus de 2 chiffres identiques côte à côte&nbsp;;</li>
 <li>2 lignes ou 2 colonnes ne peuvent être identiques.</li></ul>
+
+<h2>Diagramme</h2>
+
+<img src="Main2.svg" alt="UML class diagram very good Takuzu">
