@@ -1,6 +1,5 @@
 package main;
 
-import java.util.ArrayList;
 
 public class Main {
 
@@ -8,21 +7,16 @@ public class Main {
         System.out.println("Hello World!");
         System.out.println("\n");
 
-        Grille g = new Grille(6);
+        Grille g = new Grille(4, 4);
+        g.affichage();
 
-        g.ecrireValeur(0,5,9);
-
-        System.out.println("ligne " + g.getLigne(5));
-        System.out.println("collonne" + g.getCollonne(0) + "\n");
+        g.setValue(0, 2, 1);
 
         g.affichage();
 
-        System.out.println();
-        Takuzu t = new Takuzu();
 
-        t.mettreUn(6,6);
-        t.mettreZero(0,9);
-        t.mettreUn(0,5);
+        Takuzu t = new Takuzu(g);
+        t.play(0, 3, 0);
         t.affichage();
     }
 }
