@@ -12,6 +12,6 @@ En collaboration avec Pierre-Antoine CHERON - Nassim EZZAMARI - Mathieu GRIMAUD 
 <li>pas plus de 2 chiffres identiques côte à côte&nbsp;;</li>
 <li>2 lignes ou 2 colonnes ne peuvent être identiques.</li></ul>
 
-<h2>Diagramme</h2>
+<h2>UML class diagram for Takuzu project by Pierre-Antoine</h2>
 
-<img src="Main2.svg" alt="UML class diagram very good Takuzu">
+<img src="Main3.svg" alt="UML class diagram for Takuzu project by Pierre-Antoine">
