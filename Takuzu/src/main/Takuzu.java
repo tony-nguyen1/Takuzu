@@ -2,42 +2,28 @@ package main;
 
 public class Takuzu {
     private Grille grille;
-    private Regles r;
 
     public Takuzu() {
-        this.grille = new Grille(6);
-        this.r = new ReglesTakuzu();
+        this.grille = new Grille(4,4);
+    }
+    public Takuzu(Grille grille) {
+        this.grille = grille;
     }
 
-    public void mettreZero(int x, int y)
+    public void play(int x, int y, int value)
     {
-        try {
-            grille.ecrireValeur(x, y, 0);
-        }
-        catch (IndexOutOfBoundsException e)
-        {
-            System.err.println("Erreurs d'index - " + e.getMessage());
-            //e.printStackTrace();
-        }
-        finally {
-            System.out.println("x = " + x + "  y = " + y);
-        }
+        grille.setValue(x, y, value);
     }
 
-    public void mettreUn(int x, int y)
-    {
-        try {
-            grille.ecrireValeur(x, y, 1);
-        }
-        catch (IndexOutOfBoundsException e)
-        {
-            System.err.println("Erreurs d'index - " + e.getMessage());
-            //e.printStackTrace();
-        }
-        finally {
-            System.out.println("x = " + x + "  y = " + y);
-        }
+    public boolean checkColumn(int x){
+        throw new RuntimeException("Not implemented yet !");
+    }
+    public boolean checkRow(int x){
+        throw new RuntimeException("Not implemented yet!");
     }
 
-    public void affichage() { grille.affichage();}
+    public void affichage() { 
+        System.out.println("Takuzu:\n");
+        grille.affichage();
+    }
 }
