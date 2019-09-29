@@ -1,6 +1,9 @@
 package main;
 
 
+
+import main.IHM.IHM;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -18,5 +21,9 @@ public class Main {
         Takuzu t = new Takuzu(g);
         t.play(0, 3, 0);
         t.affichage();
+
+        //IHM ihm = new IHM();
+        IHM.special();
     }
+
 }
