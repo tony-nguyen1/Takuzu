@@ -2,6 +2,8 @@ package main;
 
 import java.util.Arrays;
 
+import static main.IHM.IHM.special;
+
 public class Grille {
     private int[][] grille;
     private final int HEIGHT;
@@ -31,8 +33,11 @@ public class Grille {
     }
 
     public void affichage() {
-        //TODO
         System.out.println(toString());
+    }
+
+    public void affichageGraphique() {
+        special(this.grille);
     }
 
 

@@ -8,11 +8,15 @@ import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import javafx.scene.shape.Rectangle;
 
+import java.util.LinkedList;
+
 public class GrilleIHM extends Parent {
 
-    private Case[] cases;
+    //private Case[] cases;
+    private LinkedList<Case> cases;
 
     public GrilleIHM() {
+        cases = new LinkedList<>();
         Rectangle fond_clavier = new Rectangle();
         fond_clavier.setWidth(420);
         fond_clavier.setHeight(420);
@@ -32,35 +36,71 @@ public class GrilleIHM extends Parent {
         r.setTopOpacity(0.5);
         fond_clavier.setEffect(r);
 
-        cases = new Case[]{
-                //1er ligne
-                new Case(04,4),
-                new Case(108,4),
-                new Case(212,4, Color.ORANGE),
-                new Case(316,4, Color.AQUAMARINE),
-
-                //2e ligne
-                new Case(04,108),
-                new Case(108,108),
-                new Case(212,108),
-                new Case(316,108),
-
-                //3e ligne
-                new Case(04,212),
-                new Case(108,212),
-                new Case(212,212),
-                new Case(316,212),
-
-                //4e ligne
-                new Case(04,316),
-                new Case(108,316),
-                new Case(212,316),
-                new Case(316,316),
-        };
-
         this.setTranslateX(50);
         this.setTranslateY(00);
         this.getChildren().add(fond_clavier);
+        for (Case c: cases){
+            this.getChildren().add(c);
+        }
+    }
+
+    public GrilleIHM(int[][] grille, int dimensionsCase, int pas)
+    {
+        cases = new LinkedList<>();
+        int tailleDeLaGrille = dimensionsCase * grille.length + (grille.length+1) * pas;
+
+        Rectangle fond_clavier = new Rectangle();
+        fond_clavier.setWidth(tailleDeLaGrille);
+        fond_clavier.setHeight(tailleDeLaGrille);
+
+        this.setTranslateX(50);
+        this.setTranslateY(00);
+
+        this.getChildren().add(fond_clavier);
+
+        //////////////////////////////
+        createCaseLettres(grille, 420,4,dimensionsCase);
+    }
+
+    public void createCase(int[][] grille, int taille, int pas, int dimensionsCase)
+    {
+        for (int i = 0; i < grille.length; i++)
+        {
+            for (int j = 0; j < grille[i].length; j++)
+            {
+                if (grille[i][j] == 0) //la case a une valeur
+                {
+                    cases.add(new Case(pas*(j+1)+j*dimensionsCase,pas*(i+1)+i*dimensionsCase,Color.YELLOW,dimensionsCase));
+                }
+                if (grille[i][j] == 1) //la case a une valeur
+                {
+                    cases.add(new Case(pas*(j+1)+j*dimensionsCase,pas*(i+1)+i*dimensionsCase,Color.RED,dimensionsCase));
+                }
+            }
+        }
+
+        for (Case c: cases){
+            this.getChildren().add(c);
+        }
+    }
+
+    public void createCaseLettres(int[][] grille, int taille, int pas, int dimensionsCase)
+    {
+        for (int i = 0; i < grille.length; i++)
+        {
+            for (int j = 0; j < grille[i].length; j++)
+            {
+                if (grille[i][j] == 0) //la case a une valeur
+                {
+                    cases.add(new Case("0",pas*(j+1)+j*dimensionsCase,pas*(i+1)+i*dimensionsCase,100));
+                }
+                if (grille[i][j] == 1) //la case a une valeur
+                {
+                    cases.add(new Case("1",pas*(j+1)+j*dimensionsCase,pas*(i+1)+i*dimensionsCase,100));
+                }
+            }
+        }
+
         for (Case c: cases){
             this.getChildren().add(c);
         }

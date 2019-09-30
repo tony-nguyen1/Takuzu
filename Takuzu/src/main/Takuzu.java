@@ -26,4 +26,9 @@ public class Takuzu {
         System.out.println("Takuzu:\n");
         grille.affichage();
     }
+
+    public void affichageGraphique()
+    {
+        grille.affichageGraphique();
+    }
 }

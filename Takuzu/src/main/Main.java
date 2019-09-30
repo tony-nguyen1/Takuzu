@@ -22,8 +22,9 @@ public class Main {
         t.play(0, 3, 0);
         t.affichage();
 
-        //IHM ihm = new IHM();
-        IHM.special();
+        t.play(3, 3, 1);
+        t.affichageGraphique();
+
     }
 
 }
