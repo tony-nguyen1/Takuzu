@@ -24,6 +24,11 @@ public class Main {
 
         t.play(3, 3, 1);
         t.affichageGraphique();
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
     }
 

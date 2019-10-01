@@ -25,6 +25,7 @@ public class IHM extends Application{
         Group root = new Group();
         Scene scene = new Scene(root, 800, 600, Color.LIGHTBLUE);
         primaryStage.setScene(scene);
+        primaryStage.setTitle("TakuzuApp");
 
         GrilleIHM g = new GrilleIHM(grille,100,4);
         root.getChildren().add(g);
