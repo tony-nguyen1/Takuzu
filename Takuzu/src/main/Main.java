@@ -11,5 +11,7 @@ public class Main {
        takuzu.preRemplissage();
        takuzu.affichage();
        takuzu.affichageGraphique();
+
+       takuzu.checkRow(0);
     }
 }

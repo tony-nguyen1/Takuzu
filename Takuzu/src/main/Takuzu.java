@@ -3,12 +3,6 @@ package main;
 public class Takuzu {
     private Grille grille;
 
-    public Takuzu() {
-        this.grille = new Grille(4,4);
-    }
-    public Takuzu(Grille grille) {
-        this.grille = grille;
-    }
     public Takuzu(int i) { grille = new Grille(i,i); }
 
     public void play(int x, int y, int value)
@@ -20,7 +14,33 @@ public class Takuzu {
         throw new RuntimeException("Not implemented yet !");
     }
     public boolean checkRow(int x){
-        throw new RuntimeException("Not implemented yet!");
+        int nb0, nb1;
+        nb0 = 0;
+        nb1 = 0;
+
+        for (int y = 0; y < grille.getWIDTH(); y++)
+        {
+            System.out.println("Salut" + y);
+            switch (grille.getValue(x,y))
+            {
+                case 0:
+                    nb0++;
+                    break;
+                case 1:
+                    nb1++;
+                    break;
+                case -1:
+                    break;
+                default:
+                    throw new RuntimeException("Valeur non autorisé trouvé");
+            }
+        }
+        return nb0 == nb1 && true;
+    }
+
+    public boolean checkRowUnicite(int x) {
+
+        return true;
     }
 
     public void affichage() { 
