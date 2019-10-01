@@ -53,7 +53,7 @@ public class GrilleIHM extends Parent {
         fond_clavier.setWidth(tailleDeLaGrille);
         fond_clavier.setHeight(tailleDeLaGrille);
 
-        this.setTranslateX(50);
+        this.setTranslateX(00);
         this.setTranslateY(00);
 
         this.getChildren().add(fond_clavier);

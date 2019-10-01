@@ -23,7 +23,7 @@ public class IHM extends Application{
     @Override
     public void start(Stage primaryStage) {
         Group root = new Group();
-        Scene scene = new Scene(root, 800, 600, Color.LIGHTBLUE);
+        Scene scene = new Scene(root, 420, 420, Color.LIGHTBLUE);
         primaryStage.setScene(scene);
         primaryStage.setTitle("TakuzuApp");
 
