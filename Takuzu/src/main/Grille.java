@@ -42,12 +42,10 @@ public class Grille {
 
 
     public void setValue(int x, int y, int value){
-        grille[x][y] = value;
+        grille[y][x] = value;
     }
 
-    public int getValue(int x, int y){
-        return grille[x][y];
-    }
+    public int getValue(int x, int y){ return grille[y][x]; }
 
     
     public int getHEIGHT() {

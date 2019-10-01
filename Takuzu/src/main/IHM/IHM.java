@@ -4,10 +4,7 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import main.Grille;
 
 @SuppressWarnings("Duplicates")
 public class IHM extends Application{
@@ -23,7 +20,7 @@ public class IHM extends Application{
     @Override
     public void start(Stage primaryStage) {
         Group root = new Group();
-        Scene scene = new Scene(root, 420, 420, Color.LIGHTBLUE);
+        Scene scene = new Scene(root, 700, 700, Color.LIGHTBLUE);
         primaryStage.setScene(scene);
         primaryStage.setTitle("TakuzuApp");
 

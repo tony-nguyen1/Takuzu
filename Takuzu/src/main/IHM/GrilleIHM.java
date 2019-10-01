@@ -20,21 +20,6 @@ public class GrilleIHM extends Parent {
         Rectangle fond_clavier = new Rectangle();
         fond_clavier.setWidth(420);
         fond_clavier.setHeight(420);
-        fond_clavier.setArcWidth(0);
-        fond_clavier.setArcHeight(0);
-        fond_clavier.setFill( //on remplie notre rectangle avec un dégradé
-                new LinearGradient(0f, 0f, 0f, 1f, true, CycleMethod.NO_CYCLE,
-                        new Stop[] {
-                                new Stop(0, Color.web("#333333")),
-                                new Stop(1, Color.web("#000000"))
-                        }
-                )
-        );
-        Reflection r = new Reflection();//on applique un effet de réflection
-        r.setFraction(0.25);
-        r.setBottomOpacity(0);
-        r.setTopOpacity(0.5);
-        fond_clavier.setEffect(r);
 
         this.setTranslateX(50);
         this.setTranslateY(00);
@@ -52,9 +37,6 @@ public class GrilleIHM extends Parent {
         Rectangle fond_clavier = new Rectangle();
         fond_clavier.setWidth(tailleDeLaGrille);
         fond_clavier.setHeight(tailleDeLaGrille);
-
-        this.setTranslateX(00);
-        this.setTranslateY(00);
 
         this.getChildren().add(fond_clavier);
 
