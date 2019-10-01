@@ -41,7 +41,7 @@ public class GrilleIHM extends Parent {
         this.getChildren().add(fond_clavier);
 
         //////////////////////////////
-        createCaseLettres(grille, 420,4,dimensionsCase);
+        createCase(grille, 420,4,dimensionsCase);
     }
 
     public void createCase(int[][] grille, int taille, int pas, int dimensionsCase)
