@@ -1,13 +1,73 @@
-// package test;
-// import main.Grille;
-// import org.junit.jupiter.api.Disabled;
-// import org.junit.jupiter.api.Test;
-// import static org.junit.jupiter.api.Assertions.*;
+package test;
+import main.Grille;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
-// import java.util.ArrayList;
+import java.util.ArrayList;
 
 
-// public class testGrille {
+public class testGrille {
+
+    @Test
+    public void test_getters_and_setters()
+    {
+        Grille g = new Grille(2,2);
+
+        //grille vide avant
+        for (int i = 0; i < 2; i++)
+        {
+            for (int j = 0; j < 2; j++)
+            {
+                assertEquals(-1, g.getValue(j,i));
+            }
+        }
+
+        //grille remplit de 1
+        for (int i = 0; i < 2; i++)
+        {
+            for (int j = 0; j < 2; j++)
+            {
+                g.setValue(j,i,1);
+            }
+        }
+
+        //grille remplit après
+        for (int i = 0; i < 2; i++)
+        {
+            for (int j = 0; j < 2; j++)
+            {
+                assertEquals(1, g.getValue(j,i));
+            }
+        }
+    }
+
+    @Test
+    public void test_checkUneLigneRemplit()
+    {
+        Grille g = new Grille(2,2);
+
+        //grille vide avant
+        for (int i = 0; i < 2; i++)
+        {
+            assertEquals(false, g.isRowFull(i));
+        }
+
+
+        //remplissage 1er ligne de 0
+        g.setValue(0,0,0);
+        g.setValue(1,0,1);
+        //remplissage 2e ligne de 1
+        g.setValue(1,1,1);
+        g.setValue(0,1,1);
+
+        //grille après
+        assertEquals(true, g.isRowFull(0));
+        assertEquals(true, g.isRowFull(1));
+
+    }
+
+
 
 //     @Test// à modifier pour enlever le getGrille()
 //     public void test_if_constructor_method_create_2D_array_with_right_size() {
@@ -66,4 +126,4 @@
 
 
 //     }
-// }
+}

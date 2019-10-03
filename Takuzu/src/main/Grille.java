@@ -1,5 +1,6 @@
 package main;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import static main.IHM.IHM.special;
@@ -56,9 +57,39 @@ public class Grille {
         return this.WIDTH;
     }
 
-    public void fill(int value){
+    private void fill(int value){
         for (int[] ligne : grille) {
             Arrays.fill(ligne, value);
         }
+    }
+
+    public boolean isRowFull(int y){
+        for(int i = 0; i < HEIGHT; i++)
+        {
+            if (grille[y][i] == -1)
+                return false;
+        }
+        return true;
+    }
+
+    /**
+     * Recherche et renvoie les numéros de lignes pleines
+     * @return une ArrayList
+     */
+    public ArrayList<Integer> rowFilled()
+    {
+        ArrayList<Integer> numList = new ArrayList<>(this.HEIGHT);
+
+        for (int y = 0; y < HEIGHT; y++)
+        {
+            if (this.isRowFull(y))
+                numList.add(y);
+        }
+        return numList;
+    }
+
+    public boolean equals2Row(int i, int ii)
+    {
+        return grille[i].equals(grille[ii]);
     }
 }

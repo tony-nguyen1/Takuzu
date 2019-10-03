@@ -14,5 +14,8 @@ public class Main {
 
        takuzu.affichage();
        takuzu.affichageGraphique();
+
+        System.out.println("\nRéponse");
+       Takuzu.getPreRemplissageAnswer().affichage();
     }
 }
