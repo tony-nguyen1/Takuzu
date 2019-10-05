@@ -57,7 +57,7 @@ public class Grille {
         return this.WIDTH;
     }
 
-    private void fill(int value){
+    public void fill(int value){
         for (int[] ligne : grille) {
             Arrays.fill(ligne, value);
         }
@@ -88,8 +88,24 @@ public class Grille {
         return numList;
     }
 
+    /**
+     *
+     * @pré-requis les lignes i et ii sont totalement remplis
+     * @param i l'index d'une ligne de la grille
+     * @param ii l'index d'une ligne de la grille
+     * @return true ssi la ligne n°i et n°ii sont identiques
+     */
     public boolean equals2Row(int i, int ii)
     {
-        return grille[i].equals(grille[ii]);
+        StringBuilder s1 = new StringBuilder(), s2 = new StringBuilder();
+        for (int val : grille[i]) {
+            s1.append(val);
+        }
+
+        for (int val : grille[ii]) {
+            s2.append(val);
+        }
+
+        return s1.toString().equals(s2.toString());
     }
 }

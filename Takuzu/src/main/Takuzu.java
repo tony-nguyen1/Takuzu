@@ -20,17 +20,16 @@ public class Takuzu {
      * @pré-requis la ligne x est déjà remplis
      * Compare la ligne x avec les autres lignes remplit
      *
-     * @param x the ligne that we compare to others ligne
+     * @param y the ligne that we compare to others ligne
      * @return true si la ligne a un nombre de 0 et 1 égal, faux sinon
      */
-    public boolean checkRowBalance(int x){
+    public boolean checkRowBalance(int y){
         int nb0, nb1;
         nb0 = 0;
         nb1 = 0;
 
-        for (int y = 0; y < grille.getWIDTH(); y++)
+        for (int x = 0; x < grille.getWIDTH(); x++)
         {
-            System.out.println("Salut" + y);
             switch (grille.getValue(x,y))
             {
                 case 0:
@@ -49,34 +48,116 @@ public class Takuzu {
     }
 
     /**
-     * @pré-requis la ligne x est déjà remplis
-     * Compare la ligne x avec les autres lignes remplit
+     * @pré-requis la ligne y est déjà remplis
+     * Compare la ligne y avec les autres lignes remplit
      *
-     * @param x the ligne that we compare to others ligne
+     * @param y the ligne that we compare to others ligne
      * @return true si la ligne est unique, faux sinon
      */
-    public boolean checkRowUnicite(int x) {
-        ArrayList<Integer> numList = this.grille.rowFilled();
+    public boolean checkRowUnicite(int y, ArrayList<Integer> numList) {
+        //copie pour pouvoir la modifier sans modifier numList
+        ArrayList<Integer> numListCopy = new ArrayList<>(numList);
 
-        //la comparaison
-        if (!numList.isEmpty())
+        //si y n'est pas la seul ligne remplit
+        if (!numListCopy.isEmpty())
         {
-            numList.remove(new Integer(x));//on remove x pour pas qu'une ligne se compare avec elle-même
-            for (Integer integer : numList)
+            numListCopy.remove(new Integer(y));//on remove y pour pas qu'une ligne se compare avec elle-même
+            //comparaison entre ligne d'indey y et les autres lignes remplit
+            for (Integer integer : numListCopy)
             {
-                if (!this.grille.equals2Row(x, integer))
+                if (this.grille.equals2Row(y, integer))
                     return false;
             }
         }
         return true;
     }
 
-    public boolean checkAllRowAll()
+    /**
+     * @pré-requis ligne d'index y remplis entièrement
+     *
+     * @param y la ligne qu'on compare aux autres lignes
+     * @return true ssi il n'y a que 2 chiffres identiques consécutifs
+     */
+    public boolean checkRowCoupleOnly(int y)
     {
+        boolean hasNext = true;
+        int  previousValue, currentValue, nextValue, indiceX = 1;
 
+        do {
+            previousValue = grille.getValue(indiceX-1, y);
+            currentValue = grille.getValue(indiceX, y);
+            nextValue = grille.getValue(indiceX+1, y);
+
+            //3 valeurs à la suite identique
+            if (previousValue == currentValue & currentValue == nextValue) { return false; }
+
+            indiceX++;
+
+            if (indiceX == grille.getWIDTH()-2)  { hasNext = false; }//-1 car on commence à 0 et -1 pour finir juste avant
+        } while (hasNext);
 
         return true;
     }
+
+    /**
+     * Regarde toute les colonnes. Parmi celles qui sont remplit, dit c'est elles respectent les 3 règles.
+     * @return true, si les colonnes remplit respectent toutes les règles
+     */
+    public boolean checkAllRowAll()
+    {
+        ArrayList<Integer> numLigneRemplit = grille.rowFilled();
+        boolean balance, unicite, onlyCouple;
+
+        for (Integer num : numLigneRemplit)
+        {
+            balance = checkRowBalance(num);
+            if (!balance) return false;
+
+            unicite = checkRowUnicite(num, numLigneRemplit);
+            if (!unicite) return false;
+            //numLigneRemplit.remove(new Integer(num)); java.util.ConcurrentModificationException
+
+            onlyCouple = checkRowCoupleOnly(num);
+            if (!onlyCouple) return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @pré-requis la colonne x est déjà remplis
+     * Compare la colonne x avec les autres colonne remplit
+     *
+     * @param x the column that we compare to others column
+     * @return true si la colonne est unique, faux sinon
+     */
+    public boolean checkColumnBalance(int x){
+        int nb0, nb1;
+        nb0 = 0;
+        nb1 = 0;
+
+        for (int y = 0; x < grille.getWIDTH(); x++)
+        {
+            switch (grille.getValue(x,y))
+            {
+                case 0:
+                    nb0++;
+                    break;
+                case 1:
+                    nb1++;
+                    break;
+                case -1:
+                    break;
+                default:
+                    throw new RuntimeException("Valeur non autorisé trouvé");
+            }
+        }
+        return nb0 == nb1;
+    }
+
+    public boolean checkColumnUnicite(int x, ArrayList<Integer> numList) { return false;}
+
+    public boolean checkAllColumnAll() { return false;}
 
     public void affichage() { 
         System.out.println("Takuzu:\n");

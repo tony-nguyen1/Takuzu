@@ -50,9 +50,8 @@ public class testGrille {
         //grille vide avant
         for (int i = 0; i < 2; i++)
         {
-            assertEquals(false, g.isRowFull(i));
+            assertFalse(g.isRowFull(i));
         }
-
 
         //remplissage 1er ligne de 0
         g.setValue(0,0,0);
@@ -62,11 +61,42 @@ public class testGrille {
         g.setValue(0,1,1);
 
         //grille après
-        assertEquals(true, g.isRowFull(0));
-        assertEquals(true, g.isRowFull(1));
+        assertTrue(g.isRowFull(0));
+        assertTrue(g.isRowFull(1));
 
     }
 
+    @Test
+    public void test_if_rowFilled_works()
+    {
+        Grille g = new Grille(2,2);
+
+        //remplissage 1er ligne de 0
+        g.setValue(0,0,0);
+        g.setValue(1,0,1);
+        //remplissage 2e ligne de 1
+        g.setValue(1,1,1);
+        g.setValue(0,1,1);
+
+        ArrayList<Integer> answer = new ArrayList<>();
+        answer.add(0);
+        answer.add(1);
+
+        assertEquals(answer, g.rowFilled());
+
+    }
+
+    @Test
+    public void test_equals2Row()
+    {
+        Grille g = new Grille(2,2);
+
+        //remplissage de 1
+        g.fill(1);
+
+        assertTrue(g.equals2Row(0,1));
+
+    }
 
 
 //     @Test// à modifier pour enlever le getGrille()
