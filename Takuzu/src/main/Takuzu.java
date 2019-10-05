@@ -12,10 +12,12 @@ public class Takuzu {
         grille.setValue(x, y, value);
     }
 
-    public boolean checkColumn(int x){
-        throw new RuntimeException("Not implemented yet !");
-    }
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    //                            ICI les règles du jeu
 
+    //FIXME
+    // 1.changer la strat, systeme de compteur dans Grille qui incrémente une variable
+    // 2.retirer la duplication de code avec checkRowBalance(int y)
     /**
      * @pré-requis la ligne x est déjà remplis
      * Compare la ligne x avec les autres lignes remplit
@@ -124,6 +126,9 @@ public class Takuzu {
         return true;
     }
 
+    //FIXME
+    // 1.changer la strat, systeme de compteur dans Grille qui incrémente une variable
+    // 2.retirer la duplication de code avec checkRowBalance(int y)
     /**
      * @pré-requis la colonne x est déjà remplis
      * Compare la colonne x avec les autres colonne remplit
@@ -136,7 +141,7 @@ public class Takuzu {
         nb0 = 0;
         nb1 = 0;
 
-        for (int y = 0; x < grille.getWIDTH(); x++)
+        for (int y = 0; y < grille.getWIDTH(); y++)
         {
             switch (grille.getValue(x,y))
             {
@@ -155,10 +160,78 @@ public class Takuzu {
         return nb0 == nb1;
     }
 
-    public boolean checkColumnUnicite(int x, ArrayList<Integer> numList) { return false;}
+    public void test(int a, int b)
+    {
+        for (; a < b; a++)
+        {
 
-    public boolean checkAllColumnAll() { return false;}
+        }
+    }
 
+    public boolean checkColumnUnicite(int x, ArrayList<Integer> numList) {
+        //copie pour pouvoir la modifier sans modifier numList
+        ArrayList<Integer> numListCopy = new ArrayList<>(numList);
+
+        //si y n'est pas la seul colonne remplit
+        if (!numListCopy.isEmpty())
+        {
+            numListCopy.remove(new Integer(x));//on remove x pour pas qu'une colonne se compare avec elle-même
+            //comparaison entre colonne d'index x et les autres colonnes remplit
+            for (Integer integer : numListCopy)
+            {
+                if (this.grille.equals2Column(x, integer))
+                    return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean checkColumnCoupleOnly(int x)
+    {
+        boolean hasNext = true;
+        int  previousValue, currentValue, nextValue, indiceY = 1;
+
+        do {
+            previousValue = grille.getValue(x, indiceY-1);
+            currentValue = grille.getValue(x, indiceY);
+            nextValue = grille.getValue(x, indiceY+1);
+
+            //3 valeurs à la suite identique
+            if (previousValue == currentValue & currentValue == nextValue) { return false; }
+
+            indiceY++;
+
+            if (indiceY == grille.getHEIGHT()-2)  { hasNext = false; }//-1 car on commence à 0 et -1 pour finir juste avant
+        } while (hasNext);
+
+        return true;
+    }
+
+    public boolean checkAllColumnAll() {
+        ArrayList<Integer> numColumnRemplit = grille.columnFilled();
+        boolean balance, unicite, onlyCouple;
+
+        for (Integer num : numColumnRemplit)
+        {
+            balance = checkColumnBalance(num);
+            if (!balance) return false;
+
+            unicite = checkColumnUnicite(num, numColumnRemplit);
+            if (!unicite) return false;
+
+            onlyCouple = checkColumnCoupleOnly(num);
+            if (!onlyCouple) return false;
+        }
+
+        return true;
+    }
+
+    public boolean estGagnant() {
+        return checkAllRowAll() && checkAllColumnAll() && grille.columnFilled().size()==grille.getWIDTH() && grille.rowFilled().size()==grille.getHEIGHT();
+    }
+
+    //                         FIN des règles du jeu
+    ////////////////////////////////////////////////////////////////////////////
     public void affichage() { 
         System.out.println("Takuzu:\n");
         grille.affichage();
@@ -173,7 +246,7 @@ public class Takuzu {
     public void play1(int x, int y) { grille.setValue(x, y, 1); }
 
     /**
-     * this doit avoir une grille vide.
+     * @pré-requis this doit avoir une grille "vide".
      */
     public void preRemplissage() {
         //1er ligne

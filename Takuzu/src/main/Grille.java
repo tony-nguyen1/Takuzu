@@ -23,9 +23,9 @@ public class Grille {
         for (int x = 0; x < WIDTH; x++) {
             for (int y = 0; y < HEIGHT; y++) {
                 if (grille[x][y]>=0) {
-                    res+=grille[x][y]+" ";                    
+                    res = res.concat(String.valueOf(grille[x][y])).concat(" ");
                 }else{
-                    res+="* ";
+                    res = res.concat("* ");
                 }
             }
             res+="\n";
@@ -88,6 +88,28 @@ public class Grille {
         return numList;
     }
 
+    public boolean isColumnFull(int x)
+    {
+        for(int i = 0; i < HEIGHT; i++)
+        {
+            if (grille[i][x] == -1)
+                return false;
+        }
+        return true;
+    }
+
+    public ArrayList<Integer> columnFilled()
+    {
+        ArrayList<Integer> numList = new ArrayList<>(this.WIDTH);
+
+        for (int x = 0; x < HEIGHT; x++)
+        {
+            if (this.isColumnFull(x))
+                numList.add(x);
+        }
+        return numList;
+    }
+
     /**
      *
      * @pré-requis les lignes i et ii sont totalement remplis
@@ -104,6 +126,20 @@ public class Grille {
 
         for (int val : grille[ii]) {
             s2.append(val);
+        }
+
+        return s1.toString().equals(s2.toString());
+    }
+
+    public boolean equals2Column(int i, int ii)
+    {
+        StringBuilder s1 = new StringBuilder(), s2 = new StringBuilder();
+        for (int[] uneLigne : grille) {
+            s1.append(uneLigne[i]);
+        }
+
+        for (int[] uneLigne : grille) {
+            s2.append(uneLigne[ii]);
         }
 
         return s1.toString().equals(s2.toString());

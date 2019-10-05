@@ -1,10 +1,13 @@
 package main;
 
-
-
 import main.IHM.IHM;
-
 import java.util.ArrayList;
+
+//TODO
+// -tests
+// -Resolveur
+//      -> pattern de résolution en croix 3x3
+//      -> pattern de résolution en croix 5x5
 
 public class Main {
 
@@ -16,10 +19,16 @@ public class Main {
 
        System.out.println("\nRéponse");
        Takuzu rep = Takuzu.getPreRemplissageAnswer();
-
         rep.affichage();
-        System.out.println("Grille ok ?");
+
+        System.out.println("Grille row ok ?");
         System.out.println(rep.checkAllRowAll());
+
+        System.out.println("Grille column ok ?");
+        System.out.println(rep.checkAllColumnAll());
+
+        System.out.println("Takuzu gagnant ?");
+        System.out.println(rep.estGagnant());
 
         /*
         System.out.println("\ncheckRowCoupleOnly");
