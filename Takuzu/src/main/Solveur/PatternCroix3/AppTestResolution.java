@@ -1,7 +1,6 @@
-package main.Solveur;
+package main.Solveur.PatternCroix3;
 
 
-import main.Solveur.PatternCroix3;
 import main.Solveur.Solveur;
 import main.Takuzu;
 

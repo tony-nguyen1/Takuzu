@@ -1,6 +1,7 @@
-package main.Solveur;
+package main.Solveur.PatternCroix3;
 
 import main.Grille;
+import main.Solveur.Solveur;
 import main.Takuzu;
 
 public class PatternCroix3 implements Solveur {

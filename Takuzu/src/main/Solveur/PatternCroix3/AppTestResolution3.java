@@ -1,5 +1,6 @@
-package main.Solveur;
+package main.Solveur.PatternCroix3;
 
+import main.Solveur.Solveur;
 import main.Takuzu;
 
 public class AppTestResolution3 {
@@ -8,10 +9,6 @@ public class AppTestResolution3 {
         takuzu.preRemplissage();
 
         takuzu.affichage();
-
-        System.out.println("\nRéponse");
-        Takuzu rep = Takuzu.getPreRemplissageAnswer();
-        //rep.affichage();
 
         Solveur solveur = new PatternCroix3(takuzu);
         solveur.resoudre();
