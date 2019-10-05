@@ -17,6 +17,10 @@ public class Grille {
         WIDTH = width;
     }
 
+    public int[][] getGrille() {
+        return grille;
+    }
+
     @Override
     public String toString() {
         String res = "";
@@ -28,7 +32,7 @@ public class Grille {
                     res = res.concat("* ");
                 }
             }
-            res+="\n";
+            res = res.concat("\n");
         }
         return "Grille{\n" + res + "}\n";
     }

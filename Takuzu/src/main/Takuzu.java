@@ -7,10 +7,12 @@ public class Takuzu {
 
     public Takuzu(int i) { grille = new Grille(i,i); }
 
-    private void play(int x, int y, int value)
+    public void play(int x, int y, int value)
     {
         grille.setValue(x, y, value);
     }
+
+    public Grille getGrille() { return grille; }
 
     ///////////////////////////////////////////////////////////////////////////////////////////
     //                            ICI les règles du jeu
@@ -160,14 +162,6 @@ public class Takuzu {
         return nb0 == nb1;
     }
 
-    public void test(int a, int b)
-    {
-        for (; a < b; a++)
-        {
-
-        }
-    }
-
     public boolean checkColumnUnicite(int x, ArrayList<Integer> numList) {
         //copie pour pouvoir la modifier sans modifier numList
         ArrayList<Integer> numListCopy = new ArrayList<>(numList);
@@ -246,7 +240,7 @@ public class Takuzu {
     public void play1(int x, int y) { grille.setValue(x, y, 1); }
 
     /**
-     * @pré-requis this doit avoir une grille "vide".
+     * @pré-requis this doit avoir une grille "vide" et de taille 6x6.
      */
     public void preRemplissage() {
         //1er ligne
