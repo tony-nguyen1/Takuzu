@@ -16,15 +16,19 @@ public class PatternCroix5 implements Solveur {
     public boolean resoudre() {
         Grille grille = takuzu.getGrille();
         int h1, h2, b1, b2, g1, g2, d1, d2, height, width;
+        //ces variables contiennent les valeurs des cases proches de 1 case
 
         height = grille.getHEIGHT();
         width = grille.getWIDTH();
 
+        //on regarde les cases 1 par 1
         for (int i = 0; i < height; i++)
         {
             for (int j = 0; j < width; j++)
             {
                 if (grille.getValue(j,i) == -1) {
+                    // si les indices fait que la croix dépasse du tableau, on simule des cases vides
+                    //sinon on met la bonne valeur
                     if (i == 0) {
                         h1 = -1;
                         h2 = -1;
@@ -85,6 +89,9 @@ public class PatternCroix5 implements Solveur {
     }
 
     /**
+     *
+     * Regarde autour de la case x y dans les 4 sens avec une distance de 2 cases et joue une valeur sûr à 100% si il peut
+     *
      * @pré-requis la case centrale est toujours vide
      *
      */
@@ -96,6 +103,15 @@ public class PatternCroix5 implements Solveur {
         croix5Aux(droite1,droite2,x,y);
     }
 
+    /**
+     *
+     * Regarde si 2 cases consécutives ont la même valeur, si c'est le cas, joue la bonne valeur
+     *
+     * @param valInterieur la valeur directement adjacentes à la case x y
+     * @param valExterieur la valeur de la case juste après
+     * @param x indice de la case
+     * @param y indice de la case
+     */
     private void croix5Aux(int valInterieur, int valExterieur, int x, int y)
     {
         if (valInterieur == valExterieur & valInterieur != -1 & valExterieur != -1) {
