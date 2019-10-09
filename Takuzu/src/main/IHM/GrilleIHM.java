@@ -1,11 +1,7 @@
 package main.IHM;
 
 import javafx.scene.Parent;
-import javafx.scene.effect.Reflection;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.LinearGradient;
-import javafx.scene.paint.Stop;
 import javafx.scene.shape.Rectangle;
 
 import java.util.LinkedList;

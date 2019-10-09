@@ -1,10 +1,10 @@
-package test;
+package test.Solveur;
 
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class testTakuzu {
+public class testSolveur {
     //TODO implémenter des tests
 
     @Test

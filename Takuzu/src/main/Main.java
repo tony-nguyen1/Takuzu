@@ -1,8 +1,5 @@
 package main;
 
-import main.IHM.IHM;
-import java.util.ArrayList;
-
 //TODO
 // -tests
 // -Resolveur
