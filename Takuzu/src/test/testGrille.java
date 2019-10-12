@@ -105,4 +105,14 @@ public class testGrille {
 
         assertTrue(g.equals2Row(0,1));
     }
+
+    @Test
+    public void test_isValide(){
+        Grille g = new Grille(2,2);
+
+        //remplissage de 1
+        g.fill(1);
+
+        assertFalse(g.isValide());
+    }
 }

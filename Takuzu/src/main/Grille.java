@@ -57,7 +57,13 @@ public class Grille {
         grille[y][x] = value;
     }
 
-    public int getValue(int x, int y){ return grille[y][x]; }
+    public int getValue(int x, int y){
+    //J'ai modifié la fonction pour qu'elle gère les valeur exterieur au tableau, ca devrait être changé, mais bon ON DEPANNE
+        if ((x > HEIGHT) || (y > WIDTH)){
+            return -1;
+        }
+        return grille[y][x];
+    }
 
     
     public int getHEIGHT() {
@@ -154,5 +160,24 @@ public class Grille {
         }
 
         return s1.toString().equals(s2.toString());
+    }
+
+    public boolean isValide(){
+
+        for(int i = 0; i < this.WIDTH; i++ ){
+            for (int j = 0; j < this.HEIGHT; i++) {
+
+                if (getValue(i, j) == getValue(i - 1, j) && getValue(i, j) == getValue(i + 1, j)) {
+                    return false;
+                }
+
+                if (getValue(i, j) == getValue(i, j + 1) && getValue(i, j) == getValue(i, j - 1)) {
+                    return false;
+                }
+
+            }
+        }
+
+        return true;
     }
 }

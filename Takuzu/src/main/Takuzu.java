@@ -19,6 +19,12 @@ public class Takuzu {
         }
     }
 
+    //Nouveau constructeur que j'ai ajouté pour pouvoir utiliser une grille non vide >_>
+
+    public Takuzu(Grille grid){
+        this.grille = grid;
+    }
+
     public void play(int x, int y, int value)
     {
         grille.setValue(x, y, value);
