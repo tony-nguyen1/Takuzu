@@ -16,7 +16,7 @@ public class Grille {
         grille = new int[width][height];
         fill(-1);
 
-        if (height%2 == 1) {
+        if (height%2 == 1 || width%2 == 1) {
             throw new OddDimensionsGrilleException("height argument = " + height + " has to be an even integer");
         }
 
