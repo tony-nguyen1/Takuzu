@@ -1,22 +1,20 @@
 package test;
 
 import main.Grille;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.*;
 
+//TODO make tests for equals2Column(), isColumnFull() and columnFilled().
 
 public class testGrille {
-    //TODO faire un before each pour enlever un peu de duplication du code
+    private Grille g;
 
-    @Test
-    public void test_getters_and_setters()
-    {
-        Grille g = new Grille(2,2);
+    @BeforeEach
+    void setup() {
+        g = new Grille(2,2);
 
-        //grille vide avant
         for (int i = 0; i < 2; i++)
         {
             for (int j = 0; j < 2; j++)
@@ -24,6 +22,13 @@ public class testGrille {
                 assertEquals(-1, g.getValue(j,i));
             }
         }
+    }
+
+
+    @Test
+    public void test_getters_and_setters()
+    {
+        //grille vide avant
 
         //grille remplit de 1
         for (int i = 0; i < 2; i++)
@@ -45,10 +50,8 @@ public class testGrille {
     }
 
     @Test
-    public void test_checkUneLigneRemplit()
+    public void test_if_isRowFull_works()
     {
-        Grille g = new Grille(2,2);
-
         //grille vide avant
         for (int i = 0; i < 2; i++)
         {
@@ -70,8 +73,6 @@ public class testGrille {
     @Test
     public void test_if_rowFilled_works()
     {
-        Grille g = new Grille(2,2);
-
         //remplissage 1er ligne de 0
         g.setValue(0,0,0);
         g.setValue(1,0,1);
@@ -89,8 +90,6 @@ public class testGrille {
     @Test
     public void test_equals2Row()
     {
-        Grille g = new Grille(2,2);
-
         //remplissage de 1
         g.fill(1);
 
