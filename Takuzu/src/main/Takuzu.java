@@ -1,11 +1,23 @@
 package main;
 
+import main.CustomsExceptions.OddDimensionsGrilleException;
+
 import java.util.ArrayList;
 
 public class Takuzu {
     private Grille grille;
 
-    public Takuzu(int i) { grille = new Grille(i,i); }
+    public Takuzu(int i) {
+        try {
+            grille = new Grille(i, i);
+        }
+        catch (OddDimensionsGrilleException e)
+        {
+            System.out.println("Grille creation has failed.");
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
     public void play(int x, int y, int value)
     {

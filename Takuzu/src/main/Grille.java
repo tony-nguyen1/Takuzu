@@ -12,12 +12,12 @@ public class Grille {
     private final int HEIGHT;
     private final int WIDTH;
 
-    public Grille(int width, int height) /*throws OddDimensionsGrilleException*/ {
+    public Grille(int width, int height) throws OddDimensionsGrilleException {
         grille = new int[width][height];
         fill(-1);
 
         if (height%2 == 1) {
-            //throw new OddDimensionsGrilleException("height argument = " + height + " has to be an even integer");
+            throw new OddDimensionsGrilleException("height argument = " + height + " has to be an even integer");
         }
 
         HEIGHT = height;

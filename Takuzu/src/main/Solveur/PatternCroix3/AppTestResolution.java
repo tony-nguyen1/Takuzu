@@ -7,7 +7,7 @@ import main.Takuzu;
 public class AppTestResolution {
     public static void main(String[] args) {
         System.out.println("Grille facilité de 0");
-        Takuzu takuzu = new Takuzu(3);
+        Takuzu takuzu = new Takuzu(4);
         takuzu.play0(1,0);
         takuzu.play0(1,2);
         takuzu.play0(0,1);

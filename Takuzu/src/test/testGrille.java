@@ -1,5 +1,6 @@
 package test;
 
+import main.CustomsExceptions.OddDimensionsGrilleException;
 import main.Grille;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,7 +14,16 @@ public class testGrille {
 
     @BeforeEach
     void setup() {
-        g = new Grille(2,2);
+
+        try {
+            g = new Grille(2,2);
+        }
+        catch (OddDimensionsGrilleException e)
+        {
+            System.out.println("Grille creation has failed.");
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+        }
 
         for (int i = 0; i < 2; i++)
         {
