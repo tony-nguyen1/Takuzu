@@ -108,8 +108,6 @@ public class testGrille {
 
     @Test
     public void test_isValide(){
-        Grille g = new Grille(2,2);
-
         //remplissage de 1
         g.fill(1);
 
