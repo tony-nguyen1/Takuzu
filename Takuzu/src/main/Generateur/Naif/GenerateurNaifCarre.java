@@ -1,5 +1,6 @@
 package main.Generateur.Naif;
 
+import main.CustomsExceptions.OddDimensionsGrilleException;
 import main.Generateur.Generateur;
 import main.Grille;
 import java.util.Random;
@@ -7,7 +8,7 @@ import java.util.Random;
 public class GenerateurNaifCarre implements Generateur {
 //Ce sont juste des tests pour l'instant
     @Override
-    public Grille generer(int taille) {
+    public Grille generer(int taille) throws OddDimensionsGrilleException {
         Grille grid = new Grille(taille, taille);
         Random rand = new Random();
 

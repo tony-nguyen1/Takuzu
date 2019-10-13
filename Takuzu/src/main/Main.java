@@ -2,9 +2,7 @@ package main;
 
 //TODO
 // -tests
-// -Resolveur
-//      -> pattern de résolution en croix 3x3
-//      -> pattern de résolution en croix 5x5
+// -Générateur / Résolveur
 
 public class Main {
 
