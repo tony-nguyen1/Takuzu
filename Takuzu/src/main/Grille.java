@@ -60,6 +60,7 @@ public class Grille {
     public int getValue(int x, int y){
     //J'ai modifié la fonction pour qu'elle gère les valeur exterieur au tableau, ca devrait être changé, mais bon ON DEPANNE
         if ((x > HEIGHT) || (y > WIDTH)){
+            //throw new IndexOutOfBoundsException();
             return -1;
         }
         return grille[y][x];
