@@ -25,17 +25,19 @@ public class IHMTestThread extends Application {
             Scene scene = new Scene(root, 200, 200);
 
             // longrunning operation runs on different thread
-            Thread thread = new Thread(new Runnable() {
+            Thread thread = new Thread(() -> {
 
-                @Override
-                public void run() {
-                    Runnable updater = new Runnable() {
+//                @Override
+//                public void run()
+                   {
+                    /*Runnable updater = new Runnable() {
 
                         @Override
                         public void run() {
                             incrementCount();
                         }
-                    };
+                    };*/
+                    Runnable updater = this::incrementCount;
 
                     while (true) {
                         try {

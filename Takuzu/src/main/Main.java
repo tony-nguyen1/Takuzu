@@ -15,6 +15,7 @@ public class Main {
        System.out.println("\nRéponse");
        Takuzu rep = Takuzu.getPreRemplissageAnswer();
         rep.affichage();
+        rep.affichageGraphique();
 
         System.out.println("Grille row ok ?");
         System.out.println(rep.checkAllRowAll());
