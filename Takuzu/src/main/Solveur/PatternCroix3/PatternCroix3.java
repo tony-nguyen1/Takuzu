@@ -14,39 +14,38 @@ public class PatternCroix3 implements Solveur {
 
     @Override
     public boolean resoudre() {
-        Grille grille = takuzu.getGrille();
         int h, b, g, d, height, width;
 
-        height = grille.getHEIGHT();
-        width = grille.getWIDTH();
+        height = takuzu.getHeightGrille();
+        width = takuzu.getWidthGrille();
 
         for (int i = 0; i < height; i++)
         {
             for (int j = 0; j < width; j++)
             {
-                if (grille.getValue(j,i) == -1)
+                if (this.takuzu.getValue(j,i) == -1)
                 {
                     //h = 0; b = 0; g = 0; d = 0;
                     if (i==0)
                         h = -1;
                     else
-                        h = grille.getValue(j,i-1);
+                        h = this.takuzu.getValue(j,i-1);
 
                     if (i==height-1)
                         b = -1;
                     else
-                        b = grille.getValue(j,i+1);
+                        b = this.takuzu.getValue(j,i+1);
 
 
                     if (j==0)
                         g = -1;
                     else
-                        g = grille.getValue(j-1,i);
+                        g = this.takuzu.getValue(j-1,i);
 
                     if (j==width-1)
                         d = -1;
                     else
-                        d = grille.getValue(j+1,i);
+                        d = this.takuzu.getValue(j+1,i);
 
                     croix3(h,b,g,d,j,i);
                 }

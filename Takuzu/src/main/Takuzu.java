@@ -34,6 +34,10 @@ public class Takuzu {
 
     public int getValue(int x, int y) { return grille.getValue(x,y); }
 
+    public int getHeightGrille() { return grille.getHEIGHT(); }
+
+    public int getWidthGrille() { return grille.getWIDTH(); }
+
     ///////////////////////////////////////////////////////////////////////////////////////////
     //                            ICI les règles du jeu
 

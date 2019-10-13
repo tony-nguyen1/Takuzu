@@ -14,30 +14,29 @@ public class PatternCroix5 implements Solveur {
 
     @Override
     public boolean resoudre() {
-        Grille grille = takuzu.getGrille();
         int h1, h2, b1, b2, g1, g2, d1, d2, height, width;
         //ces variables contiennent les valeurs des cases proches de 1 case
 
-        height = grille.getHEIGHT();
-        width = grille.getWIDTH();
+        height = this.takuzu.getHeightGrille();
+        width = this.takuzu.getWidthGrille();
 
         //on regarde les cases 1 par 1
         for (int i = 0; i < height; i++)
         {
             for (int j = 0; j < width; j++)
             {
-                if (grille.getValue(j,i) == -1) {
+                if (this.takuzu.getValue(j,i) == -1) {
                     // si les indices fait que la croix dépasse du tableau, on simule des cases vides
                     //sinon on met la bonne valeur
                     if (i == 0) {
                         h1 = -1;
                         h2 = -1;
                     } else if (i == 1) {
-                        h1 = grille.getValue(j, i-1);
+                        h1 = this.takuzu.getValue(j, i-1);
                         h2 = -1;
                     } else {
-                        h1 = grille.getValue(j, i-1);
-                        h2 = grille.getValue(j, i-2);
+                        h1 = this.takuzu.getValue(j, i-1);
+                        h2 = this.takuzu.getValue(j, i-2);
                     }
 
                     if (i == height -1)
@@ -46,12 +45,12 @@ public class PatternCroix5 implements Solveur {
                         b2 = -1;
                     }
                     else if (i == height -1 -1) {
-                        b1 = grille.getValue(j, i + 1);
+                        b1 = this.takuzu.getValue(j, i + 1);
                         b2 = -1;
                     }
                     else {
-                        b1 = grille.getValue(j, i+1);
-                        b2 = grille.getValue(j,i+2);
+                        b1 = this.takuzu.getValue(j, i+1);
+                        b2 = this.takuzu.getValue(j,i+2);
                     }
 
 
@@ -60,12 +59,12 @@ public class PatternCroix5 implements Solveur {
                         g2 = -1;
                     }
                     else if (j == 1) {
-                        g1 = grille.getValue(j - 1, i);
+                        g1 = this.takuzu.getValue(j - 1, i);
                         g2 = -1;
                     }
                     else {
-                        g1 = grille.getValue(j-1,i);
-                        g2 = grille.getValue(j-2,i);
+                        g1 = this.takuzu.getValue(j-1,i);
+                        g2 = this.takuzu.getValue(j-2,i);
                     }
 
                     if (j == width -1) {
@@ -73,12 +72,12 @@ public class PatternCroix5 implements Solveur {
                         d2 = -1;
                     }
                     else if (j == width -1 -1) {
-                        d1 = grille.getValue(j + 1, i);
+                        d1 = this.takuzu.getValue(j + 1, i);
                         d2 = -1;
                     }
                     else {
-                        d1 = grille.getValue(j + 1, i);
-                        d2 = grille.getValue(j + 2, i);
+                        d1 = this.takuzu.getValue(j + 1, i);
+                        d2 = this.takuzu.getValue(j + 2, i);
                     }
 
                     croix5(h1,h2,b1,b2,g1,g2,d1,d2,j,i);
