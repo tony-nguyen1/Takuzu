@@ -4,8 +4,6 @@ import main.Grille;
 import main.Solveur.Solveur;
 import main.Takuzu;
 
-import java.awt.*;
-import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
 
@@ -13,68 +11,74 @@ public class Backtrack implements Solveur {
 
     Takuzu takuzu;
 
-    public Backtrack(Takuzu takuzu){
+    public Backtrack(Takuzu takuzu) {
         this.takuzu = takuzu;
     }
 
     @Override
     public boolean resoudre() {
-        //On recup les infos sur la grille
-        Grille grille = takuzu.getGrille();
-        //Hauteur et Largeur n'a aucun sens, ecrivez des trucs censés bordel
-        int row = grille.getHEIGHT();
-        int line = grille.getWIDTH();
 
-        //On va sauvegarder toutes les précédentes grilles
-        Deque<Grille> backupGrilles = new LinkedList<>();
-        //Et on va sauvegarder si un choix est possible ou non dans les cases (histoire de retourner en arrière plus rapidement)
-        Deque<Boolean> choixPossible = new LinkedList<>();
-        //Ainsi que la position ou l'on a eu le choix histoire de pas recommencer à 0 à chaque fois
-        Deque<Integer[]> position = new LinkedList<>();
+        int column = takuzu.getGrille().getHEIGHT();
+        int row = takuzu.getGrille().getWIDTH();
 
-        //On commence à la position (0, 0) du coup
-        for (int i = 0; i < row; i++){
-            for (int j = 0; j < line; j++){
-                //Si la case est vide
-                if (grille.getValue(i, j) == -1){
+        int i = 0;
+        int j = 0;
 
-                    //On cree une liste que l'on va ajouter sur la liste Position
-                    Integer[] pos= {i, j};
-                    position.add(pos);
+        Deque<Takuzu> backupTakuzu = new LinkedList<Takuzu>();
+        backupTakuzu.add(takuzu);
 
-                    grille.setValue(i, j, 0);
-                    if (grille.isValide()) {
-                        //On ajoute la grille sur la liste des grilles qui nous mènent à ce chemin
-                        backupGrilles.add(grille);
-                        //On teste si ca marche avec 1 du coup
-                        grille.setValue(i, j, 1);
-                        if (grille.isValide()) {
-                            choixPossible.add(true);
-                        }
-                        grille.setValue(i, j, 0);
-                    }
+        while (!backupTakuzu.isEmpty()) {
+            Takuzu takuzu = backupTakuzu.poll();
+            takuzu.affichage();
 
-                    //Si ca marche pas avec 0, on teste avec 1
-                    else {
-                        grille.setValue(i, j, 0);
-                        if (grille.isValide()) {
-                            backupGrilles.add(grille);
-                            //et on teste pas s'il il y'a un choix car c'est certain que non
-                            choixPossible.add(false);
-                        }
-                        else {
-                            //Si la grille ne fonctionne ni avec 0, ni avec 1, alors on met un -1 et on supprime la position ajouté au préalable
-                            grille.setValue(i, j, -1);
-                            position.poll();
-                            //On retourne en arrière jusqu'à ce que l'on a un choix ?
-                        }
-                    }
-
-
-                }
+            if (takuzu.estGagnant()) {
+                return true;
             }
+
+            //Si le Takuzu n'est pas valide, alors on arrete de chercher de ce côté, c-a-d que le while prochain ne sera pas "actif"
+            if (!takuzu.checkAllRowAll() && !takuzu.checkAllColumnAll()) {
+                continue;
+            }
+            System.out.println("est valide");
+
+            //Y'a des manières plus propres que ca, mais flemme de debugger derrière pour voir si ca marche parfaitement
+            Grille grille = takuzu.getGrille();
+            Boolean trouve = false;
+            while (i < row) {
+                j = 0;
+                while (j < column) {
+                    //Si l'on trouve une case vide on place le 0 et le 1
+                    if (grille.getValue(i, j) == -1) {
+                        Takuzu takuzu0 = takuzu.cloneTakuzu();
+                        takuzu0.play0(i, j);
+
+                        Takuzu takuzu1 = takuzu.cloneTakuzu();
+                        takuzu1.play1(i, j);
+
+                        backupTakuzu.add(takuzu0);
+                        backupTakuzu.add(takuzu1);
+                        trouve = true;
+                        break;
+                    }
+                    j++;
+                }
+
+                if (trouve) {
+                    System.out.println();
+                    break;
+                }
+                i++;
+            }
+            i = 0;
+            resoudre();
         }
 
-        return false;
+        if (takuzu.estGagnant()) {
+            System.out.println("est gagnant");
+        }
+
+
+        return true;
     }
 }
+

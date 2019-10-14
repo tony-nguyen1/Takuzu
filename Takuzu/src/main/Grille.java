@@ -1,7 +1,5 @@
 package main;
 
-import main.CustomsExceptions.OddDimensionsGrilleException;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -12,17 +10,13 @@ public class Grille {
     private final int HEIGHT;
     private final int WIDTH;
 
-    public Grille(int width, int height) throws OddDimensionsGrilleException {
-        grille = new int[width][height];
+    public Grille(int height, int width) {
+        grille = new int[height][width];
         fill(-1);
-
-        if (height%2 == 1 || width%2 == 1) {
-            throw new OddDimensionsGrilleException("height argument = " + height + " has to be an even integer");
-        }
-
         HEIGHT = height;
         WIDTH = width;
     }
+
 
     public int[][] getGrille() {
         return grille;
@@ -31,8 +25,8 @@ public class Grille {
     @Override
     public String toString() {
         String res = "";
-        for (int x = 0; x < WIDTH; x++) {
-            for (int y = 0; y < HEIGHT; y++) {
+        for (int x = 0; x < HEIGHT; x++) {
+            for (int y = 0; y < WIDTH; y++) {
                 if (grille[x][y]>=0) {
                     res = res.concat(String.valueOf(grille[x][y])).concat(" ");
                 }else{
@@ -53,17 +47,12 @@ public class Grille {
     }
 
 
-    public void setValue(int x, int y, int value){
-        grille[y][x] = value;
+    public void setValue(int hauteur, int largeur, int value) {
+        grille[hauteur][largeur] = value;
     }
 
-    public int getValue(int x, int y){
-    //J'ai modifié la fonction pour qu'elle gère les valeur exterieur au tableau, ca devrait être changé, mais bon ON DEPANNE
-        if ((x > HEIGHT) || (y > WIDTH)){
-            //throw new IndexOutOfBoundsException();
-            return -1;
-        }
-        return grille[y][x];
+    public int getValue(int hauteur, int largeur) {
+        return grille[hauteur][largeur];
     }
 
     
@@ -108,7 +97,7 @@ public class Grille {
 
     public boolean isColumnFull(int x)
     {
-        for(int i = 0; i < HEIGHT; i++)
+        for (int i = 0; i < WIDTH; i++)
         {
             if (grille[i][x] == -1)
                 return false;
@@ -120,7 +109,7 @@ public class Grille {
     {
         ArrayList<Integer> numList = new ArrayList<>(this.WIDTH);
 
-        for (int x = 0; x < HEIGHT; x++)
+        for (int x = 0; x < WIDTH; x++)
         {
             if (this.isColumnFull(x))
                 numList.add(x);
@@ -163,22 +152,4 @@ public class Grille {
         return s1.toString().equals(s2.toString());
     }
 
-    public boolean isValide(){
-
-        for(int i = 0; i < this.WIDTH; i++ ){
-            for (int j = 0; j < this.HEIGHT; i++) {
-
-                if (getValue(i, j) == getValue(i - 1, j) && getValue(i, j) == getValue(i + 1, j)) {
-                    return false;
-                }
-
-                if (getValue(i, j) == getValue(i, j + 1) && getValue(i, j) == getValue(i, j - 1)) {
-                    return false;
-                }
-
-            }
-        }
-
-        return true;
-    }
 }

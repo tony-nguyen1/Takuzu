@@ -1,10 +1,11 @@
 package test;
 
-import main.CustomsExceptions.OddDimensionsGrilleException;
 import main.Grille;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -15,6 +16,9 @@ public class testGrille {
     @BeforeEach
     void setup() {
 
+        g = new Grille(2, 2);
+
+        /*
         try {
             g = new Grille(2,2);
         }
@@ -24,6 +28,7 @@ public class testGrille {
             System.err.println(e.getMessage());
             e.printStackTrace();
         }
+         */
 
         for (int i = 0; i < 2; i++)
         {
@@ -97,13 +102,6 @@ public class testGrille {
         assertEquals(answer, g.rowFilled());
     }
 
-    @Test
-    public void test_isValide(){
-        //remplissage de 1
-        g.fill(1);
-
-        assertFalse(g.isValide());
-    }
 
     @Test
     public void test_equals2Column_with_same_colomn() {
@@ -117,9 +115,10 @@ public class testGrille {
     @Test
     public void test_equals2Column_with_different_colomn() {
         g.setValue(0,0,0);
-        g.setValue(0,1,0);
+        g.setValue(0, 1, 1);
         g.setValue(1,0,1);
-        g.setValue(1,1,1);
+        g.setValue(1, 1, 0);
+
 
         assertFalse(g.equals2Column(0,1));
         assertTrue(g.equals2Column(1,1));
@@ -182,10 +181,11 @@ public class testGrille {
     @Test
     public void test_columnFilled_when_grille_is_half_empty() {
         g.setValue(0,0,1);
-        g.setValue(0,1,0);
+        g.setValue(1, 0, 0);
 
         ArrayList<Integer> answer = new ArrayList<>(2);
         answer.add(0);
+
 
         assertEquals(answer,g.columnFilled());
     }

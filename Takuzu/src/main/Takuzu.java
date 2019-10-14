@@ -1,13 +1,13 @@
 package main;
 
-import main.CustomsExceptions.OddDimensionsGrilleException;
-
 import java.util.ArrayList;
 
 public class Takuzu {
     private Grille grille;
 
     public Takuzu(int i) {
+        grille = new Grille(i, i);
+        /*
         try {
             grille = new Grille(i, i);
         }
@@ -17,17 +17,18 @@ public class Takuzu {
             System.err.println(e.getMessage());
             e.printStackTrace();
         }
+
+         */
     }
 
     //Nouveau constructeur que j'ai ajouté pour pouvoir utiliser une grille non vide >_>
-
     public Takuzu(Grille grid){
         this.grille = grid;
     }
 
-    public void play(int x, int y, int value)
+    public void play(int colonne, int ligne, int value)
     {
-        grille.setValue(x, y, value);
+        grille.setValue(colonne, ligne, value);
     }
 
     public Grille getGrille() { return grille; }
@@ -90,7 +91,7 @@ public class Takuzu {
         if (!numListCopy.isEmpty())
         {
             numListCopy.remove(new Integer(y));//on remove y pour pas qu'une ligne se compare avec elle-même
-            //comparaison entre ligne d'indey y et les autres lignes remplit
+            //comparaison entre ligne d'index y et les autres lignes remplit
             for (Integer integer : numListCopy)
             {
                 if (this.grille.equals2Row(y, integer))
@@ -146,6 +147,24 @@ public class Takuzu {
             //numLigneRemplit.remove(new Integer(num)); java.util.ConcurrentModificationException
 
             onlyCouple = checkRowCoupleOnly(num);
+            if (!onlyCouple) return false;
+        }
+
+        return true;
+    }
+
+    public boolean checkAllColumnAll() {
+        ArrayList<Integer> numColumnRemplit = grille.columnFilled();
+        boolean balance, unicite, onlyCouple;
+
+        for (Integer num : numColumnRemplit) {
+            balance = checkColumnBalance(num);
+            if (!balance) return false;
+
+            unicite = checkColumnUnicite(num, numColumnRemplit);
+            if (!unicite) return false;
+
+            onlyCouple = checkColumnCoupleOnly(num);
             if (!onlyCouple) return false;
         }
 
@@ -225,24 +244,6 @@ public class Takuzu {
         return true;
     }
 
-    public boolean checkAllColumnAll() {
-        ArrayList<Integer> numColumnRemplit = grille.columnFilled();
-        boolean balance, unicite, onlyCouple;
-
-        for (Integer num : numColumnRemplit)
-        {
-            balance = checkColumnBalance(num);
-            if (!balance) return false;
-
-            unicite = checkColumnUnicite(num, numColumnRemplit);
-            if (!unicite) return false;
-
-            onlyCouple = checkColumnCoupleOnly(num);
-            if (!onlyCouple) return false;
-        }
-
-        return true;
-    }
 
     public boolean estGagnant() {
         return checkAllRowAll() && checkAllColumnAll() && grille.columnFilled().size()==grille.getWIDTH() && grille.rowFilled().size()==grille.getHEIGHT();
@@ -250,7 +251,7 @@ public class Takuzu {
 
     //                         FIN des règles du jeu
     ////////////////////////////////////////////////////////////////////////////
-    public void affichage() { 
+    public void affichage() {
         System.out.println("Takuzu:\n");
         grille.affichage();
     }
@@ -260,8 +261,24 @@ public class Takuzu {
         grille.affichageGraphique();
     }
 
-    public void play0(int x, int y) { grille.setValue(x, y, 0); }
-    public void play1(int x, int y) { grille.setValue(x, y, 1); }
+    //Faudra optimiser ca, bref, ca sert a faire une deep copy
+    public Takuzu cloneTakuzu() {
+        Grille grilleBis = new Grille(this.getWidthGrille(), getHeightGrille());
+        for (int i = 0; i < this.getHeightGrille(); i++) {
+            for (int j = 0; j < this.getWidthGrille(); j++) {
+                grilleBis.setValue(i, j, this.getValue(i, j));
+            }
+        }
+        return new Takuzu(grilleBis);
+    }
+
+    public void play0(int colonne, int ligne) {
+        grille.setValue(colonne, ligne, 0);
+    }
+
+    public void play1(int colonne, int ligne) {
+        grille.setValue(colonne, ligne, 1);
+    }
 
     /**
      * @pré-requis this doit avoir une grille "vide" et de taille 6x6.

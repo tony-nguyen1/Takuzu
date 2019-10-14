@@ -31,5 +31,7 @@
     <orderEntry type="library" name="Maven: org.junit.jupiter:junit-jupiter-api:5.4.0-M1" level="project" />
     <orderEntry type="library" name="Maven: org.opentest4j:opentest4j:1.1.1" level="project" />
     <orderEntry type="library" name="Maven: org.junit.platform:junit-platform-commons:1.4.0-M1" level="project" />
+    <orderEntry type="library" name="javafx-sdk-11.0" level="project" />
+    <orderEntry type="library" name="javafx.swing" level="project" />
   </component>
 </module>
