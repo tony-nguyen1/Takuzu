@@ -12,10 +12,16 @@ public class Main {
 
        takuzu.affichage();
 
+        Takuzu tak = takuzu.cloneTakuzu();
+        takuzu.play0(0, 1);
+        tak.affichage();
+        takuzu.affichage();
+
+       /*
        System.out.println("\nRéponse");
        Takuzu rep = Takuzu.getPreRemplissageAnswer();
-        rep.affichage();
 
+        rep.affichage();
         System.out.println("Grille row ok ?");
         System.out.println(rep.checkAllRowAll());
 
@@ -25,6 +31,8 @@ public class Main {
         System.out.println("Takuzu gagnant ?");
         System.out.println(rep.estGagnant());
 
+
+        */
         /*
         System.out.println("\ncheckRowCoupleOnly");
         for (int i = 0; i < 6; i++) { System.out.println(rep.checkRowCoupleOnly(i)); }

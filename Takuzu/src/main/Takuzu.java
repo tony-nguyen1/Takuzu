@@ -1,13 +1,13 @@
 package main;
 
-import main.CustomsExceptions.OddDimensionsGrilleException;
-
 import java.util.ArrayList;
 
 public class Takuzu {
     private Grille grille;
 
     public Takuzu(int i) {
+        grille = new Grille(i, i);
+        /*
         try {
             grille = new Grille(i, i);
         }
@@ -17,17 +17,18 @@ public class Takuzu {
             System.err.println(e.getMessage());
             e.printStackTrace();
         }
+
+         */
     }
 
     //Nouveau constructeur que j'ai ajouté pour pouvoir utiliser une grille non vide >_>
-
     public Takuzu(Grille grid){
         this.grille = grid;
     }
 
-    public void play(int x, int y, int value)
+    public void play(int colonne, int ligne, int value)
     {
-        grille.setValue(x, y, value);
+        grille.setValue(colonne, ligne, value);
     }
 
     public Grille getGrille() { return grille; }
@@ -90,7 +91,7 @@ public class Takuzu {
         if (!numListCopy.isEmpty())
         {
             numListCopy.remove(new Integer(y));//on remove y pour pas qu'une ligne se compare avec elle-même
-            //comparaison entre ligne d'indey y et les autres lignes remplit
+            //comparaison entre ligne d'index y et les autres lignes remplit
             for (Integer integer : numListCopy)
             {
                 if (this.grille.equals2Row(y, integer))
@@ -262,13 +263,22 @@ public class Takuzu {
 
     //Faudra optimiser ca, bref, ca sert a faire une deep copy
     public Takuzu cloneTakuzu() {
-        Grille grilleBis = new Grille(this.getGrille().cloneGrille(), this.getGrille().getWIDTH(), this.getGrille().getHEIGHT());
-        Takuzu takuzuClone = new Takuzu(this.grille);
-        return takuzuClone;
+        Grille grilleBis = new Grille(this.getWidthGrille(), getHeightGrille());
+        for (int i = 0; i < this.getHeightGrille(); i++) {
+            for (int j = 0; j < this.getWidthGrille(); j++) {
+                grilleBis.setValue(i, j, this.getValue(i, j));
+            }
+        }
+        return new Takuzu(grilleBis);
     }
 
-    public void play0(int x, int y) { grille.setValue(x, y, 0); }
-    public void play1(int x, int y) { grille.setValue(x, y, 1); }
+    public void play0(int colonne, int ligne) {
+        grille.setValue(colonne, ligne, 0);
+    }
+
+    public void play1(int colonne, int ligne) {
+        grille.setValue(colonne, ligne, 1);
+    }
 
     /**
      * @pré-requis this doit avoir une grille "vide" et de taille 6x6.

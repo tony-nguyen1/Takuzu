@@ -29,6 +29,7 @@ public class Backtrack implements Solveur {
 
         while (!backupTakuzu.isEmpty()) {
             Takuzu takuzu = backupTakuzu.poll();
+            takuzu.affichage();
 
             if (takuzu.estGagnant()) {
                 return true;
@@ -38,6 +39,7 @@ public class Backtrack implements Solveur {
             if (!takuzu.checkAllRowAll() && !takuzu.checkAllColumnAll()) {
                 continue;
             }
+            System.out.println("est valide");
 
             //Y'a des manières plus propres que ca, mais flemme de debugger derrière pour voir si ca marche parfaitement
             Grille grille = takuzu.getGrille();
@@ -49,16 +51,20 @@ public class Backtrack implements Solveur {
                     if (grille.getValue(i, j) == -1) {
                         Takuzu takuzu0 = takuzu.cloneTakuzu();
                         takuzu0.play0(i, j);
-                        backupTakuzu.add(takuzu0);
+
                         Takuzu takuzu1 = takuzu.cloneTakuzu();
                         takuzu1.play1(i, j);
+
+                        backupTakuzu.add(takuzu0);
                         backupTakuzu.add(takuzu1);
                         trouve = true;
                         break;
                     }
                     j++;
                 }
+
                 if (trouve) {
+                    System.out.println();
                     break;
                 }
                 i++;
@@ -66,6 +72,11 @@ public class Backtrack implements Solveur {
             i = 0;
             resoudre();
         }
+
+        if (takuzu.estGagnant()) {
+            System.out.println("est gagnant");
+        }
+
 
         return true;
     }
