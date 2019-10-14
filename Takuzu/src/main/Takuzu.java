@@ -152,6 +152,24 @@ public class Takuzu {
         return true;
     }
 
+    public boolean checkAllColumnAll() {
+        ArrayList<Integer> numColumnRemplit = grille.columnFilled();
+        boolean balance, unicite, onlyCouple;
+
+        for (Integer num : numColumnRemplit) {
+            balance = checkColumnBalance(num);
+            if (!balance) return false;
+
+            unicite = checkColumnUnicite(num, numColumnRemplit);
+            if (!unicite) return false;
+
+            onlyCouple = checkColumnCoupleOnly(num);
+            if (!onlyCouple) return false;
+        }
+
+        return true;
+    }
+
     //FIXME
     // 1.changer la strat, systeme de compteur dans Grille qui incrémente une variable
     // 2.retirer la duplication de code avec checkRowBalance(int y)
@@ -225,24 +243,6 @@ public class Takuzu {
         return true;
     }
 
-    public boolean checkAllColumnAll() {
-        ArrayList<Integer> numColumnRemplit = grille.columnFilled();
-        boolean balance, unicite, onlyCouple;
-
-        for (Integer num : numColumnRemplit)
-        {
-            balance = checkColumnBalance(num);
-            if (!balance) return false;
-
-            unicite = checkColumnUnicite(num, numColumnRemplit);
-            if (!unicite) return false;
-
-            onlyCouple = checkColumnCoupleOnly(num);
-            if (!onlyCouple) return false;
-        }
-
-        return true;
-    }
 
     public boolean estGagnant() {
         return checkAllRowAll() && checkAllColumnAll() && grille.columnFilled().size()==grille.getWIDTH() && grille.rowFilled().size()==grille.getHEIGHT();
@@ -250,7 +250,7 @@ public class Takuzu {
 
     //                         FIN des règles du jeu
     ////////////////////////////////////////////////////////////////////////////
-    public void affichage() { 
+    public void affichage() {
         System.out.println("Takuzu:\n");
         grille.affichage();
     }
@@ -258,6 +258,13 @@ public class Takuzu {
     public void affichageGraphique()
     {
         grille.affichageGraphique();
+    }
+
+    //Faudra optimiser ca, bref, ca sert a faire une deep copy
+    public Takuzu cloneTakuzu() {
+        Grille grilleBis = new Grille(this.getGrille().cloneGrille(), this.getGrille().getWIDTH(), this.getGrille().getHEIGHT());
+        Takuzu takuzuClone = new Takuzu(this.grille);
+        return takuzuClone;
     }
 
     public void play0(int x, int y) { grille.setValue(x, y, 0); }

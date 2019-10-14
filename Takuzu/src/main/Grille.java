@@ -1,7 +1,5 @@
 package main;
 
-import main.CustomsExceptions.OddDimensionsGrilleException;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -12,14 +10,16 @@ public class Grille {
     private final int HEIGHT;
     private final int WIDTH;
 
-    public Grille(int width, int height) throws OddDimensionsGrilleException {
+    public Grille(int width, int height) {
         grille = new int[width][height];
         fill(-1);
+        HEIGHT = height;
+        WIDTH = width;
+    }
 
-        if (height%2 == 1 || width%2 == 1) {
-            throw new OddDimensionsGrilleException("height argument = " + height + " has to be an even integer");
-        }
-
+    //Une grille qui prend une grille déjà rempli en variable pour clonner
+    public Grille(int[][] g, int width, int height) {
+        grille = g;
         HEIGHT = height;
         WIDTH = width;
     }
@@ -57,12 +57,7 @@ public class Grille {
         grille[y][x] = value;
     }
 
-    public int getValue(int x, int y){
-    //J'ai modifié la fonction pour qu'elle gère les valeur exterieur au tableau, ca devrait être changé, mais bon ON DEPANNE
-        if ((x > HEIGHT) || (y > WIDTH)){
-            //throw new IndexOutOfBoundsException();
-            return -1;
-        }
+    public int getValue(int x, int y) {
         return grille[y][x];
     }
 
@@ -163,14 +158,9 @@ public class Grille {
         return s1.toString().equals(s2.toString());
     }
 
-    public boolean isValide(){
-
-        for(int i = 0; i < this.WIDTH; i++ ){
-            for (int j = 0; j < this.HEIGHT; i++) {
-
-                if (getValue(i, j) == getValue(i - 1, j) && getValue(i, j) == getValue(i + 1, j)) {
-                    return false;
-                }
+    public int[][] cloneGrille() {
+        return grille.clone();
+    }
 
                 if (getValue(i, j) == getValue(i, j + 1) && getValue(i, j) == getValue(i, j - 1)) {
                     return false;
