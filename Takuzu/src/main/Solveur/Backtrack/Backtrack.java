@@ -1,6 +1,5 @@
 package main.Solveur.Backtrack;
 
-import main.Grille;
 import main.Solveur.Solveur;
 import main.Takuzu;
 
@@ -10,75 +9,51 @@ import java.util.LinkedList;
 public class Backtrack implements Solveur {
 
     Takuzu takuzu;
+    Deque<Takuzu> backupTakuzu;
 
     public Backtrack(Takuzu takuzu) {
         this.takuzu = takuzu;
+        backupTakuzu = new LinkedList<Takuzu>();
+    }
+
+
+    private void ajoutListe(Takuzu tak) {
+        int column = tak.getGrille().getHEIGHT();
+        int row = tak.getGrille().getWIDTH();
+
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < column; j++) {
+                if (tak.getValue(i, j) == -1) {
+                    Takuzu tak0 = tak.cloneTakuzu();
+                    Takuzu tak1 = tak.cloneTakuzu();
+                    tak0.play0(i, j);
+                    tak1.play1(i, j);
+                    backupTakuzu.add(tak0);
+                    backupTakuzu.add(tak1);
+                    return;
+                }
+            }
+        }
     }
 
     @Override
-    public boolean resoudre() {
-
-        int column = takuzu.getGrille().getHEIGHT();
-        int row = takuzu.getGrille().getWIDTH();
-
-        int i = 0;
-        int j = 0;
-
-        Deque<Takuzu> backupTakuzu = new LinkedList<Takuzu>();
+    public Takuzu resoudre() {
         backupTakuzu.add(takuzu);
 
         while (!backupTakuzu.isEmpty()) {
-            Takuzu takuzu = backupTakuzu.poll();
-            takuzu.affichage();
+            Takuzu takuzuBis = backupTakuzu.poll();
 
-            if (takuzu.estGagnant()) {
-                return true;
+            if (takuzuBis.estGagnant()) {
+                return takuzuBis;
             }
 
             //Si le Takuzu n'est pas valide, alors on arrete de chercher de ce côté, c-a-d que le while prochain ne sera pas "actif"
-            if (!takuzu.checkAllRowAll() && !takuzu.checkAllColumnAll()) {
+            if (!takuzuBis.estValide()) {
                 continue;
             }
-            System.out.println("est valide");
 
-            //Y'a des manières plus propres que ca, mais flemme de debugger derrière pour voir si ca marche parfaitement
-            Grille grille = takuzu.getGrille();
-            Boolean trouve = false;
-            while (i < row) {
-                j = 0;
-                while (j < column) {
-                    //Si l'on trouve une case vide on place le 0 et le 1
-                    if (grille.getValue(i, j) == -1) {
-                        Takuzu takuzu0 = takuzu.cloneTakuzu();
-                        takuzu0.play0(i, j);
-
-                        Takuzu takuzu1 = takuzu.cloneTakuzu();
-                        takuzu1.play1(i, j);
-
-                        backupTakuzu.add(takuzu0);
-                        backupTakuzu.add(takuzu1);
-                        trouve = true;
-                        break;
-                    }
-                    j++;
-                }
-
-                if (trouve) {
-                    System.out.println();
-                    break;
-                }
-                i++;
-            }
-            i = 0;
-            resoudre();
+            ajoutListe(takuzuBis);
         }
-
-        if (takuzu.estGagnant()) {
-            System.out.println("est gagnant");
-        }
-
-
-        return true;
+        return null;
     }
 }
-

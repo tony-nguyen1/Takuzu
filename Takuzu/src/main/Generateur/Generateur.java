@@ -1,8 +1,8 @@
 package main.Generateur;
 
 import main.CustomsExceptions.OddDimensionsGrilleException;
-import main.Grille;
+import main.Takuzu;
 
 public interface Generateur {
-    Grille generer(int taille) throws OddDimensionsGrilleException;
+    Takuzu generer(int taille, int difficulte) throws OddDimensionsGrilleException;
 }

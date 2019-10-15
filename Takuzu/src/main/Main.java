@@ -10,12 +10,10 @@ public class Main {
        Takuzu takuzu = new Takuzu(6);
        takuzu.preRemplissage();
 
-       takuzu.affichage();
-
         Takuzu tak = takuzu.cloneTakuzu();
-        takuzu.play0(0, 1);
+        tak.play0(0, 1);
         tak.affichage();
-        takuzu.affichage();
+        System.out.println(tak.estValide());
 
        /*
        System.out.println("\nRéponse");

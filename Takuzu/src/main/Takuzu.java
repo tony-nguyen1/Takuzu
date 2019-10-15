@@ -26,14 +26,20 @@ public class Takuzu {
         this.grille = grid;
     }
 
-    public void play(int colonne, int ligne, int value)
+    public void play(int ligne, int colonne, int value)
     {
-        grille.setValue(colonne, ligne, value);
+        grille.setValue(ligne, colonne, value);
     }
 
     public Grille getGrille() { return grille; }
 
-    public int getValue(int x, int y) { return grille.getValue(x,y); }
+    //Reimplémentation de la solution de dépannage xddd
+    public int getValue(int x, int y) {
+        if (x < 0 || x >= getHeightGrille() || y < 0 || y >= getWidthGrille()) {
+            return -1;
+        }
+        return grille.getValue(x, y);
+    }
 
     public int getHeightGrille() { return grille.getHEIGHT(); }
 
@@ -98,6 +104,20 @@ public class Takuzu {
                     return false;
             }
         }
+        return true;
+    }
+
+    //La meme fonction qu'en haut, mais en plus simple et plus pratique à utiliser
+    public boolean checkRowUnicite(int ligne) {
+        for (int i = 0; i < this.getHeightGrille(); i++) {
+            if (i == ligne) {
+                continue;
+            }
+            if (this.getGrille().equals2Row(ligne, i)) {
+                return false;
+            }
+        }
+
         return true;
     }
 
@@ -244,6 +264,36 @@ public class Takuzu {
         return true;
     }
 
+    //Verifie si le Takuzu est valide ou non
+
+    public boolean estValide() {
+        for (int i = 0; i < getHeightGrille(); i++) {
+            for (int j = 0; j < getWidthGrille(); j++) {
+                //Si la valeur est nulle autant la sauter xddd
+                if (getValue(i, j) == -1) {
+                    continue;
+                }
+
+                if (getValue(i, j) == getValue(i + 1, j) && getValue(i, j) == getValue(i - 1, j)) {
+                    return false;
+                }
+                if (getValue(i, j) == getValue(i, j + 1) && getValue(i, j) == getValue(i, j - 1)) {
+                    return false;
+                }
+            }
+        }
+
+        for (int i = 0; i < getHeightGrille(); i++) {
+            if (grille.isRowFull(i))
+                if (!checkRowUnicite(i)) {
+                    return false;
+                }
+        }
+
+
+        return true;
+    }
+
 
     public boolean estGagnant() {
         return checkAllRowAll() && checkAllColumnAll() && grille.columnFilled().size()==grille.getWIDTH() && grille.rowFilled().size()==grille.getHEIGHT();
@@ -272,12 +322,12 @@ public class Takuzu {
         return new Takuzu(grilleBis);
     }
 
-    public void play0(int colonne, int ligne) {
-        grille.setValue(colonne, ligne, 0);
+    public void play0(int ligne, int colonne) {
+        grille.setValue(ligne, colonne, 0);
     }
 
-    public void play1(int colonne, int ligne) {
-        grille.setValue(colonne, ligne, 1);
+    public void play1(int ligne, int colonne) {
+        grille.setValue(ligne, colonne, 1);
     }
 
     /**
