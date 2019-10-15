@@ -1,6 +1,5 @@
 package main.Solveur.PatternCroix5;
 
-import main.Grille;
 import main.Solveur.Solveur;
 import main.Takuzu;
 
@@ -13,7 +12,7 @@ public class PatternCroix5 implements Solveur {
     }
 
     @Override
-    public boolean resoudre() {
+    public Takuzu resoudre() {
         int h1, h2, b1, b2, g1, g2, d1, d2, height, width;
         //ces variables contiennent les valeurs des cases proches de 1 case
 
@@ -84,7 +83,8 @@ public class PatternCroix5 implements Solveur {
                 }
             }
         }
-        return true;
+        //Comme tout à l'heure, j'ai changé pour un null (Boolean => Takuzu)
+        return null;
     }
 
     /**

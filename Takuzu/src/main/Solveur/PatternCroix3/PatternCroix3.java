@@ -1,6 +1,5 @@
 package main.Solveur.PatternCroix3;
 
-import main.Grille;
 import main.Solveur.Solveur;
 import main.Takuzu;
 
@@ -13,7 +12,7 @@ public class PatternCroix3 implements Solveur {
     }
 
     @Override
-    public boolean resoudre() {
+    public Takuzu resoudre() {
         int h, b, g, d, height, width;
 
         height = takuzu.getHeightGrille();
@@ -68,7 +67,8 @@ public class PatternCroix3 implements Solveur {
         }
         System.out.println("compteur = " + cpt);
         */
-        return true;
+        //J'ai mis null dans le doute kho, change le par ce que tu veux :o
+        return null;
     }
 
     /**
