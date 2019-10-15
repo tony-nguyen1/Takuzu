@@ -59,27 +59,16 @@ public class Takuzu {
      * @return true si la ligne a un nombre de 0 et 1 égal, faux sinon
      */
     public boolean checkRowBalance(int y){
-        int nb0, nb1;
-        nb0 = 0;
-        nb1 = 0;
+        Integer nb0, nb1;
+        nb0 = new Integer(0);
+        nb1 = new Integer(0);
 
         for (int x = 0; x < grille.getWIDTH(); x++)
         {
-            switch (grille.getValue(x,y))
-            {
-                case 0:
-                    nb0++;
-                    break;
-                case 1:
-                    nb1++;
-                    break;
-                case -1:
-                    break;
-                default:
-                    throw new RuntimeException("Valeur non autorisé trouvé");
-            }
+            checkAuxBalance(nb0,nb1,grille.getValue(y,x));
         }
-        return nb0 == nb1;
+
+        return nb0.equals(nb1);
     }
 
     /**
@@ -202,27 +191,16 @@ public class Takuzu {
      * @return true si la colonne est unique, faux sinon
      */
     public boolean checkColumnBalance(int x){
-        int nb0, nb1;
-        nb0 = 0;
-        nb1 = 0;
+        Integer nb0, nb1;
+        nb0 = new Integer(0);
+        nb1 = new Integer(0);
 
         for (int y = 0; y < grille.getWIDTH(); y++)
         {
-            switch (grille.getValue(x,y))
-            {
-                case 0:
-                    nb0++;
-                    break;
-                case 1:
-                    nb1++;
-                    break;
-                case -1:
-                    break;
-                default:
-                    throw new RuntimeException("Valeur non autorisé trouvé");
-            }
+            checkAuxBalance(nb0,nb1,grille.getValue(y,x));
         }
-        return nb0 == nb1;
+
+        return nb0.equals(nb1);
     }
 
     public boolean checkColumnUnicite(int x, ArrayList<Integer> numList) {
@@ -402,5 +380,29 @@ public class Takuzu {
         reponse.play1(3,5);
 
         return reponse;
+    }
+
+    /**
+     * Incrémente les variables Integer passer en arguments en fonction de la valeur int
+     *
+     * @param numberA
+     * @param numberB
+     */
+    public void checkAuxBalance(Integer numberA, Integer numberB, int value)
+    {
+        switch (value)
+        {
+            case 0:
+                numberA++;
+                break;
+            case 1:
+                numberB++;
+                break;
+            case -1:
+                //do nothing, case empty
+                break;
+            default:
+                throw new RuntimeException("Valeur non autorisé trouvé");
+        }
     }
 }

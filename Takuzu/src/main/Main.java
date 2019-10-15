@@ -15,7 +15,7 @@ public class Main {
         tak.affichage();
         System.out.println(tak.estValide());
 
-       /*
+
        System.out.println("\nRéponse");
        Takuzu rep = Takuzu.getPreRemplissageAnswer();
 
@@ -31,18 +31,6 @@ public class Main {
         System.out.println(rep.estGagnant());
 
 
-        */
-        /*
-        System.out.println("\ncheckRowCoupleOnly");
-        for (int i = 0; i < 6; i++) { System.out.println(rep.checkRowCoupleOnly(i)); }
 
-        System.out.println("\ncheckRowBalance");
-        for (int i = 0; i < 6; i++) { System.out.println(rep.checkRowBalance(i)); }
-
-        ArrayList<Integer> a = new ArrayList<>();
-        a.add(0);a.add(1);a.add(2);a.add(3);a.add(4);a.add(5);
-        System.out.println("\ncheckRowUnicite");
-        for (int i = 0; i < 6; i++) { System.out.println(rep.checkRowUnicite(i, a)); }
-        */
     }
 }
