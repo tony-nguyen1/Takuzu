@@ -14,6 +14,7 @@ public class Main {
         tak.play0(0, 1);
         tak.affichage();
         System.out.println(tak.estValide());
+        tak.affichageGraphique();
 
 
        System.out.println("\nRéponse");
