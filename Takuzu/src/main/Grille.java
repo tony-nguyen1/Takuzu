@@ -1,10 +1,13 @@
 package main;
 
+import sun.awt.image.ImageWatched;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 
 import static main.IHM.IHM.special;
-
+//TODO faire listCaseVide, listUneCollone, listUneLigne
 public class Grille {
     private int[][] grille;
     private final int HEIGHT;
@@ -152,5 +155,27 @@ public class Grille {
         return s1.toString().equals(s2.toString());
     }
 
+    //TODO pour Mathieu
+    //C'est pour refactor des trucs après ...
+    /**
+     * Crée une liste de toutes les cases vides.
+     * La linkedList contient toutes les coordonnées.
+     * La arrayList contient la coordonnée x et y.
+     *
+     * @return les coordonnées de toutes les cases vides, return null si il n'y en a pas
+     */
+    public LinkedList<ArrayList<Integer>> listCaseVide() { return null; }
+    /**
+     * Crée une nouvelle liste et y recopie toutes les valeurs d'une colonne;
+     * @param uneColonne
+     * @return
+     */
+    public LinkedList<Integer> listUneCollone(int uneColonne) { return null; }
+    /**
+     * Crée une nouvelle liste et y recopie toutes les valeurs d'une ligne;
+     * @param uneLigne
+     * @return
+     */
+    public LinkedList<Integer> listUneLigne(int uneLigne) { return null; }
 
 }

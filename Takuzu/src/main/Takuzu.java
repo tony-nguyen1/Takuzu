@@ -242,8 +242,12 @@ public class Takuzu {
         return true;
     }
 
-    //Verifie si le Takuzu est valide ou non
-
+    //FIXME Nassim
+    /**
+     * Verifie si le Takuzu est valide ou non
+     *
+     * @return
+     */
     public boolean estValide() {
         for (int i = 0; i < getHeightGrille(); i++) {
             for (int j = 0; j < getWidthGrille(); j++) {
@@ -404,5 +408,15 @@ public class Takuzu {
             default:
                 throw new RuntimeException("Valeur non autorisé trouvé");
         }
+    }
+
+    public void playInverse(int ligne, int colonne, int inverse)
+    {
+        if (inverse == 1)
+            grille.setValue(ligne, colonne, 0);
+        else if (inverse == 0)
+            grille.setValue(ligne, colonne, 1);
+        else
+            System.err.println(inverse + "pas bonne valeur");
     }
 }

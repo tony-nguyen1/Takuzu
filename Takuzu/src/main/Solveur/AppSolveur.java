@@ -23,6 +23,8 @@ public class AppSolveur {
 
         Solveur sol2 = new PatternCroix3(takuzu);
         sol2.resoudre();
+        sol2.resoudre();
+
 
         takuzu.affichage();
     }

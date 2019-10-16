@@ -2,7 +2,7 @@ package main;
 
 //TODO
 // -tests
-// -Générateur / Résolveur
+// -Résolveur
 
 public class Main {
 

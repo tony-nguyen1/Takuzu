@@ -23,7 +23,7 @@ public class GenerateurNaifCarre implements Generateur {
         Takuzu tak = new Takuzu(grid);
 
         Backtrack backtrack = new Backtrack(tak);
-        tak = backtrack.resoudre();
+        //FIXME tak = backtrack.resoudre();
 
         int dif = (difficulte * taille);
 

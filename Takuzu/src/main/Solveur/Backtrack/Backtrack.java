@@ -13,7 +13,7 @@ public class Backtrack implements Solveur {
 
     public Backtrack(Takuzu takuzu) {
         this.takuzu = takuzu;
-        backupTakuzu = new LinkedList<Takuzu>();
+        backupTakuzu = new LinkedList<>();
     }
 
 
@@ -37,14 +37,15 @@ public class Backtrack implements Solveur {
     }
 
     @Override
-    public Takuzu resoudre() {
+    public boolean resoudre() {
         backupTakuzu.add(takuzu);
 
         while (!backupTakuzu.isEmpty()) {
             Takuzu takuzuBis = backupTakuzu.poll();
 
             if (takuzuBis.estGagnant()) {
-                return takuzuBis;
+                //FIXME oups j'ai cassé qql chose
+                //return takuzuBis;
             }
 
             //Si le Takuzu n'est pas valide, alors on arrete de chercher de ce côté, c-a-d que le while prochain ne sera pas "actif"
@@ -54,6 +55,6 @@ public class Backtrack implements Solveur {
 
             ajoutListe(takuzuBis);
         }
-        return null;
+        return false;
     }
 }

@@ -12,7 +12,7 @@ public class AppBacktrack {
         System.out.println(takuzu.estValide());
 
         Solveur solveur = new Backtrack(takuzu);
-        takuzu = solveur.resoudre();
+        //FIXME takuzu = solveur.resoudre();
         takuzu.affichage();
 
 

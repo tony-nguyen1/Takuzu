@@ -12,7 +12,7 @@ public class PatternCroix5 implements Solveur {
     }
 
     @Override
-    public Takuzu resoudre() {
+    public boolean resoudre() {
         int h1, h2, b1, b2, g1, g2, d1, d2, height, width;
         //ces variables contiennent les valeurs des cases proches de 1 case
 
@@ -84,7 +84,7 @@ public class PatternCroix5 implements Solveur {
             }
         }
         //Comme tout à l'heure, j'ai changé pour un null (Boolean => Takuzu)
-        return null;
+        return false;
     }
 
     /**
@@ -114,15 +114,7 @@ public class PatternCroix5 implements Solveur {
     private void croix5Aux(int valInterieur, int valExterieur, int x, int y)
     {
         if (valInterieur == valExterieur & valInterieur != -1 & valExterieur != -1) {
-            playInverse(x,y,valInterieur);
+            takuzu.playInverse(x,y,valInterieur);
         }
-    }
-
-    private void playInverse(int x, int y, int cmp)
-    {
-        if (cmp == 1)
-            takuzu.play0(x, y);
-        else if (cmp == 0)
-            takuzu.play1(x,y);
     }
 }

@@ -6,13 +6,15 @@ import main.Takuzu;
 public class PatternCroix3 implements Solveur {
 
     private Takuzu takuzu;
+    private boolean didSomething;
 
     public PatternCroix3(Takuzu takuzu) {
         this.takuzu = takuzu;
+        didSomething = false;
     }
 
     @Override
-    public Takuzu resoudre() {
+    public boolean resoudre() {
         int h, b, g, d, height, width;
 
         height = takuzu.getHeightGrille();
@@ -24,7 +26,6 @@ public class PatternCroix3 implements Solveur {
             {
                 if (this.takuzu.getValue(j,i) == -1)
                 {
-                    //h = 0; b = 0; g = 0; d = 0;
                     if (i==0)
                         h = -1;
                     else
@@ -50,25 +51,15 @@ public class PatternCroix3 implements Solveur {
                 }
             }
         }
-        //System.out.println("compteur = " + cpt);
-
-
-        /*
-        cpt = 0;
-        for (int i = 0; i < height; i++)
+        if (didSomething)
         {
-            for (int j = 0; j < width; j++)
-            {
-                if (grille.getValue(j,i) == -1)
-                {
-                    cpt++;
-                }
-            }
+            didSomething = false;
+            return true;
         }
-        System.out.println("compteur = " + cpt);
-        */
-        //J'ai mis null dans le doute kho, change le par ce que tu veux :o
-        return null;
+        else
+        {
+            return false;
+        }
     }
 
     /**
@@ -79,19 +70,13 @@ public class PatternCroix3 implements Solveur {
     {
         if (haut == bas & haut != -1 & bas != -1)
         {
-            takuzu.play(x, y, inverse(haut));
+            takuzu.playInverse(x,y,haut);
+            didSomething = true;
+
         }
         if (gauche == droite & gauche != -1 & droite != -1) {
-            takuzu.play(x, y, inverse(gauche));
+            takuzu.playInverse(x,y,gauche);
+            didSomething = true;
         }
-    }
-
-    private int inverse(int i)
-    {
-        if (i == 1)
-            return 0;
-        else if (i == 0)
-            return 1;
-        return 99;
     }
 }
