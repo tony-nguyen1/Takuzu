@@ -37,7 +37,7 @@ public class Backtrack implements Solveur {
     }
 
     @Override
-    public boolean resoudre() {
+    public boolean resoudre(Takuzu takuzu) {
         backupTakuzu.add(takuzu);
 
         while (!backupTakuzu.isEmpty()) {

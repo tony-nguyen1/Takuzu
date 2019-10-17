@@ -1,4 +1,4 @@
-package test.Solveur;
+package Solveur;
 
 import main.CustomsExceptions.OddDimensionsGrilleException;
 import main.Grille;
@@ -22,12 +22,12 @@ public class testPatternCroix3 {
         Takuzu unTakuzu;
 
         unTakuzu = new Takuzu(4);
-        Solveur petiteCroix = new PatternCroix3(unTakuzu);
+        Solveur petiteCroix = new PatternCroix3();
 
         unTakuzu.play0(1,0);
         unTakuzu.play0(3,0);
 
-        petiteCroix.resoudre();
+        petiteCroix.resoudre(unTakuzu);
 
         assertEquals(1,unTakuzu.getValue(2,0));
     }

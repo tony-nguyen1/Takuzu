@@ -13,8 +13,8 @@ public class AppTestResolution2 {
         tak.play1(2, 1);
         tak.affichage();
 
-        Solveur sol = new PatternCroix3(tak);
-        sol.resoudre();
+        Solveur sol = new PatternCroix3();
+        sol.resoudre(tak);
 
         tak.affichage();
     }

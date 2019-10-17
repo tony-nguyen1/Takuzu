@@ -17,13 +17,13 @@ public class AppSolveur {
         rep.affichage();
 
 
-        Solveur sol = new PatternCroix5(takuzu);
-        sol.resoudre();
-        sol.resoudre();
+        Solveur sol = new PatternCroix5();
+        sol.resoudre(takuzu);
+        sol.resoudre(takuzu);
 
-        Solveur sol2 = new PatternCroix3(takuzu);
-        sol2.resoudre();
-        sol2.resoudre();
+        Solveur sol2 = new PatternCroix3();
+        sol2.resoudre(takuzu);
+        sol2.resoudre(takuzu);
 
 
         takuzu.affichage();

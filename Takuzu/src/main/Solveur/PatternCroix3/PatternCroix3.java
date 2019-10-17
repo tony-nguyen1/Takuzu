@@ -4,17 +4,14 @@ import main.Solveur.Solveur;
 import main.Takuzu;
 
 public class PatternCroix3 implements Solveur {
-
-    private Takuzu takuzu;
     private boolean didSomething;
 
-    public PatternCroix3(Takuzu takuzu) {
-        this.takuzu = takuzu;
+    public PatternCroix3() {
         didSomething = false;
     }
 
     @Override
-    public boolean resoudre() {
+    public boolean resoudre(Takuzu takuzu) {
         int h, b, g, d, height, width;
 
         height = takuzu.getHeightGrille();
@@ -24,30 +21,30 @@ public class PatternCroix3 implements Solveur {
         {
             for (int j = 0; j < width; j++)
             {
-                if (this.takuzu.getValue(j,i) == -1)
+                if (takuzu.getValue(j,i) == -1)
                 {
                     if (i==0)
                         h = -1;
                     else
-                        h = this.takuzu.getValue(j,i-1);
+                        h = takuzu.getValue(j,i-1);
 
                     if (i==height-1)
                         b = -1;
                     else
-                        b = this.takuzu.getValue(j,i+1);
+                        b = takuzu.getValue(j,i+1);
 
 
                     if (j==0)
                         g = -1;
                     else
-                        g = this.takuzu.getValue(j-1,i);
+                        g = takuzu.getValue(j-1,i);
 
                     if (j==width-1)
                         d = -1;
                     else
-                        d = this.takuzu.getValue(j+1,i);
+                        d = takuzu.getValue(j+1,i);
 
-                    croix3(h,b,g,d,j,i);
+                    croix3(h,b,g,d,j,i,takuzu);
                 }
             }
         }
@@ -66,7 +63,7 @@ public class PatternCroix3 implements Solveur {
      * @pré-requis la case centrale est toujours vide
      *
      */
-    private void croix3(int haut, int bas, int gauche, int droite, int x, int y)
+    private void croix3(int haut, int bas, int gauche, int droite, int x, int y, Takuzu takuzu)
     {
         if (haut == bas & haut != -1 & bas != -1)
         {

@@ -16,10 +16,10 @@ public class AppCroix5test {
         Takuzu rep = Takuzu.getPreRemplissageAnswer();
         rep.affichage();
 
-        Solveur sol = new PatternCroix5(takuzu);
-        sol.resoudre();
-        sol.resoudre();
-        sol.resoudre();
+        Solveur sol = new PatternCroix5();
+        sol.resoudre(takuzu);
+        sol.resoudre(takuzu);
+        sol.resoudre(takuzu);
 
         takuzu.affichage();
     }

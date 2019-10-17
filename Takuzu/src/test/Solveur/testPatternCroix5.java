@@ -1,4 +1,4 @@
-package test.Solveur;
+package Solveur;
 
 import main.Grille;
 import main.Solveur.PatternCroix5.PatternCroix5;
@@ -14,7 +14,7 @@ public class testPatternCroix5 {
         Takuzu unTakuzu;
 
         unTakuzu = new Takuzu(6);
-        Solveur petiteCroix = new PatternCroix5(unTakuzu);
+        Solveur petiteCroix = new PatternCroix5();
 
         unTakuzu.play0(0,0);
         unTakuzu.play0(1,0);
@@ -22,7 +22,7 @@ public class testPatternCroix5 {
         unTakuzu.play0(3,0);
         unTakuzu.play0(4,0);
 
-        petiteCroix.resoudre();
+        petiteCroix.resoudre(unTakuzu);
 
         assertEquals(1,unTakuzu.getValue(2,0));
     }

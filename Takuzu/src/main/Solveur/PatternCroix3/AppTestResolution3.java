@@ -10,8 +10,8 @@ public class AppTestResolution3 {
 
         takuzu.affichage();
 
-        Solveur solveur = new PatternCroix3(takuzu);
-        solveur.resoudre();
+        Solveur solveur = new PatternCroix3();
+        solveur.resoudre(takuzu);
 
         takuzu.affichage();
     }
