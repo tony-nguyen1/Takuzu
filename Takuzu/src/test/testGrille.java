@@ -3,6 +3,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,7 +15,7 @@ public class testGrille {
     @BeforeEach
     void setup() {
 
-        g = new Grille(2, 2);
+        g = new Grille(2, 4);
 
         /*
         try {
@@ -186,5 +187,62 @@ public class testGrille {
 
 
         assertEquals(answer,g.columnFilled());
+    }
+
+    @Test
+    public void test_listCaseVide()
+    {
+        g.setValue(0,0,0);
+        g.setValue(0,1,0);
+        g.setValue(0,2,1);
+        g.setValue(0,3,1);
+
+        LinkedList<ArrayList<Integer>> answer = new LinkedList<>();
+
+        ArrayList couple = new ArrayList<Integer>(2);
+        couple.add(1);
+        couple.add(0);
+        answer.add(couple);
+
+        couple = new ArrayList<Integer>(2);
+        couple.add(1);
+        couple.add(1);
+        answer.add(couple);
+
+        couple = new ArrayList<Integer>(2);
+        couple.add(1);
+        couple.add(2);
+        answer.add(couple);
+
+        couple = new ArrayList<Integer>(2);
+        couple.add(1);
+        couple.add(3);
+        answer.add(couple);
+
+        assertEquals(answer, g.listCaseVide());
+    }
+
+    @Test
+    public void test_listUneColonne() {
+        g.setValue(0,0,1);
+
+        ArrayList answer = new ArrayList(2);
+        answer.add(1);
+        answer.add(-1);
+
+        assertEquals(answer, g.listUneCollone(0));
+    }
+
+    @Test
+    public void test_listUneLigne() {
+        g.setValue(0,0,1);
+
+        ArrayList answer = new ArrayList(2);
+        answer.add(1);
+        answer.add(-1);
+        answer.add(-1);
+        answer.add(-1);
+
+        assertEquals(answer, g.listUneLigne(0));
     }
 }

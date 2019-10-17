@@ -100,7 +100,7 @@ public class Grille {
 
     public boolean isColumnFull(int x)
     {
-        for (int i = 0; i < WIDTH; i++)
+        for (int i = 0; i < HEIGHT; i++)
         {
             if (grille[i][x] == -1)
                 return false;
@@ -110,9 +110,9 @@ public class Grille {
 
     public ArrayList<Integer> columnFilled()
     {
-        ArrayList<Integer> numList = new ArrayList<>(this.WIDTH);
+        ArrayList<Integer> numList = new ArrayList<>(this.HEIGHT);
 
-        for (int x = 0; x < WIDTH; x++)
+        for (int x = 0; x < HEIGHT; x++)
         {
             if (this.isColumnFull(x))
                 numList.add(x);
