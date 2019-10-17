@@ -386,6 +386,77 @@ public class Takuzu {
         return reponse;
     }
 
+    public void preRemplissage2() {
+        //1er ligne
+        play0(0,0);
+        play0(0,2);
+
+        //2e ligne
+        play0(1,0);
+
+        //3e ligne
+        play0(2,2);
+        play0(2,5);
+
+        //4e ligne
+        play1(3,1);
+
+        //5e ligne
+        play1(4,1);
+        play0(4,3);
+        play0(4,4);
+
+        //6e ligne
+        play1(5,3);
+    }
+
+    public static Takuzu getPreRemplissageAnswer2() {
+        Takuzu reponse = new Takuzu(6);
+
+        reponse.preRemplissage2();
+
+        //1er ligne
+        reponse.play1(0,1);
+        reponse.play0(0,3);
+        reponse.play1(0,4);
+        reponse.play1(0,5);
+
+        //2e ligne
+        reponse.play0(1,1);
+        reponse.play1(1,2);
+        reponse.play1(1,3);
+        reponse.play0(1,4);
+        reponse.play1(1,5);
+
+        //3e ligne
+        reponse.play1(2,0);
+        reponse.play0(2,1);
+        reponse.play1(2,3);
+        reponse.play1(2,4);
+
+        //4e ligne
+        reponse.play1(3,0);
+        reponse.play0(3,2);
+        reponse.play0(3,3);
+        reponse.play1(3,4);
+        reponse.play0(3,5);
+
+
+        //5e ligne
+        reponse.play0(4,0);
+        reponse.play1(4,2);
+        reponse.play1(4,5);
+
+        //6e ligne
+        reponse.play1(5,0);
+        reponse.play0(5,1);
+        reponse.play1(5,2);
+        reponse.play0(5,4);
+        reponse.play0(5,5);
+
+        return reponse;
+    }
+
     /**
      * Incrémente les variables Integer passer en arguments en fonction de la valeur int
      *
@@ -418,5 +489,26 @@ public class Takuzu {
             grille.setValue(ligne, colonne, 1);
         else
             System.err.println(inverse + "pas bonne valeur");
+    }
+
+    public boolean estTotalementRemplit() {
+        return grille.estTotalementRemplit();
+    }
+
+    public void metDansPremierCaseVide(int val)
+    {
+        for (int i = 0; i < grille.getHEIGHT(); i++)
+        {
+            for (int j = 0; j < grille.getWIDTH(); j++)
+            {
+                if (grille.getValue(j,i) == -1) {
+                    if (val == 1)
+                        play1(i,j);
+                    else if (val == 0)
+                        play0(i,j);
+                    break;
+                }
+            }
+        }
     }
 }

@@ -3,7 +3,7 @@ package main.Solveur.BruteForce;
 import main.Solveur.MaitreSolveur.MaitreSolveur;
 import main.Solveur.Solveur;
 import main.Takuzu;
-
+@SuppressWarnings("Duplicates")
 public class BruteForce implements Solveur {
 
     /**
@@ -16,49 +16,52 @@ public class BruteForce implements Solveur {
     @Override
     public boolean resoudre(Takuzu takuzu) {
 
+        MaitreSolveur lesAutresSolveur = new MaitreSolveur();
+
+        Takuzu taku = resoudre(takuzu,lesAutresSolveur);
+
+        //taku est une copie, reproduire taku sur this.
+
+        return taku.estGagnant();
+    }
+
+
+    private Takuzu resoudre(Takuzu takuzu, MaitreSolveur s)
+    {
+        s.resoudre(takuzu);
+        //Là il est bloqué
+
+        //début des hypothèses.
         Takuzu tak0, tak1;
-        int numLigne, numColonne;
-
-        //Utilisation des autres Solveur.
-        Solveur lesAutresSolveur = new MaitreSolveur();
-        lesAutresSolveur.resoudre(takuzu);
-
-        if (takuzu.estGagnant())
-            return true;
-        //else on continue
-
-
-        //là on est bloquer donc on commence à faire des hypothèses.
-        //hypothèse
-        numLigne = -1;
-        numColonne = -1;
         tak0 = takuzu.cloneTakuzu();
+        tak1 = takuzu.cloneTakuzu();
 
-        for (int i = 0; i < takuzu.getHeightGrille(); i++)
-        {
-            for (int j = 0; j < takuzu.getWidthGrille(); j++)
+        takuzu.metDansPremierCaseVide(0);
+        takuzu.metDansPremierCaseVide(1);
+
+        s.resoudre(tak0);
+        s.resoudre(tak1);
+        //Là il est encore bloqué
+
+        if (tak0.estTotalementRemplit()) {
+            if (tak0.estGagnant()) {
+                return tak0;
+            }
+            else {
+                resoudre(tak0, s);
+            }
+        }
+        else
             {
-                if (takuzu.getValue(j,i) == -1) {
-                    tak0.play0(i,j); //hypothèse : à cette case, il faut un 0 pour nous débloquer.
-                    numLigne = i;
-                    numColonne = j;
-                    break;
+            if (tak1.estTotalementRemplit()) {
+                if (tak1.estGagnant()) {
+                    return tak1;
+                }
+                else {
+                    resoudre(tak1, s);
                 }
             }
         }
-
-        //on reessaye de résoudre en utilisant les choses simples
-        lesAutresSolveur.resoudre(tak0);
-
-
-        if (tak0.estGagnant())
-            return true;//on a fait la bonne hypothèses
-        //else on a fait la mauvaise hypothèses
-        tak1 = takuzu.cloneTakuzu();
-        tak1.play1(numLigne,numColonne);
-        lesAutresSolveur.resoudre(tak0);
-        //et là, normalement, ça marche si on a besoin que d'1 seul hyppothèses.
-
-        return false;
+        return null;
     }
 }

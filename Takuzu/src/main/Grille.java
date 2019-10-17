@@ -155,6 +155,16 @@ public class Grille {
         return s1.toString().equals(s2.toString());
     }
 
+    public boolean estTotalementRemplit() {
+        for (int i = 0; i < HEIGHT; i++) {
+            for (int j = 0; j < WIDTH; j++) {
+                if (grille[i][j] == -1) return false;
+            }
+        }
+
+        return true;
+    }
+
     //TODO pour Mathieu
     //C'est pour refactor des trucs après ...
     /**
