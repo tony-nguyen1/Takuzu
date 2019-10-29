@@ -4,6 +4,12 @@ import main.Solveur.Solveur;
 import main.Takuzu;
 
 public class PatternCroix5 implements Solveur {
+    private boolean didSomething;
+
+    public PatternCroix5() {
+        this.didSomething = false;
+    }
+
     @Override
     public boolean resoudre(Takuzu takuzu) {
         int h1, h2, b1, b2, g1, g2, d1, d2, height, width;
@@ -76,8 +82,15 @@ public class PatternCroix5 implements Solveur {
                 }
             }
         }
-        //Comme tout à l'heure, j'ai changé pour un null (Boolean => Takuzu)
-        return false;
+        if (didSomething)
+        {
+            didSomething = false;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     /**
@@ -108,6 +121,7 @@ public class PatternCroix5 implements Solveur {
     {
         if (valInterieur == valExterieur & valInterieur != -1 & valExterieur != -1) {
             takuzu.playInverse(x,y,valInterieur);
+            didSomething = true;
         }
     }
 }
