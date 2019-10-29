@@ -188,4 +188,17 @@ public class Grille {
      */
     public LinkedList<Integer> listUneLigne(int uneLigne) { return null; }
 
+    public void remplirLigneDe(int numLigne, int val) {
+        for (int i = 0; i < WIDTH; i++) {
+            if (grille[numLigne][i] == -1)
+                setValue(numLigne, i, val);
+        }
+    }
+
+    public void remplirColonneDe(int numColonne, int val) {
+        for (int i = 0; i < WIDTH; i++) {
+            if (grille[i][numColonne] == -1)
+                setValue(i, numColonne, val);
+        }
+    }
 }

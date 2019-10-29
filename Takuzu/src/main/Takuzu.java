@@ -511,4 +511,12 @@ public class Takuzu {
             }
         }
     }
+
+    public void remplirLigneDe(int numLigne, int val) {
+        grille.remplirLigneDe(numLigne,val);
+    }
+
+    public void remplirColonneDe(int numColonne, int val) {
+        grille.remplirColonneDe(numColonne,val);
+    }
 }
