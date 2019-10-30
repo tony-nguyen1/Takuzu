@@ -1,7 +1,5 @@
 package main;
 
-import sun.awt.image.ImageWatched;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -188,17 +186,27 @@ public class Grille {
      */
     public LinkedList<Integer> listUneLigne(int uneLigne) { return null; }
 
-    public void remplirLigneDe(int numLigne, int val) {
+    public boolean remplirLigneDe(int numLigne, int val) {
+        boolean didSomething = false;
         for (int i = 0; i < WIDTH; i++) {
-            if (grille[numLigne][i] == -1)
+            if (grille[numLigne][i] == -1) {
                 setValue(numLigne, i, val);
+                didSomething = true;
+            }
         }
+
+        return didSomething;
     }
 
-    public void remplirColonneDe(int numColonne, int val) {
+    public boolean remplirColonneDe(int numColonne, int val) {
+        boolean didSomething = false;
         for (int i = 0; i < WIDTH; i++) {
-            if (grille[i][numColonne] == -1)
+            if (grille[i][numColonne] == -1) {
                 setValue(i, numColonne, val);
+                didSomething = true;
+            }
         }
+
+        return didSomething;
     }
 }

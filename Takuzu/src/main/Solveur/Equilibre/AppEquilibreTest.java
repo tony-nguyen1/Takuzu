@@ -18,9 +18,5 @@ public class AppEquilibreTest {
         sol.resoudre(takuzu);
 
         takuzu.affichage();
-
-        //System.out.println(takuzu.getValue(0,0));
-        //System.out.println(takuzu.getValue(0,2));
-
     }
 }

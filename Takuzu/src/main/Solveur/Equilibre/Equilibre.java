@@ -48,12 +48,10 @@ public class Equilibre implements Solveur {
             }
 
             if (nbDe0 == largeur/2) {
-                takuzu.remplirLigneDe(numLigne,1);
-                didSomething = true;
+                didSomething = takuzu.remplirLigneDe(numLigne,1);
             }
             else if (nbDe1 == largeur/2) {
-                takuzu.remplirLigneDe(numLigne,0);
-                didSomething = true;
+                didSomething = takuzu.remplirLigneDe(numLigne,0);
             }
         }
     }
@@ -83,12 +81,10 @@ public class Equilibre implements Solveur {
             }
 
             if (nbDe0 == largeur/2) {
-                takuzu.remplirColonneDe(numColonne,1);
-                didSomething = true;
+                didSomething = takuzu.remplirColonneDe(numColonne,1);
             }
             else if (nbDe1 == largeur/2) {
-                takuzu.remplirColonneDe(numColonne,0);
-                didSomething = true;
+                didSomething = takuzu.remplirColonneDe(numColonne,0);
             }
         }
     }

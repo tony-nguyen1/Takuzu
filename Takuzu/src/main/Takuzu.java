@@ -312,6 +312,12 @@ public class Takuzu {
         grille.setValue(ligne, colonne, 1);
     }
 
+    public int suppr(int ligne, int colonne) {
+        int val = grille.getValue(ligne,colonne);
+        grille.setValue(ligne,colonne,-1);
+        return val;
+    }
+
     /**
      * @pré-requis this doit avoir une grille "vide" et de taille 6x6.
      */
@@ -512,11 +518,11 @@ public class Takuzu {
         }
     }
 
-    public void remplirLigneDe(int numLigne, int val) {
-        grille.remplirLigneDe(numLigne,val);
+    public boolean remplirLigneDe(int numLigne, int val) {
+        return grille.remplirLigneDe(numLigne,val);
     }
 
-    public void remplirColonneDe(int numColonne, int val) {
-        grille.remplirColonneDe(numColonne,val);
+    public boolean remplirColonneDe(int numColonne, int val) {
+        return grille.remplirColonneDe(numColonne,val);
     }
 }
