@@ -1,10 +1,9 @@
-package main.Solveur.MaitreSolveur;
+package main.Solveur.Hypotheses;
 
-import main.Solveur.PatternCroix3.PatternCroix3;
 import main.Solveur.Solveur;
 import main.Takuzu;
 
-public class AppMaitreSolveurTest {
+public class AppHypotheses {
     public static void main(String[] args) {
         Takuzu takuzu = new Takuzu(6);
         takuzu.preRemplissage2();
@@ -15,9 +14,8 @@ public class AppMaitreSolveurTest {
         Takuzu rep = Takuzu.getPreRemplissageAnswer2();
         rep.affichage();
 
-        Solveur sol = new MaitreSolveur();
+        Solveur sol = new Hypotheses();
         sol.resoudre(takuzu);
-
 
         takuzu.affichage();
     }
