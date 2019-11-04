@@ -6,16 +6,19 @@ import main.Takuzu;
 import java.util.Deque;
 import java.util.LinkedList;
 
-public class Backtrack implements Solveur {
+public class Backtrack{
 
-    Takuzu takuzu;
     Deque<Takuzu> backupTakuzu;
+    int cpt = 0;
+    Takuzu gagnant = null;
 
-    public Backtrack(Takuzu takuzu) {
-        this.takuzu = takuzu;
+    public Backtrack() {
         backupTakuzu = new LinkedList<>();
     }
 
+    public Takuzu getGagnant() {
+        return gagnant;
+    }
 
     private void ajoutListe(Takuzu tak) {
         int column = tak.getGrille().getHEIGHT();
@@ -36,7 +39,6 @@ public class Backtrack implements Solveur {
         }
     }
 
-    @Override
     public boolean resoudre(Takuzu takuzu) {
         backupTakuzu.add(takuzu);
 
@@ -44,8 +46,19 @@ public class Backtrack implements Solveur {
             Takuzu takuzuBis = backupTakuzu.poll();
 
             if (takuzuBis.estGagnant()) {
-                //FIXME oups j'ai cassé qql chose
-                //return takuzuBis;
+                gagnant = backupTakuzu.poll();
+                /*
+                while (!backupTakuzu.isEmpty()) {
+                    backupTakuzu.poll();
+                    cpt++;
+                }
+
+
+                System.out.println(cpt);
+                takuzuBis.affichage();
+
+                */
+                return true;
             }
 
             //Si le Takuzu n'est pas valide, alors on arrete de chercher de ce côté, c-a-d que le while prochain ne sera pas "actif"
@@ -57,4 +70,6 @@ public class Backtrack implements Solveur {
         }
         return false;
     }
+
+
 }

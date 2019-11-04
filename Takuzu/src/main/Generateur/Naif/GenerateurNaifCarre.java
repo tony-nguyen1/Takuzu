@@ -10,8 +10,9 @@ import java.util.Random;
 
 public class GenerateurNaifCarre implements Generateur {
 
+    //Premier jet d'un générateur avec niveau de difficulté modulable
     @Override
-    public Takuzu generer(int taille, int difficulte) throws OddDimensionsGrilleException {
+    public Takuzu generer(int taille, int difficulte) {
         Grille grid = new Grille(taille, taille);
         Random rand = new Random();
 
@@ -22,18 +23,21 @@ public class GenerateurNaifCarre implements Generateur {
 
         Takuzu tak = new Takuzu(grid);
 
-        Backtrack backtrack = new Backtrack(tak);
-        //FIXME tak = backtrack.resoudre();
+        Backtrack backtrack = new Backtrack();
+        backtrack.resoudre(tak);
+        tak = backtrack.getGagnant();
+
+
 
         int dif = (difficulte * taille);
 
         while (dif > 0) {
+
             cote1 = rand.nextInt(taille);
             cote2 = rand.nextInt(taille);
             if (tak.getValue(cote1, cote2) != -1) {
                 tak.play(cote1, cote2, -1);
                 dif--;
-
             }
 
         }

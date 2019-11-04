@@ -9,11 +9,10 @@ public class AppBacktrack {
         Takuzu takuzu = new Takuzu(6);
         takuzu.play0(0, 0);
         takuzu.affichage();
-        System.out.println(takuzu.estValide());
 
-        Solveur solveur = new Backtrack(takuzu);
-        //FIXME takuzu = solveur.resoudre();
-        takuzu.affichage();
+        Backtrack backtrack = new Backtrack();
+        backtrack.resoudre(takuzu);
+        backtrack.getGagnant().affichage();
 
 
     }

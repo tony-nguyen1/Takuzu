@@ -22,12 +22,6 @@ public class Main {
 
         rep.affichage();
 
-        System.out.println("Grille row ok ?");
-        System.out.println(rep.checkAllRowAll());
-
-        System.out.println("Grille column ok ?");
-        System.out.println(rep.checkAllColumnAll());
-
         System.out.println("Takuzu gagnant ?");
         System.out.println(rep.estGagnant());
 

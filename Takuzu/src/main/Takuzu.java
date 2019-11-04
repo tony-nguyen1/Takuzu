@@ -7,18 +7,6 @@ public class Takuzu {
 
     public Takuzu(int i) {
         grille = new Grille(i, i);
-        /*
-        try {
-            grille = new Grille(i, i);
-        }
-        catch (OddDimensionsGrilleException e)
-        {
-            System.out.println("Grille creation has failed.");
-            System.err.println(e.getMessage());
-            e.printStackTrace();
-        }
-
-         */
     }
 
     //Nouveau constructeur que j'ai ajouté pour pouvoir utiliser une grille non vide >_>
@@ -34,11 +22,11 @@ public class Takuzu {
     public Grille getGrille() { return grille; }
 
     //Reimplémentation de la solution de dépannage xddd
-    public int getValue(int x, int y) {
-        if (x < 0 || x >= getHeightGrille() || y < 0 || y >= getWidthGrille()) {
+    public int getValue(int ligne, int colonne) {
+        if (ligne < 0 || ligne >= getHeightGrille() || colonne < 0 || colonne >= getWidthGrille()) {
             return -1;
         }
-        return grille.getValue(x, y);
+        return grille.getValue(ligne, colonne);
     }
 
     public int getHeightGrille() { return grille.getHEIGHT(); }
@@ -48,53 +36,29 @@ public class Takuzu {
     ///////////////////////////////////////////////////////////////////////////////////////////
     //                            ICI les règles du jeu
 
-    //FIXME
-    // 1.changer la strat, systeme de compteur dans Grille qui incrémente une variable
-    // 2.retirer la duplication de code avec checkRowBalance(int y)
-    /**
-     * @pré-requis la ligne x est déjà remplis
-     * Compare la ligne x avec les autres lignes remplit
-     *
-     * @param y the ligne that we compare to others ligne
-     * @return true si la ligne a un nombre de 0 et 1 égal, faux sinon
-     */
-    public boolean checkRowBalance(int y){
-        Integer nb0, nb1;
-        nb0 = new Integer(0);
-        nb1 = new Integer(0);
-
-        for (int x = 0; x < grille.getWIDTH(); x++)
-        {
-            checkAuxBalance(nb0,nb1,grille.getValue(y,x));
-        }
-
-        return nb0.equals(nb1);
-    }
 
     /**
-     * @pré-requis la ligne y est déjà remplis
-     * Compare la ligne y avec les autres lignes remplit
      *
-     * @param y the ligne that we compare to others ligne
-     * @return true si la ligne est unique, faux sinon
+     * Sert à verifier qu'il n'y a pas plus de 0 que de 1
+     *
      */
-    public boolean checkRowUnicite(int y, ArrayList<Integer> numList) {
-        //copie pour pouvoir la modifier sans modifier numList
-        ArrayList<Integer> numListCopy = new ArrayList<>(numList);
+    public boolean checkRowBalance(int y) {
+        int nb0 = 0, nb1 = 0;
+        for (int i = 0; i < getWidthGrille(); i++) {
 
-        //si y n'est pas la seul ligne remplit
-        if (!numListCopy.isEmpty())
-        {
-            numListCopy.remove(new Integer(y));//on remove y pour pas qu'une ligne se compare avec elle-même
-            //comparaison entre ligne d'index y et les autres lignes remplit
-            for (Integer integer : numListCopy)
-            {
-                if (this.grille.equals2Row(y, integer))
-                    return false;
+            if (getValue(y, i) == 0) {
+                nb0++;
             }
+            if (getValue(y, i) == 1) {
+                nb1++;
+            }
+        }
+        if (nb0 > getWidthGrille() / 2 || nb1 > getWidthGrille() / 2) {
+            return false;
         }
         return true;
     }
+
 
     //La meme fonction qu'en haut, mais en plus simple et plus pratique à utiliser
     public boolean checkRowUnicite(int ligne) {
@@ -111,142 +75,51 @@ public class Takuzu {
     }
 
     /**
-     * @pré-requis ligne d'index y remplis entièrement
-     *
-     * @param y la ligne qu'on compare aux autres lignes
-     * @return true ssi il n'y a que 2 chiffres identiques consécutifs
-     */
-    public boolean checkRowCoupleOnly(int y)
-    {
-        boolean hasNext = true;
-        int  previousValue, currentValue, nextValue, indiceX = 1;
-
-        do {
-            previousValue = grille.getValue(indiceX-1, y);
-            currentValue = grille.getValue(indiceX, y);
-            nextValue = grille.getValue(indiceX+1, y);
-
-            //3 valeurs à la suite identique
-            if (previousValue == currentValue & currentValue == nextValue) { return false; }
-
-            indiceX++;
-
-            if (indiceX == grille.getWIDTH()-2)  { hasNext = false; }//-1 car on commence à 0 et -1 pour finir juste avant
-        } while (hasNext);
-
-        return true;
-    }
-
-    /**
-     * Regarde toute les colonnes. Parmi celles qui sont remplit, dit c'est elles respectent les 3 règles.
-     * @return true, si les colonnes remplit respectent toutes les règles
-     */
-    public boolean checkAllRowAll()
-    {
-        ArrayList<Integer> numLigneRemplit = grille.rowFilled();
-        boolean balance, unicite, onlyCouple;
-
-        for (Integer num : numLigneRemplit)
-        {
-            balance = checkRowBalance(num);
-            if (!balance) return false;
-
-            unicite = checkRowUnicite(num, numLigneRemplit);
-            if (!unicite) return false;
-            //numLigneRemplit.remove(new Integer(num)); java.util.ConcurrentModificationException
-
-            onlyCouple = checkRowCoupleOnly(num);
-            if (!onlyCouple) return false;
-        }
-
-        return true;
-    }
-
-    public boolean checkAllColumnAll() {
-        ArrayList<Integer> numColumnRemplit = grille.columnFilled();
-        boolean balance, unicite, onlyCouple;
-
-        for (Integer num : numColumnRemplit) {
-            balance = checkColumnBalance(num);
-            if (!balance) return false;
-
-            unicite = checkColumnUnicite(num, numColumnRemplit);
-            if (!unicite) return false;
-
-            onlyCouple = checkColumnCoupleOnly(num);
-            if (!onlyCouple) return false;
-        }
-
-        return true;
-    }
-
-    //FIXME
-    // 1.changer la strat, systeme de compteur dans Grille qui incrémente une variable
-    // 2.retirer la duplication de code avec checkRowBalance(int y)
-    /**
      * @pré-requis la colonne x est déjà remplis
      * Compare la colonne x avec les autres colonne remplit
      *
      * @param x the column that we compare to others column
      * @return true si la colonne est unique, faux sinon
      */
+
+    //Grosso merdo j'ai refait la fonction, elle est meilleure dans le sens ou elle verifie également les takuzus non complet
     public boolean checkColumnBalance(int x){
-        Integer nb0, nb1;
-        nb0 = new Integer(0);
-        nb1 = new Integer(0);
-
-        for (int y = 0; y < grille.getWIDTH(); y++)
-        {
-            checkAuxBalance(nb0,nb1,grille.getValue(y,x));
-        }
-
-        return nb0.equals(nb1);
-    }
-
-    public boolean checkColumnUnicite(int x, ArrayList<Integer> numList) {
-        //copie pour pouvoir la modifier sans modifier numList
-        ArrayList<Integer> numListCopy = new ArrayList<>(numList);
-
-        //si y n'est pas la seul colonne remplit
-        if (!numListCopy.isEmpty())
-        {
-            numListCopy.remove(new Integer(x));//on remove x pour pas qu'une colonne se compare avec elle-même
-            //comparaison entre colonne d'index x et les autres colonnes remplit
-            for (Integer integer : numListCopy)
-            {
-                if (this.grille.equals2Column(x, integer))
-                    return false;
+        int nb0 = 0, nb1 = 0;
+        for (int i = 0; i < getWidthGrille(); i++){
+            //ligne , colonne
+            if (getValue(i, x) == 0){
+                nb0++;
+            }
+            if (getValue(i, x) == 1){
+                nb1++;
             }
         }
+        if (nb0 > getWidthGrille()/2 || nb1 > getWidthGrille()/2){
+            return false;
+        }
         return true;
     }
 
-    public boolean checkColumnCoupleOnly(int x)
-    {
-        boolean hasNext = true;
-        int  previousValue, currentValue, nextValue, indiceY = 1;
 
-        do {
-            previousValue = grille.getValue(x, indiceY-1);
-            currentValue = grille.getValue(x, indiceY);
-            nextValue = grille.getValue(x, indiceY+1);
-
-            //3 valeurs à la suite identique
-            if (previousValue == currentValue & currentValue == nextValue) { return false; }
-
-            indiceY++;
-
-            if (indiceY == grille.getHEIGHT()-2)  { hasNext = false; }//-1 car on commence à 0 et -1 pour finir juste avant
-        } while (hasNext);
+    //La meme fonction qu'en haut, mais en plus simple et plus pratique à utiliser
+    public boolean checkColumnUnicite(int ligne) {
+        for (int i = 0; i < this.getWidthGrille(); i++) {
+            if (i == ligne) {
+                continue;
+            }
+            if (this.getGrille().equals2Column(ligne, i)) {
+                return false;
+            }
+        }
 
         return true;
     }
 
-    //FIXME Nassim
+
     /**
      * Verifie si le Takuzu est valide ou non
      *
-     * @return
+     * @return vrai si valide
      */
     public boolean estValide() {
         for (int i = 0; i < getHeightGrille(); i++) {
@@ -272,13 +145,29 @@ public class Takuzu {
                 }
         }
 
+        for (int i = 0; i < getWidthGrille(); i++) {
+            if (grille.isColumnFull(i))
+                if (!checkColumnUnicite(i)) {
+                    return false;
+                }
+        }
+
+        for (int i = 0; i < getWidthGrille(); i++){
+            if (!checkColumnBalance(i)){
+                return false;
+            }
+            //Vu qu'un Takuzu est un carré, je me permet de faire ca
+            if (!checkRowBalance(i)){
+                return false;
+            }
+        }
 
         return true;
     }
 
 
     public boolean estGagnant() {
-        return checkAllRowAll() && checkAllColumnAll() && grille.columnFilled().size()==grille.getWIDTH() && grille.rowFilled().size()==grille.getHEIGHT();
+        return estValide() && estTotalementRemplit();
     }
 
     //                         FIN des règles du jeu
@@ -461,30 +350,6 @@ public class Takuzu {
         reponse.play0(5,5);
 
         return reponse;
-    }
-
-    /**
-     * Incrémente les variables Integer passer en arguments en fonction de la valeur int
-     *
-     * @param numberA
-     * @param numberB
-     */
-    public void checkAuxBalance(Integer numberA, Integer numberB, int value)
-    {
-        switch (value)
-        {
-            case 0:
-                numberA++;
-                break;
-            case 1:
-                numberB++;
-                break;
-            case -1:
-                //do nothing, case empty
-                break;
-            default:
-                throw new RuntimeException("Valeur non autorisé trouvé");
-        }
     }
 
     public void playInverse(int ligne, int colonne, int inverse)
