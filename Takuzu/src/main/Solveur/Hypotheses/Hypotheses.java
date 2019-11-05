@@ -29,36 +29,43 @@ public class Hypotheses implements Solveur {
         int[] infoHypothese;
 
         while (!backupTakuzu.isEmpty())
-            {
+        {
             foo = backupTakuzu.pollFirst();
-
+            foo.affichage();
             lesSolveursSimples.resoudre(takuzu);
 
             if (foo.estGagnant()) {
+                System.out.println("J'ai trouvé le gagnant");
                 return true;
             }
-            else if (foo.estValide()) {//mais pas gagnant
-                oof = foo.cloneTakuzu();
-                infoHypothese = faireUneHypothese(oof);
-                backupTakuzu.addFirst(oof);
-                backupHypotheses.addFirst(infoHypothese);
-            }
-            else {//foo est invalide
-                //"faire l'inverse"
-                //mais oof est le Takuzu juste en dessous dans la pile est celle où on a fait l'hypothèse
-                oof = backupTakuzu.pollFirst();
-                infoHypothese = backupHypotheses.pollFirst();
+            else {
+                System.out.println("Fait une hypothèse");
+                if (foo.estValide()) {//mais pas gagnant
+                    oof = foo.cloneTakuzu();
+                    backupTakuzu.addFirst(foo);
 
-                if (infoHypothese[0] == 0) {//si l'hypothèse était de mettre un 0, on fait l'inverse (car l'hypothèse était fausse)
-                    oof.play1(infoHypothese[1],infoHypothese[2]);//au même endroit
+                    infoHypothese = faireUneHypothese(oof);
+                    backupTakuzu.addFirst(oof);
+                    backupHypotheses.addFirst(infoHypothese);
                 }
-                else {
-                    oof.play0(infoHypothese[1], infoHypothese[2]);
-                }
+                else {//foo est invalide
+                    //"faire l'inverse"
+                    //mais oof est le Takuzu juste en dessous dans la pile est celle où on a fait l'hypothèse
+                    oof = backupTakuzu.pollFirst();
+                    infoHypothese = backupHypotheses.pollFirst();
 
-                backupTakuzu.addFirst(oof);
+                    if (infoHypothese[0] == 0) {//si l'hypothèse était de mettre un 0, on fait l'inverse (car l'hypothèse était fausse)
+                        oof.play1(infoHypothese[1],infoHypothese[2]);//au même endroit
+                    }
+                    else {
+                        oof.play0(infoHypothese[1], infoHypothese[2]);
+                    }
+
+                    backupTakuzu.addFirst(oof);
+                }
             }
         }
+        System.out.println("En dehors de la boucle");
         return false;
     }
 

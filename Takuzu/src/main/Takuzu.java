@@ -1,7 +1,7 @@
 package main;
 
 import java.util.ArrayList;
-
+//TODO implémenter le parttern stratégie pour créer des Takuzu pré-rempli
 public class Takuzu {
     private Grille grille;
 
@@ -53,10 +53,7 @@ public class Takuzu {
                 nb1++;
             }
         }
-        if (nb0 > getWidthGrille() / 2 || nb1 > getWidthGrille() / 2) {
-            return false;
-        }
-        return true;
+        return nb0 <= getWidthGrille() / 2 && nb1 <= getWidthGrille() / 2;
     }
 
 
@@ -94,10 +91,7 @@ public class Takuzu {
                 nb1++;
             }
         }
-        if (nb0 > getWidthGrille()/2 || nb1 > getWidthGrille()/2){
-            return false;
-        }
-        return true;
+        return nb0 <= getWidthGrille() / 2 && nb1 <= getWidthGrille() / 2;
     }
 
 
@@ -350,6 +344,30 @@ public class Takuzu {
         reponse.play0(5,5);
 
         return reponse;
+    }
+
+    public void preRemplissage3() {
+        //1er ligne
+        play0(0,1);
+        play0(0,5);
+
+        //2e ligne
+        play0(1,4);
+
+        //3e ligne
+        play1(2,0);
+        play1(2,3);
+
+        //4e ligne
+        play0(3,5);
+
+        //5e ligne
+        play1(4,3);
+        play1(4,4);
+
+        //6e ligne
+        play1(5,1);
+        play1(5,2);
     }
 
     public void playInverse(int ligne, int colonne, int inverse)
