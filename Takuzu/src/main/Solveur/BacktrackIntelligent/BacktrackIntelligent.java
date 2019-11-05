@@ -1,18 +1,19 @@
-package main.Solveur.Backtrack;
+package main.Solveur.BacktrackIntelligent;
 
-import main.Solveur.Solveur;
+import main.Solveur.Equilibre.Equilibre;
+import main.Solveur.EviteTriplet.EviteTriplet;
 import main.Takuzu;
 
 import java.util.Deque;
 import java.util.LinkedList;
 
-public class Backtrack{
+public class BacktrackIntelligent{
 
     Deque<Takuzu> backupTakuzu;
     int cpt = 0;
     Takuzu gagnant = null;
 
-    public Backtrack() {
+    public BacktrackIntelligent() {
         backupTakuzu = new LinkedList<>();
     }
 
@@ -40,18 +41,30 @@ public class Backtrack{
     }
 
     public boolean resoudre(Takuzu takuzu) {
+        Equilibre equilibre = new Equilibre();
+        EviteTriplet eviteTriplet = new EviteTriplet();
         backupTakuzu.add(takuzu);
 
         while (!backupTakuzu.isEmpty()) {
             Takuzu takuzuBis = backupTakuzu.poll();
-            //cpt++;
+            cpt++;
+
+            while (true){
+                boolean bool1, bool2;
+                bool1 = eviteTriplet.resoudre(takuzuBis);
+                bool2 = equilibre.resoudre(takuzuBis);
+                if (!bool1 && !bool2){
+                    break;
+                }
+
+            }
 
             if (takuzuBis.estGagnant()) {
                 gagnant = takuzuBis;
-                /*
+
                 System.out.println("Compteur " + cpt);
-                takuzuBis.affichage();
-                 */
+                //takuzuBis.affichage();
+
 
                 return true;
             }

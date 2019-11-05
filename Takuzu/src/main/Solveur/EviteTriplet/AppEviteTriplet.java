@@ -7,18 +7,17 @@ import main.Takuzu;
 public class AppEviteTriplet {
     public static void main(String[] args) {
 
-        Takuzu takuzu = new Takuzu(6);
-        takuzu.preRemplissage3();
+        Takuzu takuzu = new Takuzu(8);
+        takuzu.preRemplissage5();
         takuzu.affichage();
 
         Solveur e = new EviteTriplet();
 
+
         while (e.resoudre(takuzu)){
-            System.out.println("ok");
+            takuzu.affichage();
         }
 
-
-        takuzu.affichage();
 
 
     }
