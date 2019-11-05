@@ -7,6 +7,8 @@ import main.Solveur.Solveur;
 import main.Takuzu;
 
 public class MaitreSolveur implements Solveur {
+
+    int cpt = 0;
     /**
      * Applique les différents Solveur sauf ceux utilisant le brute force, jusqu'à ce qu'ils soient TOUS bloquer.
      *
@@ -27,6 +29,8 @@ public class MaitreSolveur implements Solveur {
         continuer = false;
 
         do {
+            cpt++;
+
             petiteCroixATravailler = petiteCroix.resoudre(takuzu);
             grandeCroixATravailler = grandeCroix.resoudre(takuzu);
             equilibreurATravailler = equilibreur.resoudre(takuzu);
@@ -34,7 +38,7 @@ public class MaitreSolveur implements Solveur {
             //ça a créer de nouvelles possiblités (peut-être)
             continuer = petiteCroixATravailler || grandeCroixATravailler || equilibreurATravailler;
         } while(continuer);
-
+        System.out.println(cpt);
         return true;
     }
 }

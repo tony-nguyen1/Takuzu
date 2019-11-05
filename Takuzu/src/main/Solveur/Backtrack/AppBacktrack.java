@@ -7,7 +7,7 @@ public class AppBacktrack {
     public static void main(String[] args) {
 
         Takuzu takuzu = new Takuzu(6);
-        takuzu.play0(0, 0);
+        takuzu.preRemplissage3();
         takuzu.affichage();
 
         Backtrack backtrack = new Backtrack();

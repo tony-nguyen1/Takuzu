@@ -46,7 +46,7 @@ public class Backtrack{
             Takuzu takuzuBis = backupTakuzu.poll();
 
             if (takuzuBis.estGagnant()) {
-                gagnant = backupTakuzu.poll();
+                gagnant = takuzuBis;
                 /*
                 while (!backupTakuzu.isEmpty()) {
                     backupTakuzu.poll();
