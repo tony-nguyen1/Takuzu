@@ -1,8 +1,7 @@
 package main.Solveur.MaitreSolveur;
 
 import main.Solveur.Equilibre.Equilibre;
-import main.Solveur.PatternCroix3.PatternCroix3;
-import main.Solveur.PatternCroix5.PatternCroix5;
+import main.Solveur.PatternCroix.PatternCroix;
 import main.Solveur.Solveur;
 import main.Takuzu;
 
@@ -16,27 +15,24 @@ public class MaitreSolveur implements Solveur {
      */
     @Override
     public boolean resoudre(Takuzu takuzu) {
-        Solveur petiteCroix, grandeCroix, equilibreur;
-        boolean petiteCroixATravailler, grandeCroixATravailler, equilibreurATravailler, continuer;
+        Solveur maCroix, equilibreur;
+        boolean maCroixATravailler, equilibreurATravailler, continuer;
 
-        petiteCroix = new PatternCroix3();
-        grandeCroix = new PatternCroix5();
+        maCroix = new PatternCroix();
         equilibreur = new Equilibre();
 
-        petiteCroixATravailler = false;
-        grandeCroixATravailler = false;
+        maCroixATravailler = false;
         equilibreurATravailler = false;
         continuer = false;
 
         do {
             cpt++;
 
-            petiteCroixATravailler = petiteCroix.resoudre(takuzu);
-            grandeCroixATravailler = grandeCroix.resoudre(takuzu);
-            equilibreurATravailler = equilibreur.resoudre(takuzu);
+            maCroixATravailler =  takuzu.seResoudre(maCroix);
+            equilibreurATravailler = takuzu.seResoudre(equilibreur);
 
             //ça a créer de nouvelles possiblités (peut-être)
-            continuer = petiteCroixATravailler || grandeCroixATravailler || equilibreurATravailler;
+            continuer = maCroixATravailler || equilibreurATravailler;
         } while(continuer);
         System.out.println(cpt);
         return true;

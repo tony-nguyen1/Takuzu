@@ -1,5 +1,7 @@
 package main;
 
+import main.Solveur.Solveur;
+
 import java.util.ArrayList;
 //TODO implémenter le parttern stratégie pour créer des Takuzu pré-rempli
 public class Takuzu {
@@ -408,4 +410,6 @@ public class Takuzu {
     public boolean remplirColonneDe(int numColonne, int val) {
         return grille.remplirColonneDe(numColonne,val);
     }
+
+    public boolean seResoudre(Solveur unSolveur) { return unSolveur.resoudre(this); }
 }

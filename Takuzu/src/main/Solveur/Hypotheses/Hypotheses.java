@@ -25,30 +25,31 @@ public class Hypotheses implements Solveur {
     @Override
     public boolean resoudre(Takuzu takuzu) {
         backupTakuzu.add(takuzu);
-        Takuzu foo, oof;
+        Takuzu takuzuCourant, oof;
         int[] infoHypothese;
 
         while (!backupTakuzu.isEmpty())
         {
-            foo = backupTakuzu.pollFirst();
-            foo.affichage();
+            takuzuCourant = backupTakuzu.pollFirst();
+            takuzuCourant.affichage();
+            System.out.println("J'essaie de le résoudre normalement");
             lesSolveursSimples.resoudre(takuzu);
 
-            if (foo.estGagnant()) {
+            if (takuzuCourant.estGagnant()) {
                 System.out.println("J'ai trouvé le gagnant");
                 return true;
             }
             else {
                 System.out.println("Fait une hypothèse");
-                if (foo.estValide()) {//mais pas gagnant
-                    oof = foo.cloneTakuzu();
-                    backupTakuzu.addFirst(foo);
+                if (takuzuCourant.estValide()) {//mais pas gagnant
+                    oof = takuzuCourant.cloneTakuzu();
+                    backupTakuzu.addFirst(takuzuCourant);
 
                     infoHypothese = faireUneHypothese(oof);
                     backupTakuzu.addFirst(oof);
                     backupHypotheses.addFirst(infoHypothese);
                 }
-                else {//foo est invalide
+                else {//takuzuCourant est invalide
                     //"faire l'inverse"
                     //mais oof est le Takuzu juste en dessous dans la pile est celle où on a fait l'hypothèse
                     oof = backupTakuzu.pollFirst();
@@ -89,11 +90,12 @@ public class Hypotheses implements Solveur {
         valeur = rand.nextInt(2); //0 <= valeur < 2
         coordonee = trouverAleaCaseVide(takuzu);
 
+        //valeur = 0 ou valeur = 1   sûr à 100%
         if (valeur == 0)
         {
             takuzu.play0(coordonee[0],coordonee[1]);
         }
-        if (valeur == 1)
+        else //if (valeur == 1)
         {
             takuzu.play1(coordonee[0],coordonee[1]);
         }

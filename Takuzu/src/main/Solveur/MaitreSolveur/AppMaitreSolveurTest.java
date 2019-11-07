@@ -1,6 +1,5 @@
 package main.Solveur.MaitreSolveur;
 
-import main.Solveur.PatternCroix3.PatternCroix3;
 import main.Solveur.Solveur;
 import main.Takuzu;
 
@@ -17,6 +16,7 @@ public class AppMaitreSolveurTest {
 
         Solveur sol = new MaitreSolveur();
         sol.resoudre(takuzu);
+        takuzu.seResoudre(sol);
 
 
         takuzu.affichage();
