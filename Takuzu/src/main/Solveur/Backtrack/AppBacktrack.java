@@ -12,8 +12,8 @@ public class AppBacktrack {
 
         Backtrack backtrack = new Backtrack();
         backtrack.resoudre(takuzu);
-        backtrack.getGagnant().affichage();
 
+        backtrack.getGagnant().affichage();
 
     }
 }

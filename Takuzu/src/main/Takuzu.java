@@ -372,6 +372,30 @@ public class Takuzu {
         play1(5,2);
     }
 
+    public void preRemplissage4() {
+        //C'est tellement simple qu'on doit foutre des 8*8 maintenant xdd
+        play0(0, 1);
+        play1(1, 2);
+        play0(2, 4);
+        play0(2, 7);
+        play0(4, 3);
+        play1(4, 6);
+        play0(5, 1);
+        play0(5, 3);
+        play1(6, 2);
+        play1(6, 6);
+        play0(7, 4);
+        play1(7, 6);
+        play1(7, 7);
+    }
+
+    public void preRemplissage5() {
+        play0(0, 0);
+        play0(0, 1);
+        play0(0, 4);
+        play1(0, 6);
+    }
+
     public void playInverse(int ligne, int colonne, int inverse)
     {
         if (inverse == 1)
