@@ -8,7 +8,7 @@ public class AppTestFacile {
     public static void main(String[] args) throws OddDimensionsGrilleException {
         Generateur g = new GenerateurTakuzuFacile();
 
-        Takuzu takuzuFacile = g.generer(1,1);//FIXME pk j'ai due mettre (1,1) ? Régler le pb avec l'interface
+        Takuzu takuzuFacile = g.generer();
 
         takuzuFacile.affichage();
         //des fois la grille générer est particulierement simple ...

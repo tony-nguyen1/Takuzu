@@ -10,14 +10,9 @@ import main.Solveur.MaitreSolveur.MaitreSolveur;
 public class Main {
 
     public static void main(String[] args) {
-       Takuzu takuzu = new Takuzu(6);
-       takuzu.preRemplissage();
-       takuzu.seResoudre(new MaitreSolveur());
+       Takuzu takuzu = new Takuzu(14);
+       takuzu.preRemplissagePourBenchMarkEntreNous();
+       //takuzu.seResoudre(new MaitreSolveur());
        takuzu.affichage();
-
-       System.out.println("\nRéponse");
-       Takuzu rep = Takuzu.getPreRemplissageAnswer();
-
-       rep.affichage();
     }
 }

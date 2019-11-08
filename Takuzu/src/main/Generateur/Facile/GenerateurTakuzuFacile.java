@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class GenerateurTakuzuFacile implements Generateur {
     @Override
-    public Takuzu generer(int taille, int difficulte) throws OddDimensionsGrilleException {
+    public Takuzu generer() throws OddDimensionsGrilleException { //FIXME faire un parcours total de toutes les cases pour être sûr de bien enlever tous ce qui faut.
         int abscisse, ordonnee, valeurEnlever;
         boolean reussitEnleverValeur;
         Takuzu takuzuResolut, foo;

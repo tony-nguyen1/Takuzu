@@ -1,25 +1,25 @@
 package main.Solveur.Hypotheses;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
-import main.Solveur.Solveur;
+
 import main.Takuzu;
 
 public class AppHypotheses {
     public static void main(String[] args) {
-        Takuzu takuzu = new Takuzu(6);
-        takuzu.preRemplissage3();
+        Takuzu takuzu = new Takuzu(14);
+        takuzu.preRemplissagePourBenchMarkEntreNous();
 
+        System.out.println("Dans le main");
         takuzu.affichage();
 /*
         System.out.println("\nRéponse");
         Takuzu rep = Takuzu.getPreRemplissageAnswer2();
         rep.affichage();
 */
-        Solveur sol = new Hypotheses();
-        sol.resoudre(takuzu);
+        long startTime = System.currentTimeMillis();
+        takuzu.seResoudre(new Hypotheses());
+        long endTime = System.currentTimeMillis();
+        System.out.println("Total execution time: " + (endTime-startTime) + "ms");
 
-        System.out.println("Je suis dehors");
-        System.out.println("Voilà où on peut arriver sans faire d'hypothèses :");
-        takuzu.affichage();
+        System.out.println("Fin du programme");
     }
 }

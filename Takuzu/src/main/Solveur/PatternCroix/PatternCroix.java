@@ -25,15 +25,12 @@ public class PatternCroix implements Solveur {
             for (int j = 0; j < width; j++)
             {
                 if (takuzu.getValue(j,i) == -1) {
-                    // si les indices fait que la croix dépasse du tableau, on simule des cases vides
-                    //sinon on met la bonne valeur
-
+                    //on récupère les valeurs des cases autours
                     h1 = takuzu.getValue(j, i-1);
                     h2 = takuzu.getValue(j, i-2);
 
                     b1 = takuzu.getValue(j, i+1);
                     b2 = takuzu.getValue(j,i+2);
-
 
                     g1 = takuzu.getValue(j-1,i);
                     g2 = takuzu.getValue(j-2,i);
@@ -42,7 +39,7 @@ public class PatternCroix implements Solveur {
                     d2 = takuzu.getValue(j + 2, i);
 
                     grdCroixATravailler = croix5(h1,h2,b1,b2,g1,g2,d1,d2,j,i,takuzu);
-
+                    //si ce pattern n'a rien fait, alors on prit pour que l'autre fait qql chose
                     if (!grdCroixATravailler) {
                         //petiteCroixATravailler =
                         croix3(h1,b1,g1,d1,j,i,takuzu);

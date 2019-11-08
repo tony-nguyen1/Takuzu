@@ -8,8 +8,8 @@ public class AppTestGeneration {
 
     public static void main (String[] args) throws OddDimensionsGrilleException {
         Takuzu takuzu;
-        Generateur generateur = new GenerateurNaifCarre();
+        /*Generateur generateur = new GenerateurNaifCarre();
         takuzu = generateur.generer(6, 1);
-        takuzu.affichage();
+        takuzu.affichage();*/
     }
 }
