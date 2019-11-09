@@ -209,4 +209,44 @@ public class Grille {
 
         return didSomething;
     }
+
+    public int[] trouver1erCaseVide() {
+        for (int ord = 0; ord < HEIGHT; ord++) {
+            for (int abs = 0; abs < WIDTH; abs++) {
+
+                if (this.getValue(ord, abs) == -1) {
+                    return new int[]{ord, abs};
+                }
+            }
+        }
+        return null;
+    }
+
+    public boolean remplirLaDifference(Grille uneGrille) {
+
+        //1er étape : vérification que "this" est un sous-ensemble de unTakuzu
+        //même dimension ?
+        if (uneGrille.HEIGHT != this.HEIGHT || uneGrille.WIDTH != this.WIDTH) {
+            return false;//throw new RuntimeException("Pas la même grille");
+        }
+
+        //même valeur ?
+        for (int i = 0; i < HEIGHT; i++) {
+            for (int j = 0; j < WIDTH; j++) {
+                if (this.getValue(i, j) != -1) {
+                    if (uneGrille.getValue(i, j) != this.getValue(i, j))
+                        return false;
+                }
+            }
+        }
+
+        //2e étape
+        //identique donc on peut recopier les cases de unTakuzu dans this
+        for (int i = 0; i < HEIGHT; i++) {
+            for (int j = 0; j < WIDTH; j++) {
+                this.setValue(i,j,uneGrille.getValue(i,j));
+            }
+        }
+        return true;
+    }
 }

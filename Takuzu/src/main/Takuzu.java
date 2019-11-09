@@ -532,4 +532,12 @@ public class Takuzu {
             }
         }
     }
+
+    public int[] trouver1erCaseVide() {
+        return grille.trouver1erCaseVide();
+    }
+
+    public boolean remplirLaDifference(Takuzu unTakuzu) {
+        return grille.remplirLaDifference(unTakuzu.getGrille());
+    }
 }

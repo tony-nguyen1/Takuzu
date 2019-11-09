@@ -48,8 +48,7 @@ public class Hypotheses implements Solveur {
             {
                 if (takuzuCourant.estTotalementRemplit()) {
                     System.out.println("J'ai trouvé le gagnant");
-                    System.out.println("Voici le gagant -->");
-                    takuzuCourant.affichage();
+                    takuzu.remplirLaDifference(takuzuCourant);
                     sortie = true;
                 } else {//mais pas gagnant
                     //System.out.println("Pas encore gagnant");
@@ -75,26 +74,14 @@ public class Hypotheses implements Solveur {
             }
         }
         System.out.println("En dehors de la boucle");
-        System.out.println(cpt);
+        System.out.println("tour de boucle : " + cpt);
         return sortie;
-    }
-
-    private int[] trouverAleaCaseVide(Takuzu takuzu) {
-        for (int ord = 0; ord < takuzu.getHeightGrille(); ord++) {
-            for (int abs = 0; abs < takuzu.getWidthGrille(); abs++) {
-
-                if (takuzu.getValue(ord, abs) == -1) {
-                    return new int[]{ord, abs};
-                }
-            }
-        }
-        return null;
     }
 
     private int[] faireUneHypothese(Takuzu takuzu) {
         int[] coordonee;
 
-        coordonee = trouverAleaCaseVide(takuzu);
+        coordonee = takuzu.trouver1erCaseVide();
         takuzu.play0(coordonee[0],coordonee[1]);
 
         return coordonee;

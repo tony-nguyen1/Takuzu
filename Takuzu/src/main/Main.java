@@ -12,7 +12,8 @@ public class Main {
     public static void main(String[] args) {
        Takuzu takuzu = new Takuzu(14);
        takuzu.preRemplissagePourBenchMarkEntreNous();
-       //takuzu.seResoudre(new MaitreSolveur());
+
+
        takuzu.affichage();
     }
 }
