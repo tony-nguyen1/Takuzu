@@ -513,7 +513,7 @@ public class Takuzu {
 
     public boolean seResoudre(Solveur unSolveur) { return unSolveur.resoudre(this); }
 
-    public static Takuzu genererUnTakuzu(Generateur unGenerateur) throws OddDimensionsGrilleException {
+    public static Takuzu genererUnTakuzu(Generateur unGenerateur) {
         return unGenerateur.generer();
     }
 

@@ -1,7 +1,6 @@
 package Solveur;
 
 import main.Solveur.PatternCroix.PatternCroix;
-import main.Solveur.Solveur;
 import main.Takuzu;
 import org.junit.jupiter.api.Test;
 

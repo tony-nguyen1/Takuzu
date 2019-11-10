@@ -163,28 +163,6 @@ public class Grille {
         return true;
     }
 
-    //TODO pour Mathieu
-    //C'est pour refactor des trucs après ...
-    /**
-     * Crée une liste de toutes les cases vides.
-     * La linkedList contient toutes les coordonnées.
-     * La arrayList contient la coordonnée x et y.
-     *
-     * @return les coordonnées de toutes les cases vides, return null si il n'y en a pas
-     */
-    public LinkedList<ArrayList<Integer>> listCaseVide() { return null; }
-    /**
-     * Crée une nouvelle liste et y recopie toutes les valeurs d'une colonne;
-     * @param uneColonne
-     * @return
-     */
-    public LinkedList<Integer> listUneCollone(int uneColonne) { return null; }
-    /**
-     * Crée une nouvelle liste et y recopie toutes les valeurs d'une ligne;
-     * @param uneLigne
-     * @return
-     */
-    public LinkedList<Integer> listUneLigne(int uneLigne) { return null; }
 
     public boolean remplirLigneDe(int numLigne, int val) {
         boolean didSomething = false;

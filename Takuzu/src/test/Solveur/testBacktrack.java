@@ -1,4 +1,4 @@
-package test.Solveur;
+package Solveur;
 
 import org.junit.jupiter.api.Test;
 
