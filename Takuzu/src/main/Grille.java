@@ -1,11 +1,8 @@
 package main;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 
 import static main.IHM.IHM.special;
-//TODO faire listCaseVide, listUneCollone, listUneLigne
 public class Grille {
     private int[][] grille;
     private final int HEIGHT;
@@ -80,22 +77,6 @@ public class Grille {
         return true;
     }
 
-    /**
-     * Recherche et renvoie les numéros de lignes pleines
-     * @return une ArrayList
-     */
-    public ArrayList<Integer> rowFilled()
-    {
-        ArrayList<Integer> numList = new ArrayList<>(this.HEIGHT);
-
-        for (int y = 0; y < HEIGHT; y++)
-        {
-            if (this.isRowFull(y))
-                numList.add(y);
-        }
-        return numList;
-    }
-
     public boolean isColumnFull(int x)
     {
         for (int i = 0; i < HEIGHT; i++)
@@ -104,18 +85,6 @@ public class Grille {
                 return false;
         }
         return true;
-    }
-
-    public ArrayList<Integer> columnFilled()
-    {
-        ArrayList<Integer> numList = new ArrayList<>(this.HEIGHT);
-
-        for (int x = 0; x < HEIGHT; x++)
-        {
-            if (this.isColumnFull(x))
-                numList.add(x);
-        }
-        return numList;
     }
 
     /**

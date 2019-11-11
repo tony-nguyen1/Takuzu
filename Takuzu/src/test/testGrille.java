@@ -84,24 +84,6 @@ public class testGrille {
     }
 
     @Test
-    public void test_if_rowFilled_works()
-    {
-        //remplissage 1er ligne de 0
-        g.setValue(0,0,0);
-        g.setValue(1,0,1);
-        //remplissage 2e ligne de 1
-        g.setValue(1,1,1);
-        g.setValue(0,1,1);
-
-        ArrayList<Integer> answer = new ArrayList<>();
-        answer.add(0);
-        answer.add(1);
-
-        assertEquals(answer, g.rowFilled());
-    }
-
-
-    @Test
     public void test_equals2Column_with_same_colomn() {
         g.fill(0);
 
@@ -156,35 +138,5 @@ public class testGrille {
     public void test_isColumnFull_when_grille_is_empty() {
         assertFalse(g.isRowFull(0));
         assertFalse(g.isRowFull(1));
-    }
-
-    @Test
-    public void test_columnFilled_when_grille_is_full() {
-        g.fill(0);
-
-        ArrayList<Integer> answer = new ArrayList<>(2);
-        answer.add(0);
-        answer.add(1);
-
-        assertEquals(answer,g.columnFilled());
-    }
-
-    @Test
-    public void test_columnFilled_when_grille_is_empty() {
-        ArrayList<Integer> answer = new ArrayList<>(2);
-
-        assertEquals(answer,g.columnFilled());
-    }
-
-    @Test
-    public void test_columnFilled_when_grille_is_half_empty() {
-        g.setValue(0,0,1);
-        g.setValue(1, 0, 0);
-
-        ArrayList<Integer> answer = new ArrayList<>(2);
-        answer.add(0);
-
-
-        assertEquals(answer,g.columnFilled());
     }
 }

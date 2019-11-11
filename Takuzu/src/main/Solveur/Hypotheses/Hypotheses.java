@@ -23,7 +23,7 @@ public class Hypotheses implements Solveur {
         this.backupHypotheses = new ArrayDeque<>();
     }
 
-    @Override //FIXME pour des Takuzu Facile, il passe 30 sur le même sans le changer ...
+    @Override
     public boolean resoudre(Takuzu takuzu) {
         takuzuInitiale = takuzu;
         backupTakuzu.add(takuzu.cloneTakuzu());

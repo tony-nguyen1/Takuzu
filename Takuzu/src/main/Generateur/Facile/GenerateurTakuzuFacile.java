@@ -18,17 +18,6 @@ public class GenerateurTakuzuFacile implements Generateur {
     private int largeur;
     private Takuzu takuzuResolut;
 
-    /*public GenerateurTakuzuFacile() {
-        this.abs = 0;
-        this.ord = 0;
-        this.nbCaseRandomASupprimer = 20;
-        this.rand = new Random();
-        this.lesSolveursSimples = new MaitreSolveur();
-        this.takuzuResolut = Takuzu.getPreRemplissageAnswer2();
-        this.hauteur = this.takuzuResolut.getHeightGrille();
-        this.largeur = this.takuzuResolut.getWidthGrille();
-    }*/
-
     public GenerateurTakuzuFacile(int nbCaseASupprimerAleatoirement, Takuzu takuzuGanant) {
         this.abs = 0;
         this.ord = 0;
@@ -166,7 +155,7 @@ public class GenerateurTakuzuFacile implements Generateur {
         return unTakuzu;
     }
 
-    private boolean verifierSiPeutRésoudreLogiquement(Takuzu unTakuzu) {
+    private boolean verifierSiPeutResoudreLogiquement(Takuzu unTakuzu) {
         Takuzu foo = unTakuzu.cloneTakuzu();
         foo.seResoudre(lesSolveursSimples);
 

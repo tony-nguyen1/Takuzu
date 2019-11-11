@@ -14,6 +14,7 @@ public class testGenerateurTakuzuFacile {
     {
         Takuzu takuzuFacile = Takuzu.genererUnTakuzu(new GenerateurTakuzuFacile(20, Takuzu.getPreRemplissageAnswer2()));
         takuzuFacile.affichage();
+        assertTrue(takuzuFacile.estValide());
 
         takuzuFacile.seResoudre(new MaitreSolveur());
         takuzuFacile.affichage();

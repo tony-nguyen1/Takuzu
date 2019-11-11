@@ -1,11 +1,8 @@
 package main;
 
-import main.CustomsExceptions.OddDimensionsGrilleException;
 import main.Generateur.Generateur;
 import main.Solveur.Solveur;
 
-import java.util.ArrayList;
-//TODO implémenter le parttern stratégie pour créer des Takuzu pré-rempli
 public class Takuzu {
     private Grille grille;
 
@@ -180,7 +177,12 @@ public class Takuzu {
         grille.affichageGraphique();
     }
 
-    //Faudra optimiser ca, bref, ca sert a faire une deep copy
+    //FIXME optimiser ça
+    /**
+     * Crée une deep copie de this.
+     *
+     * @return un Takuzu
+     */
     public Takuzu cloneTakuzu() {
         Grille grilleBis = new Grille(this.getWidthGrille(), getHeightGrille());
         for (int i = 0; i < this.getHeightGrille(); i++) {
@@ -517,7 +519,7 @@ public class Takuzu {
         return unGenerateur.generer();
     }
 
-    public void completerLaDifference(Takuzu unTakuzuPlein) {
+    public void completerLaDifference(Takuzu unTakuzuPlein) {//TODO transférrer ça dans Grille.java
         int val;
         for (int i = 0; i < unTakuzuPlein.getHeightGrille(); i++) {
             for (int j = 0; j < unTakuzuPlein.getWidthGrille(); j++) {
@@ -525,7 +527,7 @@ public class Takuzu {
                 if (this.getValue(i,j) == -1) {
                     if (val == 0) {
                         this.play0(i, j);
-                    } else {
+                    } else if (val == 1){
                         this.play1(i, j);
                     }
                 }

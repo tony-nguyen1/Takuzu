@@ -2,10 +2,9 @@ package main;
 
 //TODO
 // -tests
-// -Résolveur
+// -générateur
+// -IHM
 
-import main.Solveur.Equilibre.Equilibre;
-import main.Solveur.MaitreSolveur.MaitreSolveur;
 import main.Solveur.PatternCroix.PatternCroix;
 
 public class Main {
