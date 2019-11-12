@@ -2,12 +2,13 @@ package main.Solveur.BacktrackIntelligent;
 
 import main.Solveur.Equilibre.Equilibre;
 import main.Solveur.EviteTriplet.EviteTriplet;
+import main.Solveur.Solveur;
 import main.Takuzu;
 
 import java.util.Deque;
 import java.util.LinkedList;
 
-public class BacktrackIntelligent{
+public class BacktrackIntelligent implements Solveur {
 
     Deque<Takuzu> backupTakuzu;
     int cpt = 0;
@@ -22,10 +23,20 @@ public class BacktrackIntelligent{
     }
 
     private void ajoutListe(Takuzu tak) {
-        int column = tak.getGrille().getHEIGHT();
-        int row = tak.getGrille().getWIDTH();
+        //int column = tak.getGrille().getHEIGHT();
+        //int row = tak.getGrille().getWIDTH();
+        int[] coord;
 
-        for (int i = 0; i < row; i++) {
+        coord = tak.trouver1erCaseVide();
+
+        Takuzu tak0 = tak.cloneTakuzu();
+        Takuzu tak1 = tak.cloneTakuzu();
+        tak0.play0(coord[0],coord[1]);
+        tak1.play1(coord[0],coord[1]);
+        backupTakuzu.add(tak0);
+        backupTakuzu.add(tak1);
+
+        /*for (int i = 0; i < row; i++) {
             for (int j = 0; j < column; j++) {
                 if (tak.getValue(i, j) == -1) {
                     Takuzu tak0 = tak.cloneTakuzu();
@@ -37,13 +48,16 @@ public class BacktrackIntelligent{
                     return;
                 }
             }
-        }
+        }*/
+
+
     }
 
+    @Override
     public boolean resoudre(Takuzu takuzu) {
         Equilibre equilibre = new Equilibre();
         EviteTriplet eviteTriplet = new EviteTriplet();
-        backupTakuzu.add(takuzu);
+        backupTakuzu.add(takuzu.cloneTakuzu());
 
         while (!backupTakuzu.isEmpty()) {
             Takuzu takuzuBis = backupTakuzu.poll();
@@ -63,8 +77,7 @@ public class BacktrackIntelligent{
                 gagnant = takuzuBis;
 
                 System.out.println("Compteur " + cpt);
-                //takuzuBis.affichage();
-
+                takuzu.remplirLaDifference(takuzuBis);
 
                 return true;
             }
@@ -78,6 +91,4 @@ public class BacktrackIntelligent{
         }
         return false;
     }
-
-
 }

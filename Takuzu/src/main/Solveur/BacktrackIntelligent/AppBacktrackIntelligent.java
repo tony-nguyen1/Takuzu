@@ -9,18 +9,15 @@ public class AppBacktrackIntelligent {
     public static void main(String[] args) {
 
         Takuzu takuzu = new Takuzu(14);
-        //takuzu.play0(0, 0);
         takuzu.preRemplissagePourBenchMarkEntreNous();
         takuzu.affichage();
 
-        BacktrackIntelligent b = new BacktrackIntelligent();
 
         long startTime = System.currentTimeMillis();
-        b.resoudre(takuzu);
+        takuzu.seResoudre(new BacktrackIntelligent());
         long endTime = System.currentTimeMillis();
         System.out.println("Total execution time: " + (endTime-startTime) + "ms");
 
-        b.getGagnant().affichage();
-        //takuzu.seResoudre(new BacktrackIntelligent());
+        takuzu.affichage();
     }
 }

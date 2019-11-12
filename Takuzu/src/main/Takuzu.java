@@ -488,23 +488,6 @@ public class Takuzu {
         return grille.estTotalementRemplit();
     }
 
-    public void metDansPremierCaseVide(int val)
-    {
-        for (int i = 0; i < grille.getHEIGHT(); i++)
-        {
-            for (int j = 0; j < grille.getWIDTH(); j++)
-            {
-                if (grille.getValue(j,i) == -1) {
-                    if (val == 1)
-                        play1(i,j);
-                    else if (val == 0)
-                        play0(i,j);
-                    break;
-                }
-            }
-        }
-    }
-
     public boolean remplirLigneDe(int numLigne, int val) {
         return grille.remplirLigneDe(numLigne,val);
     }
@@ -517,22 +500,6 @@ public class Takuzu {
 
     public static Takuzu genererUnTakuzu(Generateur unGenerateur) {
         return unGenerateur.generer();
-    }
-
-    public void completerLaDifference(Takuzu unTakuzuPlein) {//TODO transférrer ça dans Grille.java
-        int val;
-        for (int i = 0; i < unTakuzuPlein.getHeightGrille(); i++) {
-            for (int j = 0; j < unTakuzuPlein.getWidthGrille(); j++) {
-                val = unTakuzuPlein.getValue(i,j);
-                if (this.getValue(i,j) == -1) {
-                    if (val == 0) {
-                        this.play0(i, j);
-                    } else if (val == 1){
-                        this.play1(i, j);
-                    }
-                }
-            }
-        }
     }
 
     public int[] trouver1erCaseVide() {

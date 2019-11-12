@@ -13,7 +13,6 @@ public class Hypotheses implements Solveur {
     private Solveur lesSolveursSimples;
     private Deque<Takuzu> backupTakuzu;
     private Deque<int[]> backupHypotheses;
-    private Takuzu takuzuInitiale;
 
 
     public Hypotheses() {
@@ -25,13 +24,13 @@ public class Hypotheses implements Solveur {
 
     @Override
     public boolean resoudre(Takuzu takuzu) {
-        takuzuInitiale = takuzu;
         backupTakuzu.add(takuzu.cloneTakuzu());
         Takuzu takuzuCourant, takuzuSuivant, takuzuPrecedent;
         int[] infoHypothese;
         boolean sortie;
-        int cpt = 0;
+        int cpt;
 
+        cpt = 0;
         sortie = false;
 
         System.out.println("Dans la fonction");

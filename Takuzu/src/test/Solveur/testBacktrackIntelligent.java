@@ -1,13 +1,13 @@
 package Solveur;
 
-import main.Solveur.Hypotheses.Hypotheses;
+import main.Solveur.BacktrackIntelligent.BacktrackIntelligent;
 import main.Takuzu;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class testHypotheses {
+public class testBacktrackIntelligent {
     @Test
     public void test_if_resoudre_works() {
         Takuzu unTakuzu = new Takuzu(14);
@@ -16,7 +16,7 @@ public class testHypotheses {
         assertFalse(unTakuzu.estGagnant());
 
         long startTime = System.currentTimeMillis();
-        unTakuzu.seResoudre(new Hypotheses());
+        unTakuzu.seResoudre(new BacktrackIntelligent());
         long endTime = System.currentTimeMillis();
 
         unTakuzu.affichage();

@@ -5,6 +5,7 @@ import main.Takuzu;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class testPatternCroix {
     @Test
@@ -28,7 +29,10 @@ public class testPatternCroix {
         unTakuzu.play0(0,4);
         //unTakuzu.affichage();
 
+
+        assertFalse(unTakuzu.estGagnant());
         unTakuzu.seResoudre(new PatternCroix());
+        assertFalse(unTakuzu.estGagnant());
 
         unTakuzu.affichage();
 
