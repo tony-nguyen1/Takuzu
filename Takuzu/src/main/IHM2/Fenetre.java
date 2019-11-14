@@ -67,8 +67,31 @@ public class Fenetre extends JFrame{
                     JButton bouton = new JButton();//création d'un bouton si pas de valeur
                     pan.add(bouton); //ajout du bouton dans le pan
                     bouton.setContentAreaFilled(false);
+                    bouton.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mouseClicked(MouseEvent e) {
+                            JLabel label = new JLabel();
+                            bouton.setText(label.getText());
+                            if (e.getClickCount() == 1) {
+                                label.setText("0");
+                                bouton.setText(label.getText());
+                                bouton.setFont(label.getFont());
+
+                            }
+                            if (e.getClickCount() == 2) {
+                                label.setText("1");
+                                bouton.setText(label.getText());
+                                bouton.setFont(label.getFont());
+
+                            }
+
+                        }
+
+
+                    });
 
                 }
+
             }
         }
     }
