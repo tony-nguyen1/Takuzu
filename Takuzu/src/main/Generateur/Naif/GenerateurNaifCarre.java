@@ -8,10 +8,10 @@ import main.Takuzu;
 
 import java.util.Random;
 
-public class GenerateurNaifCarre implements Generateur {
+public class GenerateurNaifCarre /*implements Generateur*/ {
 
     //Premier jet d'un générateur avec niveau de difficulté modulable
-    @Override
+    //@Override
     public Takuzu generer(int taille, int difficulte) {
         Grille grid = new Grille(taille, taille);
         Random rand = new Random();

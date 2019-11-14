@@ -1,11 +1,8 @@
 package main;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 
 import static main.IHM.IHM.special;
-//TODO faire listCaseVide, listUneCollone, listUneLigne
 public class Grille {
     private int[][] grille;
     private final int HEIGHT;
@@ -80,22 +77,6 @@ public class Grille {
         return true;
     }
 
-    /**
-     * Recherche et renvoie les numéros de lignes pleines
-     * @return une ArrayList
-     */
-    public ArrayList<Integer> rowFilled()
-    {
-        ArrayList<Integer> numList = new ArrayList<>(this.HEIGHT);
-
-        for (int y = 0; y < HEIGHT; y++)
-        {
-            if (this.isRowFull(y))
-                numList.add(y);
-        }
-        return numList;
-    }
-
     public boolean isColumnFull(int x)
     {
         for (int i = 0; i < HEIGHT; i++)
@@ -104,18 +85,6 @@ public class Grille {
                 return false;
         }
         return true;
-    }
-
-    public ArrayList<Integer> columnFilled()
-    {
-        ArrayList<Integer> numList = new ArrayList<>(this.HEIGHT);
-
-        for (int x = 0; x < HEIGHT; x++)
-        {
-            if (this.isColumnFull(x))
-                numList.add(x);
-        }
-        return numList;
     }
 
     /**
@@ -163,28 +132,6 @@ public class Grille {
         return true;
     }
 
-    //TODO pour Mathieu
-    //C'est pour refactor des trucs après ...
-    /**
-     * Crée une liste de toutes les cases vides.
-     * La linkedList contient toutes les coordonnées.
-     * La arrayList contient la coordonnée x et y.
-     *
-     * @return les coordonnées de toutes les cases vides, return null si il n'y en a pas
-     */
-    public LinkedList<ArrayList<Integer>> listCaseVide() { return null; }
-    /**
-     * Crée une nouvelle liste et y recopie toutes les valeurs d'une colonne;
-     * @param uneColonne
-     * @return
-     */
-    public LinkedList<Integer> listUneCollone(int uneColonne) { return null; }
-    /**
-     * Crée une nouvelle liste et y recopie toutes les valeurs d'une ligne;
-     * @param uneLigne
-     * @return
-     */
-    public LinkedList<Integer> listUneLigne(int uneLigne) { return null; }
 
     public boolean remplirLigneDe(int numLigne, int val) {
         boolean didSomething = false;
@@ -208,5 +155,45 @@ public class Grille {
         }
 
         return didSomething;
+    }
+
+    public int[] trouver1erCaseVide() {
+        for (int ord = 0; ord < HEIGHT; ord++) {
+            for (int abs = 0; abs < WIDTH; abs++) {
+
+                if (this.getValue(ord, abs) == -1) {
+                    return new int[]{ord, abs};
+                }
+            }
+        }
+        return null;
+    }
+
+    public boolean remplirLaDifference(Grille uneGrille) {
+
+        //1er étape : vérification que "this" est un sous-ensemble de unTakuzu
+        //même dimension ?
+        if (uneGrille.HEIGHT != this.HEIGHT || uneGrille.WIDTH != this.WIDTH) {
+            return false;//throw new RuntimeException("Pas la même grille");
+        }
+
+        //même valeur ?
+        for (int i = 0; i < HEIGHT; i++) {
+            for (int j = 0; j < WIDTH; j++) {
+                if (this.getValue(i, j) != -1) {
+                    if (uneGrille.getValue(i, j) != this.getValue(i, j))
+                        return false;
+                }
+            }
+        }
+
+        //2e étape
+        //identique donc on peut recopier les cases de unTakuzu dans this
+        for (int i = 0; i < HEIGHT; i++) {
+            for (int j = 0; j < WIDTH; j++) {
+                this.setValue(i,j,uneGrille.getValue(i,j));
+            }
+        }
+        return true;
     }
 }

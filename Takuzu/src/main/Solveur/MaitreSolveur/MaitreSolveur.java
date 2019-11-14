@@ -34,7 +34,7 @@ public class MaitreSolveur implements Solveur {
             //ça a créer de nouvelles possiblités (peut-être)
             continuer = maCroixATravailler || equilibreurATravailler;
         } while(continuer);
-        System.out.println(cpt);
+        //System.out.println(cpt);
         return true;
     }
 }

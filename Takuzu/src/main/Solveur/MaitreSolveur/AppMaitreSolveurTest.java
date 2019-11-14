@@ -5,20 +5,20 @@ import main.Takuzu;
 
 public class AppMaitreSolveurTest {
     public static void main(String[] args) {
-        Takuzu takuzu = new Takuzu(6);
-        takuzu.preRemplissage2();
+        Takuzu takuzu = new Takuzu(14);
+        takuzu.preRemplissagePourBenchMarkEntreNous();
 
         takuzu.affichage();
 
-        System.out.println("\nRéponse");
+        /*System.out.println("\nRéponse");
         Takuzu rep = Takuzu.getPreRemplissageAnswer2();
-        rep.affichage();
+        rep.affichage();*/
 
-        Solveur sol = new MaitreSolveur();
-        sol.resoudre(takuzu);
-        takuzu.seResoudre(sol);
-
+        long startTime = System.currentTimeMillis();
+        takuzu.seResoudre(new MaitreSolveur());
+        long endTime = System.currentTimeMillis();
 
         takuzu.affichage();
+        System.out.println("Total execution time: " + (endTime-startTime) + "ms");
     }
 }

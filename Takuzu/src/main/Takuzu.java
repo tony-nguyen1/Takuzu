@@ -1,9 +1,8 @@
 package main;
 
+import main.Generateur.Generateur;
 import main.Solveur.Solveur;
 
-import java.util.ArrayList;
-//TODO implémenter le parttern stratégie pour créer des Takuzu pré-rempli
 public class Takuzu {
     private Grille grille;
 
@@ -178,7 +177,12 @@ public class Takuzu {
         grille.affichageGraphique();
     }
 
-    //Faudra optimiser ca, bref, ca sert a faire une deep copy
+    //FIXME optimiser ça
+    /**
+     * Crée une deep copie de this.
+     *
+     * @return un Takuzu
+     */
     public Takuzu cloneTakuzu() {
         Grille grilleBis = new Grille(this.getWidthGrille(), getHeightGrille());
         for (int i = 0; i < this.getHeightGrille(); i++) {
@@ -396,6 +400,80 @@ public class Takuzu {
         play1(0, 6);
     }
 
+    public void preRemplissagePourBenchMarkEntreNous() {
+        //1er ligne
+        play1(0,4);
+        play1(0,6);
+        play0(0,11);
+        play0(0,13);
+
+        //2e ligne
+        play0(1,8);
+        play0(1,9);
+
+        //3e ligne
+        play1(2,1);
+        play1(2,11);
+        play0(2,4);
+
+        //4e ligne
+        play1(3,5);
+        play1(3,8);
+        play0(3,13);
+
+        //5e ligne
+        play0(4,0);
+        play0(4,13);
+
+        //6e ligne
+        play1(5,10);
+        play1(5,12);
+
+        //7e ligne
+        play0(6,2);
+        play1(6,5);
+        play1(6,6);
+
+        //8e ligne
+        play0(7,2);
+        play0(7,10);
+        play1(7,13);
+
+        //9e ligne
+        play0(8,5);
+        play0(8,7);
+        play0(8,8);
+        play0(8,13);
+        play1(8,11);
+
+        //10e ligne
+        play1(9,1);
+        play1(9,2);
+        play1(9,5);
+        play1(9,6);
+        play0(9,8);
+
+        //11e ligne
+
+        //12e ligne
+        play0(11,0);
+        play0(11,1);
+        play0(11,12);
+        play1(11,4);
+
+        //13e ligne
+        play0(12,5);
+        play0(12,7);
+        play0(12,9);
+        play0(12,11);
+        play1(12,13);
+
+        //14e ligne
+        play1(13,0);
+        play1(13,9);
+        play1(13,10);
+    }
+
     public void playInverse(int ligne, int colonne, int inverse)
     {
         if (inverse == 1)
@@ -410,23 +488,6 @@ public class Takuzu {
         return grille.estTotalementRemplit();
     }
 
-    public void metDansPremierCaseVide(int val)
-    {
-        for (int i = 0; i < grille.getHEIGHT(); i++)
-        {
-            for (int j = 0; j < grille.getWIDTH(); j++)
-            {
-                if (grille.getValue(j,i) == -1) {
-                    if (val == 1)
-                        play1(i,j);
-                    else if (val == 0)
-                        play0(i,j);
-                    break;
-                }
-            }
-        }
-    }
-
     public boolean remplirLigneDe(int numLigne, int val) {
         return grille.remplirLigneDe(numLigne,val);
     }
@@ -436,4 +497,16 @@ public class Takuzu {
     }
 
     public boolean seResoudre(Solveur unSolveur) { return unSolveur.resoudre(this); }
+
+    public static Takuzu genererUnTakuzu(Generateur unGenerateur) {
+        return unGenerateur.generer();
+    }
+
+    public int[] trouver1erCaseVide() {
+        return grille.trouver1erCaseVide();
+    }
+
+    public boolean remplirLaDifference(Takuzu unTakuzu) {
+        return grille.remplirLaDifference(unTakuzu.getGrille());
+    }
 }
