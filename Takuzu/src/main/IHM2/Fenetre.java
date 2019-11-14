@@ -18,6 +18,7 @@ public class Fenetre extends JFrame{
     private Takuzu takuzu = new Takuzu(6);
     private GridLayout gridLayout = new GridLayout(6, 6, 1, 1);
     private JPanel pan = new JPanel(gridLayout);
+    private JButton bsolution = new JButton("Solution");
 
     public Fenetre() {
 
@@ -28,11 +29,14 @@ public class Fenetre extends JFrame{
         //this.getContentPane().setBackground(Color.cyan);
         pan.setPreferredSize(new Dimension(600, 600));
         pan.setBackground(Color.lightGray);
+        bsolution.setBackground(Color.orange);
+        bsolution.setFont(new Font("Serif", Font.BOLD, 18));
         //bsolution.addActionListener(this);
         //Border blackline = BorderFactory.createLineBorder(Color.lightGray,1);
         takuzu.preRemplissage();
         //pan.setBorder(blackline);
         this.remplirGrille();
+        this.getContentPane().add(bsolution);
         this.getContentPane().add(pan, BorderLayout.WEST);
         this.setVisible(true);
     }
