@@ -12,7 +12,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.LinkedList;
 
-public class Fenetre extends JFrame{
+public class Fenetre extends JFrame implements ActionListener {
 
 
     private Takuzu takuzu = new Takuzu(6); //création d'un takuzu de taille 6 par 6
@@ -74,12 +74,13 @@ public class Fenetre extends JFrame{
                             bouton.setText(label.getText());
                             if (e.getClickCount() == 1) {
                                 label.setText("0");
+                                label.setFont(new Font("Serif", Font.BOLD, 75));
                                 bouton.setText(label.getText());
                                 bouton.setFont(label.getFont());
-
                             }
                             if (e.getClickCount() == 2) {
                                 label.setText("1");
+                                label.setFont(new Font("Serif", Font.BOLD, 75));
                                 bouton.setText(label.getText());
                                 bouton.setFont(label.getFont());
 
@@ -97,7 +98,18 @@ public class Fenetre extends JFrame{
     }
 
 
+    @Override
+    public void actionPerformed(ActionEvent actionEvent) {
+        Object source = actionEvent.getSource();
+
+        if (source == bsolution) {
+            takuzu.preRemplissage();
+            takuzu.seResoudre(new MaitreSolveur());
+
+                    }
+                }
 }
+
 
 
 
