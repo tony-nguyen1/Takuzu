@@ -1,5 +1,7 @@
 package main.IHM2;
 
+
+import main.Solveur.MaitreSolveur.MaitreSolveur;
 import main.Takuzu;
 
     public class App {
@@ -12,6 +14,7 @@ import main.Takuzu;
         public static void main(String[] args) {
             Takuzu takuzu = new Takuzu(6);
             takuzu.preRemplissage();
+            //takuzu.seResoudre(new MaitreSolveur());
             //takuzu.affichage();
             Fenetre fen = new Fenetre();
         }
