@@ -29,7 +29,37 @@ public class Fenetre extends JFrame{
         this.remplirGrille(); //utilisation de la méthode remplirgrille()
         bsolution.setBackground(Color.orange); //modification de couleur du bouton "solution"
         bsolution.setFont(new Font("Serif", Font.BOLD, 18)); //modification de la police du bouton "solution"
-       //bsolution.addActionListener(this);
+        bsolution.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() > 0) {
+                    viderGrille();
+                    takuzu.seResoudre(new MaitreSolveur());
+                    for (int x = 0; x <= takuzu.getHeightGrille(); x++) { //parcours de la grille
+                        for (int y = 0; y <= takuzu.getWidthGrille(); y++) {
+                            setContentPane(pan);
+                            if (takuzu.getValue(x, y) == 1) {
+                                JPanel ptest = new JPanel(); //création d'un panel pour chaque case.
+                                JLabel label = new JLabel("1", SwingConstants.CENTER); //création d'un label avec la valeur 1.
+                                label.setFont(new Font("Serif", Font.BOLD, 75)); //modification de la police
+                                ptest.add(label); //ajout des labels avec la valeur 1 dans les panels ptest
+                                //ptest.setBackground(Color.yellow);
+                                pan.add(ptest);
+                            }
+                            if (takuzu.getValue(x, y) == 0) {
+                                JPanel ptest = new JPanel(); //création d'un panel pour chaque case.
+                                JLabel label = new JLabel("0", SwingConstants.CENTER); //création d'un label avec la valeur 1.
+                                label.setFont(new Font("Serif", Font.BOLD, 75)); //modification de la police
+                                ptest.add(label); //ajout des labels avec la valeur 1 dans les panels ptest
+                                //ptest.setBackground(Color.yellow);
+                                pan.add(ptest);
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        //bsolution.addActionListener(this);
         //Border blackline = BorderFactory.createLineBorder(Color.lightGray,1);
         this.getContentPane().add(bsolution); //ajout du bouton bsolution au Pane de la fenêtre
         this.getContentPane().add(pan, BorderLayout.WEST); //ajout du panel Pane
