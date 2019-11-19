@@ -18,15 +18,15 @@ public class GenerateurTakuzuFacile implements Generateur {
     private int largeur;
     private Takuzu takuzuResolut;
 
-    public GenerateurTakuzuFacile(int nbCaseASupprimerAleatoirement, Takuzu takuzuGanant) {
+    public GenerateurTakuzuFacile(int nbCaseASupprimerAleatoirement, Takuzu takuzuGagnant) {
         this.abs = 0;
         this.ord = 0;
         this.nbCaseRandomASupprimer = nbCaseASupprimerAleatoirement;
         this.rand = new Random();
         this.lesSolveursSimples = new MaitreSolveur();
-        this.takuzuResolut = takuzuGanant;
-        this.hauteur = this.takuzuResolut.getHeightGrille();
-        this.largeur = this.takuzuResolut.getWidthGrille();
+        this.takuzuResolut = takuzuGagnant;
+        this.hauteur = takuzuGagnant.getHeightGrille();
+        this.largeur = takuzuGagnant.getWidthGrille();
     }
 
     @Override
@@ -34,10 +34,10 @@ public class GenerateurTakuzuFacile implements Generateur {
         //déclaration
         int valeurEnlever, nbCaseSupprimeeAleatoirement, cpt;
         boolean assezEnleverDeCaseAleatoirement;
-        Takuzu takuzuResolut, foo;
+        Takuzu /*takuzuResolut,*/ foo;
 
         //initialisation des objets
-        takuzuResolut = Takuzu.getPreRemplissageAnswer2();
+        //takuzuResolut = Takuzu.getPreRemplissageAnswer2();
 
         //initialisation des types primitifs
         this.abs = 0; this.ord = 0;
@@ -45,10 +45,7 @@ public class GenerateurTakuzuFacile implements Generateur {
         nbCaseSupprimeeAleatoirement = 0;
         cpt = 0;
 
-        while((nbCaseSupprimeeAleatoirement < nbCaseRandomASupprimer)) {
-
-            assezEnleverDeCaseAleatoirement = nbCaseSupprimeeAleatoirement < nbCaseRandomASupprimer;
-            if (!assezEnleverDeCaseAleatoirement) { this.ord = 0; this.abs = 0; }
+        while((nbCaseSupprimeeAleatoirement < nbCaseRandomASupprimer )) {
 
             //On enlève une case au hasard
             valeurEnlever = enleverUneCaseRandom(takuzuResolut, hauteur, largeur);
@@ -63,9 +60,8 @@ public class GenerateurTakuzuFacile implements Generateur {
                 //les solveurs simples n'arrivent pas à résoudre
                 //la valeur qu'on a enlever entraine des hypothèses, elle est trop importante
                 //donc on doit la remettre
-                nbCaseSupprimeeAleatoirement = nbCaseSupprimeeAleatoirement < nbCaseRandomASupprimer ? nbCaseSupprimeeAleatoirement - 1 : nbCaseSupprimeeAleatoirement;
 
-
+                nbCaseSupprimeeAleatoirement--;
                 if (valeurEnlever == 0)
                     takuzuResolut.play0(ord, abs);
                 else
@@ -83,75 +79,90 @@ public class GenerateurTakuzuFacile implements Generateur {
     private Takuzu enleverToutesLesCasesInutiles(Takuzu unTakuzu) {
         System.out.println("Entrer");
         boolean pause, sarreter;
-        int valeurEnlever, i, j, cpt, nbCaseInutile;
+        int valeurEnlever, i, j, cpt, nbCaseInutileTotal, nbCaseEnleverCeTour;
         Takuzu foo;
 
-        this.abs = 0; this.ord = 0;
-        i = 0; j = 0;
-        nbCaseInutile = 0;
+        this.abs = 0;
+        this.ord = 0;
+        i = 0;
+        j = 0;
+        nbCaseInutileTotal = 0;
+        nbCaseEnleverCeTour = -1;
         pause = false;
         valeurEnlever = 99999999;
         sarreter = false;
 
-        while (!sarreter) {
-            System.out.println("Début à ord abs " + ord + " " + abs);
-            System.out.println("Début à i j  " + ord + " " + abs);
-            cpt = 0;
-            i = ord;
-            for (i = ord; i < hauteur && !pause; i++) {
-                for (j = cpt == 0 ? abs : 0; j < largeur && !pause; j++) {
+        while(nbCaseEnleverCeTour != 0) {
+            nbCaseEnleverCeTour = 0;
+            System.out.println("Début");
+            System.out.println(sarreter);
+            while (!sarreter) {
+                System.out.println("Début à ord abs " + ord + " " + abs);
+                System.out.println("Début à i j  " + ord + " " + abs);
+                cpt = 0;
+                for (i = ord; i < hauteur && !pause; i++) {
+                    for (j = cpt == 0 ? abs : 0; j < largeur && !pause; j++) {
 
-                    System.out.println(i + " " + j);
-                    if (unTakuzu.getValue(i,j) != -1) {
-                        System.out.println("Valeur Trouvée");
-                        valeurEnlever = unTakuzu.suppr(i,j);
-                        pause = true;
+                        System.out.println(i + " " + j);
+                        if (unTakuzu.getValue(i, j) != -1) {
+                            System.out.println("Valeur Trouvée");
+                            valeurEnlever = unTakuzu.suppr(i, j);
+                            pause = true;
+                        }
                     }
+                    cpt++;
                 }
-                cpt++;
-            }
-            pause = false;
-            i--;j--;
+                pause = false;
+                i--;
+                j--;
 
 
-            //Puis on essaye de résoudre SANS faire d'hypothèses
-            foo = unTakuzu.cloneTakuzu();
-            lesSolveursSimples.resoudre(foo);
+                //Puis on essaye de résoudre SANS faire d'hypothèses
 
-            if (!foo.estGagnant()) {
-                //les solveurs simples n'arrivent pas à résoudre
-                //la valeur qu'on a enlever entraine des hypothèses, elle est trop importante
-                //donc on doit la remettre
+                if (!verifierSiPeutResoudreLogiquement(unTakuzu)) {
+                    //les solveurs simples n'arrivent pas à résoudre
+                    //la valeur qu'on a enlever entraine des hypothèses, elle est trop importante
+                    //donc on doit la remettre
 
-                System.out.println("Valeur importante -> " + i + " " + j);
-                if (valeurEnlever == 0)
-                    unTakuzu.play0(i, j);
-                else
-                    unTakuzu.play1(i, j);
-            }
-            else {
-                System.out.println("Valeur pas importante -> " + i + " " + j);
-                nbCaseInutile++;
-            }
-
-            if (i == hauteur-1 && j == largeur-1) {
-                sarreter = true;
-                System.out.println("Arrêt");
-            }
-            else {
-                if (j == 5) {
-                    ord = i += 1;
-                    abs = 0;
+                    System.out.println("Valeur importante -> " + i + " " + j);
+                    if (valeurEnlever == 0)
+                        unTakuzu.play0(i, j);
+                    else
+                        unTakuzu.play1(i, j);
                 } else {
-                    ord = i;
-                    abs = j += 1;
+                    System.out.println("Valeur pas importante -> " + i + " " + j);
+                    nbCaseInutileTotal++;
+                    nbCaseEnleverCeTour++;
                 }
 
-                System.out.println("Fin à ord abs " + ord + " " + abs);
-                System.out.println("Fin à i j  " + ord + " " + abs);
+                if (i == hauteur - 1 && j == largeur - 1) {
+                    sarreter = true;
+                    System.out.println("Arrêt");
+                } else {
+                    if (j == unTakuzu.getWidthGrille()-1) {
+                        ord = i + 1;
+                        abs = 0;
+                    } else {
+                        ord = i;
+                        abs = j + 1;
+                    }
+
+                    System.out.println("Fin à ord abs " + ord + " " + abs);
+                    System.out.println("Fin à i j  " + ord + " " + abs);
+                }
+            }
+            System.out.println("nbCaseEnleverCeTour = " + nbCaseEnleverCeTour);
+            if (nbCaseEnleverCeTour > 1)
+            {
+                sarreter = false;
+                i = 0; j = 0;
+                abs = 0; ord = 0;
+            }
+            else {
+                sarreter = true;
             }
         }
-        System.out.println("NbCaseInutile = " + nbCaseInutile);
+        System.out.println("nbCaseInutileTotal = " + nbCaseInutileTotal);
         return unTakuzu;
     }
 

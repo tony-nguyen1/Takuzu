@@ -6,7 +6,7 @@ import main.Takuzu;
 public class AppMaitreSolveurTest {
     public static void main(String[] args) {
         Takuzu takuzu = new Takuzu(14);
-        takuzu.preRemplissagePourBenchMarkEntreNous();
+        //takuzu.preRemplissagePourBenchMarkEntreNous();
 
         takuzu.affichage();
 
@@ -15,10 +15,11 @@ public class AppMaitreSolveurTest {
         rep.affichage();*/
 
         long startTime = System.currentTimeMillis();
-        takuzu.seResoudre(new MaitreSolveur());
+        boolean bool = takuzu.seResoudre(new MaitreSolveur());
         long endTime = System.currentTimeMillis();
 
         takuzu.affichage();
         System.out.println("Total execution time: " + (endTime-startTime) + "ms");
+        System.out.println(bool);
     }
 }

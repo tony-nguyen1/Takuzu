@@ -19,11 +19,12 @@ public class AppCroixtest {
         Solveur sol = new PatternCroix();
 
         long startTime = System.currentTimeMillis();
-        takuzu.seResoudre(sol); takuzu.seResoudre(sol);
+        boolean bool = takuzu.seResoudre(sol); takuzu.seResoudre(sol);
         long endTime = System.currentTimeMillis();
 
         takuzu.affichage();
         System.out.println("Total execution time: " + (endTime-startTime) + "ms");
+        System.out.println(bool);
     }
 }
 
