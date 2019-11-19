@@ -58,7 +58,6 @@ public class Takuzu {
     }
 
 
-    //La meme fonction qu'en haut, mais en plus simple et plus pratique à utiliser
     public boolean checkRowUnicite(int ligne) {
         for (int i = 0; i < this.getHeightGrille(); i++) {
             if (i == ligne) {

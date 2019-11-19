@@ -1,5 +1,7 @@
 package main.IHM2;
 
+import main.Solveur.BacktrackIntelligent.BacktrackIntelligent;
+import main.Solveur.Hypotheses.Hypotheses;
 import main.Solveur.MaitreSolveur.MaitreSolveur;
 import main.Takuzu;
 
@@ -11,6 +13,7 @@ public class Fenetre extends JFrame{
 
 
     private Takuzu takuzu;
+    private Takuzu takuzuBackup;
     private GridLayout gridLayout;
     private JPanel pan;
     private JButton bsolution;
@@ -48,6 +51,7 @@ public class Fenetre extends JFrame{
         //this.getContentPane().setBackground(Color.cyan);
         //pan.setBorder(blackline);
         this.remplirGrille(takuzu); //utilisation de la méthode remplirgrille()
+        takuzuBackup = takuzu.cloneTakuzu();
 
         bsolution.setBackground(Color.orange); //modification de couleur du bouton "solution"
 
@@ -58,10 +62,17 @@ public class Fenetre extends JFrame{
                 if (e.getClickCount() > 0) {
                     //takuzu.affichage();
                     viderGrille();
-                    boolean resolution = takuzu.seResoudre(new MaitreSolveur());
+                    //Si ca crash, test backtrackIntelligent
+                    boolean resolution = takuzu.seResoudre(new Hypotheses());
                     if (resolution) { //S'il a réussi à résoudre
                         takuzu.affichage();
                         remplirGrille(takuzu);
+                    }
+                    else {
+                        System.out.println("La résolution à partir de ce qui a été fait est un echec, nous allons donc reprendre le takuzu initial");
+                        takuzuBackup.seResoudre(new Hypotheses());
+                        takuzuBackup.affichage();
+                        remplirGrille(takuzuBackup);
                     }
                 }
             }
@@ -95,20 +106,46 @@ public class Fenetre extends JFrame{
                         @Override
                         public void mouseClicked(MouseEvent e) {
                             JLabel label = new JLabel();
+                            bouton.setOpaque(true);
+
+                            //Grace a ces formules magiques on trouve la valeur de X et de Y par rapport au Takuzu, on peut donc faire le lien entre le panel et le takuzu désormais
+                            int boutonX = bouton.getX()/(pan.getSize().width/tailleTakuzu);
+                            int boutonY =  bouton.getY()/(pan.getSize().height/tailleTakuzu);
+                            int i = 0;
 
                             if (e.getClickCount()%2 == 1) {
                                 label.setText("0");
                                 label.setFont(new Font(fontName, Font.BOLD, fontSize));
+                                takuzu.play0(boutonY, boutonX);
+
                             }
                             else {
                                 label.setText("1");
                                 label.setFont(new Font(fontName, Font.BOLD, fontSize));
+                                takuzu.play1(boutonY, boutonX);
                             }
                             bouton.setText(label.getText());
                             bouton.setFont(label.getFont());
+
+
+                            if (!takuzu.estValide()){
+                                bouton.setBackground(Color.red);
+                            }
+                            else {
+
+                                for (int z = 0; z < tailleTakuzu*tailleTakuzu; z++){
+                                    pan.getComponent(z).setBackground(Color.white);
+                                }
+                            }
+
+
+                            if (takuzu.estGagnant()){
+                                for (int z = 0; z < tailleTakuzu*tailleTakuzu; z++){
+                                    bouton.setBackground(Color.orange);
+                                }
+                            }
+
                         }
-
-
                     });
 
                 }
