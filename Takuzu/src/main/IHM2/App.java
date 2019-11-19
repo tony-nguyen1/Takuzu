@@ -12,11 +12,8 @@ import main.Takuzu;
             String args = "";
         }*/
         public static void main(String[] args) {
-            Takuzu takuzu = new Takuzu(6);
-            takuzu.preRemplissage();
-            //takuzu.seResoudre(new MaitreSolveur());
-            //takuzu.affichage();
-            Fenetre fen = new Fenetre();
+            Fenetre fen = new Fenetre(6, 1000, 800);
+            fen.creerFenetre();
         }
     }
 
