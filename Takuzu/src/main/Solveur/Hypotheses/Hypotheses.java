@@ -67,7 +67,10 @@ public class Hypotheses implements Solveur {
                 infoHypothese = backupHypotheses.pollFirst();
 
                 //si l'hypothèse était de mettre un 0, on fait l'inverse (car l'hypothèse était fausse)
-                takuzuPrecedent.play1(infoHypothese[0],infoHypothese[1]);//au même endroit
+                if (takuzuPrecedent != null)
+                    takuzuPrecedent.play1(infoHypothese[0],infoHypothese[1]);//au même endroit
+                else
+                    return false;
 
                 backupTakuzu.addFirst(takuzuPrecedent);
             }
