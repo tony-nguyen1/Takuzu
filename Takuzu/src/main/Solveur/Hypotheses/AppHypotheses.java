@@ -12,11 +12,7 @@ public class AppHypotheses {
         System.out.println("Dans le main");
         takuzu.affichage();
 
-        long startTime = System.currentTimeMillis();
         takuzu.seResoudre(new Hypotheses());
-        long endTime = System.currentTimeMillis();
-        System.out.println("Total execution time: " + (endTime-startTime) + "ms");
-
         takuzu.affichage();
 
         System.out.println("Fin du programme");

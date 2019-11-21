@@ -10,12 +10,12 @@ import java.util.Random;
 
 public class Generateur2eEssaie implements Generateur {
     private Random rand;
-    private Solveur lesSolveursSimples;
+    private Solveur monSolveur;
     private int taille;
 
     public Generateur2eEssaie(int taille) {
         this.rand = new Random();
-        this.lesSolveursSimples = new Hypotheses();
+        this.monSolveur = new Hypotheses();
         this.taille = taille;
     }
 
@@ -24,7 +24,7 @@ public class Generateur2eEssaie implements Generateur {
         Takuzu unTakuzu = new Takuzu(taille);
         unTakuzu.play0(0,0);
 
-        unTakuzu.seResoudre(lesSolveursSimples);
+        unTakuzu.seResoudre(monSolveur);
 
         Generateur g = new GenerateurTakuzuFacile(20, unTakuzu);
 

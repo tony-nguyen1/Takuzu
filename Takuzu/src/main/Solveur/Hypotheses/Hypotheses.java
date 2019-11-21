@@ -24,6 +24,8 @@ public class Hypotheses implements Solveur {
 
     @Override
     public boolean resoudre(Takuzu takuzu) {
+        long startTime = System.currentTimeMillis();
+
         backupTakuzu.add(takuzu.cloneTakuzu());
         Takuzu takuzuCourant, takuzuSuivant, takuzuPrecedent;
         int[] infoHypothese;
@@ -33,7 +35,7 @@ public class Hypotheses implements Solveur {
         cpt = 0;
         sortie = false;
 
-        System.out.println("Dans la fonction");
+        System.out.println("Dans Hypotheses");
 
         while (!backupTakuzu.isEmpty() && !sortie)
         {
@@ -75,8 +77,9 @@ public class Hypotheses implements Solveur {
                 backupTakuzu.addFirst(takuzuPrecedent);
             }
         }
-        System.out.println("En dehors de la boucle");
+        long endTime = System.currentTimeMillis();
         System.out.println("tour de boucle : " + cpt);
+        System.out.println("Hypotheses execution time: " + (endTime-startTime) + "ms");
         return sortie;
     }
 

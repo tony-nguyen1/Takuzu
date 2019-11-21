@@ -11,10 +11,10 @@ public class AppTestFacile {
         Generateur g = new GenerateurTakuzuFacile(20, Takuzu.getPreRemplissageAnswer2());
 
         Takuzu takuzuFacile = g.generer();
+        System.out.println("Takuzu générer :");
         takuzuFacile.affichage();
 
         takuzuFacile.seResoudre(new MaitreSolveur());
-
         takuzuFacile.affichage();
     }
 }

@@ -2,7 +2,6 @@ package main.Generateur.Facile2;
 
 import main.Generateur.Generateur;
 import main.Solveur.MaitreSolveur.MaitreSolveur;
-import main.Solveur.Solveur;
 import main.Takuzu;
 
 public class AppGenerateur2eEssaie {
