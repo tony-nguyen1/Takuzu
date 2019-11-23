@@ -21,6 +21,7 @@ public class Generateur2eEssaie implements Generateur {
 
     @Override
     public Takuzu generer() {
+        System.out.println("Dans Generateur Facile aléatoire");
         Takuzu unTakuzu = new Takuzu(taille);
         unTakuzu.play0(0,0);
 

@@ -21,6 +21,8 @@ public class GenerateurTakuzuDifficile implements Generateur {
 
     @Override
     public Takuzu generer() {
+        long startTime = System.currentTimeMillis();
+        System.out.println("Dans Generateur Avec Hypotheses");
         Generateur2eEssaie generateur = new Generateur2eEssaie(taille);
 
         Takuzu unTakuzuFacile = generateur.generer();
@@ -35,6 +37,9 @@ public class GenerateurTakuzuDifficile implements Generateur {
             System.out.println(coord[0] + " " + coord[1]);
             i++;
         }
+
+        long endTime = System.currentTimeMillis();
+        System.out.println("Generateur Takuzu avec hypotheses generer() execution time: " + (endTime-startTime) + "ms");
 
         return unTakuzuFacile;
     }
