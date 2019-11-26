@@ -3,7 +3,7 @@ package main.Solveur.hypothesesIntelligent;
 import main.Solveur.MaitreSolveur.MaitreSolveur;
 import main.Solveur.Solveur;
 import main.Takuzu;
-import sun.awt.image.ImageWatched;
+
 
 import java.util.ArrayDeque;
 import java.util.Deque;

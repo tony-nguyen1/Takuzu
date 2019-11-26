@@ -8,6 +8,8 @@ import main.Takuzu;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 public class Fenetre extends JFrame{
 
@@ -17,7 +19,7 @@ public class Fenetre extends JFrame{
     private GridLayout gridLayout;
     private JPanel pan; //panel pour la grille
     private JPanel panelboutons; //panel pour le niveau
-    private JButton bsolution;
+    private JButton bsolution, undo, undoJusquaSolution;
     private JComboBox jComboBox;
 
     private int tailleTakuzu;
@@ -25,9 +27,13 @@ public class Fenetre extends JFrame{
     private int hauteurFenetre;
     private int fontSize;
 
+    private Deque<Takuzu> DequeTakuzu;
+
     private String fontName = "Verdana";
 
     public Fenetre(int tailleTakuzu, int largeurFenetre, int hauteurFenetre) {
+        DequeTakuzu = new ArrayDeque<>();
+
         this.tailleTakuzu = tailleTakuzu;
         this.largeurFenetre = largeurFenetre;
         this.hauteurFenetre = hauteurFenetre;
@@ -37,9 +43,11 @@ public class Fenetre extends JFrame{
         gridLayout = new GridLayout(takuzu.getHeightGrille(), takuzu.getWidthGrille(), 1, 1); //création d'une grille
         pan = new JPanel(gridLayout); //création d'un panel contenant la grille.
         bsolution = new JButton("Solution"); //création d'un bouton solution.
+        undo = new JButton("Undo");
         Object[] elements = new Object[]{"Facile", "Moyen", "Difficile", "Diabolique"};
         jComboBox = new JComboBox(elements);
         panelboutons = new JPanel();
+
     }
 
     public void creerFenetre(){
@@ -47,15 +55,18 @@ public class Fenetre extends JFrame{
         pan.setPreferredSize(new Dimension(largeurFenetre - 125, hauteurFenetre));//le panel pan ne prend qu'une partie du panel de la fenêtre.
         pan.setBackground(Color.lightGray); // modification de couleur du panel
         takuzu.preRemplissage();
-        panelboutons.setBackground(Color.red);
+        panelboutons.setBackground(Color.darkGray);
         panelboutons.setLayout(null);
         panelboutons.add(bsolution);
-        bsolution.setBounds(0, hauteurFenetre - 200, 125, 100);
-        System.out.println(bsolution.getX());
-        System.out.println(bsolution.getY());
-        bsolution.setAlignmentY(100);
         panelboutons.add(jComboBox);
+        panelboutons.add(undo);
+
+        bsolution.setBounds(0, hauteurFenetre - 200, 125, 100);
         jComboBox.setBounds(0, hauteurFenetre - 500, 125, 80);
+        undo.setBounds(0, hauteurFenetre - 700, 125, 100);
+
+
+
         this.setTitle("Jeu du Takuzu"); //titre de la fenêtre
         this.setSize(largeurFenetre, hauteurFenetre); // dimension fenêtre
         this.setLocationRelativeTo(null); //la fenêtre s'ouvre au centre de l'écran
@@ -67,6 +78,7 @@ public class Fenetre extends JFrame{
         jComboBox.setBackground(Color.lightGray);
         bsolution.setBackground(Color.orange); //modification de couleur du bouton "solution"
         bsolution.setFont(new Font(fontName, Font.BOLD, 18)); //modification de la police du bouton "solution"
+
         bsolution.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -88,6 +100,20 @@ public class Fenetre extends JFrame{
                 }
             }
         });
+
+        undo.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+            if (e.getClickCount() > 0){
+
+                if (!DequeTakuzu.isEmpty()){
+                    System.out.println("Undoing");
+                    takuzu = DequeTakuzu.poll();
+                    viderGrille();
+                    remplirGrille(takuzu);
+                }
+            }
+            }});
         //bsolution.addActionListener(this);
         //Border blackline = BorderFactory.createLineBorder(Color.lightGray,1);
         //panbsol.add(bsolution);
@@ -102,14 +128,15 @@ public class Fenetre extends JFrame{
     public void remplirGrille(Takuzu takuzu) {
         System.out.println(takuzu);
         int value;
-        for (int x = 0; x < takuzu.getHeightGrille(); x++) { //parcours de la grille
-            for (int y = 0; y < takuzu.getWidthGrille(); y++) {
+        for (int x = 0; x < tailleTakuzu; x++) { //parcours de la grille
+            for (int y = 0; y < tailleTakuzu; y++) {
                 value = takuzu.getValue(x, y);
                 if (value == 0 || value == 1) {
                     JPanel ptest = new JPanel(); //création d'un panel pour chaque case.
                     JLabel label = new JLabel(Integer.toString(value), SwingConstants.CENTER); //création d'un label avec la valeur 1 ou 0.
                     label.setFont(new Font(fontName, Font.BOLD, fontSize)); //modification de la police
                     ptest.add(label); //ajout des labels avec la valeur 1 ou 0 dans les panels ptest
+                    ptest.setBackground(Color.WHITE);
                     pan.add(ptest); // ajout de tous les panels avec un 1 ou 0 dans pan.
                 }
 
@@ -146,17 +173,26 @@ public class Fenetre extends JFrame{
                             if (!takuzu.estValide()){
                                 bouton.setBackground(Color.red);
                             }
-                            else {
 
+                            else {
+                                //C'est juste pour déterminer les bonnes cases et les recolorier
                                 for (int z = 0; z < tailleTakuzu*tailleTakuzu; z++){
-                                    pan.getComponent(z).setBackground(Color.white);
+                                    int ligne, colonne;
+                                    //C'est pour faire le lien entre la grille et le takuzu afin de colorier UNIQUEMENT les cases dont le joueur a joué dessus
+                                    ligne = z/tailleTakuzu;
+                                    colonne = z%tailleTakuzu;
+                                    if (takuzuBackup.getValue(ligne, colonne) == -1){
+                                        pan.getComponent(z).setBackground(Color.lightGray);
+                                    }
                                 }
+
+                                DequeTakuzu.add(takuzu.cloneTakuzu());
                             }
 
 
                             if (takuzu.estGagnant()){
                                 for (int z = 0; z < tailleTakuzu*tailleTakuzu; z++){
-                                    bouton.setBackground(Color.orange);
+                                    pan.getComponent(z).setBackground(Color.orange);
                                 }
                             }
 
