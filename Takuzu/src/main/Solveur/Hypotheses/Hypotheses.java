@@ -64,7 +64,7 @@ public class Hypotheses implements Solveur {
         return sortie;
     }
 
-    private int[] faireUneHypotheseAux(Takuzu takuzu) {//TODO mettre un aux
+    private int[] faireUneHypotheseAux(Takuzu takuzu) {
         int[] coordonee;
 
         coordonee = takuzu.trouver1erCaseVide();

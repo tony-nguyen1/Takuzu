@@ -1,8 +1,9 @@
 package main;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 
-import static main.IHM.IHM.special;
+@SuppressWarnings("Duplicates")
 public class Grille {
     private int[][] grille;
     private final int HEIGHT;
@@ -40,10 +41,7 @@ public class Grille {
         System.out.println(toString());
     }
 
-    public void affichageGraphique() {
-        special(this.grille);
-    }
-
+    //public void affichageGraphique() { special(this.grille); }
 
     public void setValue(int hauteur, int largeur, int value) {
         grille[hauteur][largeur] = value;
@@ -196,4 +194,82 @@ public class Grille {
         }
         return true;
     }
+
+    public int[] compteNbCaseRemplitParLigne() {
+        int[] nbCaseParLigne = new int[HEIGHT];
+        int i = 0;
+
+        for (int[] uneLigne : this.grille) {
+            for (int val : uneLigne) {
+                if (val != -1) { nbCaseParLigne[i]++; }//une case remplit
+            }
+            i++;
+        }
+
+        return nbCaseParLigne;
+    }
+
+    public int[] compteNbCaseRemplitParColonne() {
+        int[] nbCaseParColonne = new int[WIDTH];
+        int val;
+
+        for (int i = 0; i < WIDTH; i++) {
+            for (int j = 0; j < HEIGHT; j++) {
+                val = getValue(j,i);
+                if (val != -1) { nbCaseParColonne[i]++; }
+            }
+        }
+
+        return nbCaseParColonne;
+    }
+
+    public LinkedList<LinkedList<int[]>> rechercheCasesVide() {
+        LinkedList<LinkedList<int[]>> listCasesVideParLigne = new LinkedList<>();
+
+        for (int i = 0; i < HEIGHT; i++)
+        {
+            listCasesVideParLigne.add(rechercheCasesVideAux(i));
+        }
+
+        return listCasesVideParLigne;
+    }
+
+    public LinkedList<int[]> rechercheCasesVideAux(int nLigne) {
+        LinkedList<int[]> listCasesVideSurCetteLigne = new LinkedList<>();
+
+        int i = 0;
+        for (int val : this.grille[nLigne]) {
+            if (val == -1) {
+                listCasesVideSurCetteLigne.add(new int[]{nLigne,i});
+            }
+
+            i++;
+        }
+
+        return listCasesVideSurCetteLigne;
+    }
+
+    /*public LinkedList<LinkedList<int[]>> rechercheCasesVidePar() {
+        LinkedList<LinkedList<int[]>> listCasesVideParLigne = new LinkedList<>();
+
+        for (int i = 0; i < HEIGHT; i++)
+        {
+            listCasesVideParLigne.add(rechercheCasesVideAux(i));
+        }
+        return listCasesVideParLigne;
+    }
+
+    public LinkedList<int[]> rechercheCasesVide2Aux(int nColonne) {
+        LinkedList<int[]> listCasesVideSurCetteColonne = new LinkedList<>();
+        int val;
+
+        for (int i = 0; i < HEIGHT; i++) {
+            val = this.getValue(i, nColonne);
+            if (val == -1) {
+                listCasesVideSurCetteColonne.add(new int[]{i,nColonne});
+            }
+        }
+
+        return listCasesVideSurCetteColonne;
+    }*/
 }

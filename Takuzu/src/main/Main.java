@@ -13,7 +13,6 @@ public class Main {
        Takuzu takuzu = new Takuzu(6);
        takuzu.preRemplissage();
 
-       takuzu.affichage();
-       takuzu.affichageGraphique();
+       takuzu.affichage();//takuzu.affichageGraphique();
     }
 }

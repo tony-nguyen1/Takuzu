@@ -3,6 +3,8 @@ package main;
 import main.Generateur.Generateur;
 import main.Solveur.Solveur;
 
+import java.util.LinkedList;
+
 public class Takuzu {
     private Grille grille;
 
@@ -171,10 +173,7 @@ public class Takuzu {
         grille.affichage();
     }
 
-    public void affichageGraphique()
-    {
-        grille.affichageGraphique();
-    }
+    //public void affichageGraphique() { grille.affichageGraphique(); }
 
     //FIXME optimiser ça
     /**
@@ -507,5 +506,13 @@ public class Takuzu {
 
     public boolean remplirLaDifference(Takuzu unTakuzu) {
         return grille.remplirLaDifference(unTakuzu.getGrille());
+    }
+
+    public int[] compteNbCaseRemplitParLigne() { return grille.compteNbCaseRemplitParLigne(); }
+
+    public int[] compteNbCaseRemplitParColonne() { return grille.compteNbCaseRemplitParColonne(); }
+
+    public LinkedList<LinkedList<int[]>> rechercheCasesVide() {
+        return grille.rechercheCasesVide();
     }
 }
