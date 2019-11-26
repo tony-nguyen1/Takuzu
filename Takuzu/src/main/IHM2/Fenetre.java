@@ -15,8 +15,10 @@ public class Fenetre extends JFrame{
     private Takuzu takuzu;
     private Takuzu takuzuBackup;
     private GridLayout gridLayout;
-    private JPanel pan;
+    private JPanel pan; //panel pour la grille
+    private JPanel panelboutons; //panel pour le niveau
     private JButton bsolution;
+    private JComboBox jComboBox;
 
     private int tailleTakuzu;
     private int largeurFenetre;
@@ -35,15 +37,25 @@ public class Fenetre extends JFrame{
         gridLayout = new GridLayout(takuzu.getHeightGrille(), takuzu.getWidthGrille(), 1, 1); //création d'une grille
         pan = new JPanel(gridLayout); //création d'un panel contenant la grille.
         bsolution = new JButton("Solution"); //création d'un bouton solution.
+        Object[] elements = new Object[]{"Facile", "Moyen", "Difficile", "Diabolique"};
+        jComboBox = new JComboBox(elements);
+        panelboutons = new JPanel();
     }
 
     public void creerFenetre(){
 
         pan.setPreferredSize(new Dimension(largeurFenetre - 125, hauteurFenetre));//le panel pan ne prend qu'une partie du panel de la fenêtre.
         pan.setBackground(Color.lightGray); // modification de couleur du panel
-
         takuzu.preRemplissage();
-
+        panelboutons.setBackground(Color.red);
+        panelboutons.setLayout(null);
+        panelboutons.add(bsolution);
+        bsolution.setBounds(0, hauteurFenetre - 200, 125, 100);
+        System.out.println(bsolution.getX());
+        System.out.println(bsolution.getY());
+        bsolution.setAlignmentY(100);
+        panelboutons.add(jComboBox);
+        jComboBox.setBounds(0, hauteurFenetre - 500, 125, 80);
         this.setTitle("Jeu du Takuzu"); //titre de la fenêtre
         this.setSize(largeurFenetre, hauteurFenetre); // dimension fenêtre
         this.setLocationRelativeTo(null); //la fenêtre s'ouvre au centre de l'écran
@@ -52,9 +64,8 @@ public class Fenetre extends JFrame{
         //pan.setBorder(blackline);
         this.remplirGrille(takuzu); //utilisation de la méthode remplirgrille()
         takuzuBackup = takuzu.cloneTakuzu();
-
+        jComboBox.setBackground(Color.lightGray);
         bsolution.setBackground(Color.orange); //modification de couleur du bouton "solution"
-
         bsolution.setFont(new Font(fontName, Font.BOLD, 18)); //modification de la police du bouton "solution"
         bsolution.addMouseListener(new MouseAdapter() {
             @Override
@@ -79,8 +90,12 @@ public class Fenetre extends JFrame{
         });
         //bsolution.addActionListener(this);
         //Border blackline = BorderFactory.createLineBorder(Color.lightGray,1);
-        this.getContentPane().add(bsolution); //ajout du bouton bsolution au Pane de la fenêtre
+        //panbsol.add(bsolution);
+
+       // this.getContentPane().add(panbsol,BorderLayout.EAST);
+        this.getContentPane().add(panelboutons);
         this.getContentPane().add(pan, BorderLayout.WEST); //ajout du panel Pane
+        //this.getContentPane().add(bsolution); //ajout du bouton bsolution au Pane de la fenêtre
         this.setVisible(true); //ligne permettant de rendre la fenêtre visible
     }
 
