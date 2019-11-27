@@ -21,7 +21,7 @@ public class Fenetre extends JFrame{
     private JPanel panelboutons; //panel pour le niveau
     private JButton bsolution, undo, undoJusquaSolution;
     private JComboBox jComboBox;
-
+    private Object[] elements = new Object[]{"Facile", "Difficile"};
     private int tailleTakuzu;
     private int largeurFenetre;
     private int hauteurFenetre;
@@ -44,7 +44,6 @@ public class Fenetre extends JFrame{
         pan = new JPanel(gridLayout); //création d'un panel contenant la grille.
         bsolution = new JButton("Solution"); //création d'un bouton solution.
         undo = new JButton("Undo");
-        Object[] elements = new Object[]{"Facile", "Moyen", "Difficile", "Diabolique"};
         jComboBox = new JComboBox(elements);
         panelboutons = new JPanel();
 
@@ -76,6 +75,17 @@ public class Fenetre extends JFrame{
         this.remplirGrille(takuzu); //utilisation de la méthode remplirgrille()
         takuzuBackup = takuzu.cloneTakuzu();
         jComboBox.setBackground(Color.lightGray);
+        jComboBox.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if(e.getSource()==jComboBox){
+                    System.out.println("Ta mère");
+                }
+                if(e.getSource()=="Difficile"){
+                    viderGrille();
+                }
+            }
+        });
         bsolution.setBackground(Color.orange); //modification de couleur du bouton "solution"
         bsolution.setFont(new Font(fontName, Font.BOLD, 18)); //modification de la police du bouton "solution"
 

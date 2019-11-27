@@ -12,8 +12,9 @@ import main.Takuzu;
             String args = "";
         }*/
         public static void main(String[] args) {
-            Fenetre fen = new Fenetre(8, 1000, 800);
-            fen.creerFenetre();
+            Fenetreaccueil fen2= new Fenetreaccueil(1000,800);
+            //Fenetre fen = new Fenetre(8, 1000, 800);
+            fen2.creerFenetre();
         }
     }
 
