@@ -4,11 +4,9 @@ import main.Solveur.MaitreSolveur.MaitreSolveur;
 import main.Solveur.Solveur;
 import main.Takuzu;
 
-
+import java.io.InputStreamReader;
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.LinkedList;
-
 @SuppressWarnings("Duplicates")
 public class HypothesesIntelligent implements Solveur {
     private Solveur lesSolveursSimples;
@@ -24,22 +22,21 @@ public class HypothesesIntelligent implements Solveur {
 
     @Override
     public boolean resoudre(Takuzu takuzu) {
-        System.out.println("Dans HypothesesIntelligent");
+        System.out.println("Dans Hypotheses");
         long startTime = System.currentTimeMillis();
 
-        backupTakuzu.add(takuzu.cloneTakuzu());
+        Takuzu clone = takuzu.cloneTakuzu();
+        backupTakuzu.add(clone);
 
         Takuzu takuzuCourant;
 
         boolean sortie = false;
         int cpt = 0;
 
-        while (!backupTakuzu.isEmpty() && !sortie)
+        while (!backupTakuzu.isEmpty() && !sortie)//tant qu'on a pas trouvé le gagnant
         {
             takuzuCourant = backupTakuzu.pollFirst();
-            //System.out.println("J'essaie de le résoudre normalement");
             takuzuCourant.seResoudre(lesSolveursSimples);
-            //takuzu.affichage();
 
             if (takuzuCourant.estValide())
             {
@@ -48,9 +45,7 @@ public class HypothesesIntelligent implements Solveur {
                     takuzu.remplirLaDifference(takuzuCourant); //Maintenant le takuzu de base, passé en paramètre est gagnant
                     sortie = true;
                 } else {//valide mais pas gagnant
-                    //System.out.println("Pas encore gagnant");
                     faireHypothese(takuzuCourant);
-                    //break;
                 }
             } else {//takuzuCourant est invalide
                 //"faire l'inverse"
@@ -64,121 +59,152 @@ public class HypothesesIntelligent implements Solveur {
 
         long endTime = System.currentTimeMillis();
         System.out.println("tour de boucle : " + cpt);
-        System.out.println("HypothesesIntelligent execution time: " + (endTime-startTime) + "ms");
+        System.out.println("Hypotheses execution time: " + (endTime-startTime) + "ms");
         return sortie;
     }
 
-    private int[] faireUneHypotheseAux(Takuzu unTakuzu) {
-        int[] coordonee = trouverMeilleurEmplacement(unTakuzu);
-        unTakuzu.play0(coordonee[0],coordonee[1]);
+    private int[] faireUneHypotheseAux(Takuzu takuzu) {
+        int[] coordonee;
+
+        coordonee = trouverMeilleurEmplacement(takuzu);
+        takuzu.play0(coordonee[0],coordonee[1]);
 
         return coordonee;
     }
 
     private int[] trouverMeilleurEmplacement(Takuzu unTakuzu) {
-        long startTime = System.currentTimeMillis();
-        //System.out.println("Dans trouverMeilleurEmplacement");
-        //unTakuzu.affichage();
-        LinkedList<LinkedList<int[]>> coordDeToutesLesCasesVides;
-        int[] nbCasesVidesParLigne, nbCasesVidesParColonne;
-        int numLigne, numCol, bestLigne, bestCol, maxNbCasesVidesLignes, maxNbCasesVidesColonnes, Largeur, Hauteur;
+        int bestLigne, bestCol, maxNbSurLigne, maxNbSurCol, nb, Largeur, Hauteur;
 
-        nbCasesVidesParLigne = new int[unTakuzu.getHeightGrille()];//indice du array : indice de la ligne/colonne
-        nbCasesVidesParColonne = new int[unTakuzu.getWidthGrille()];//array[i] : nb de cases vides sur la i-ème ligne/colonne
-
-        coordDeToutesLesCasesVides = unTakuzu.rechercheCasesVide();
-
-        //comptage du nombre de cases vides par colonnes et par lignes
-        for (LinkedList<int[]> uneLigne : coordDeToutesLesCasesVides) {
-            for (int[] coord : uneLigne) {
-                //System.out.println(coord[0] + " " + coord[1]);
-
-                numLigne = coord[0];
-                numCol = coord[1];
-
-                nbCasesVidesParLigne[numLigne]++;
-                nbCasesVidesParColonne[numCol]++;
-            }
-        }
-
-        //System.out.print("nbCasesVidesParColonne : ");
-        //for (int val : nbCasesVidesParColonne) { System.out.print(val); }
-        //System.out.print("\n");
-
-        //System.out.print("nbCasesVidesParLigne : ");
-        //for (int val : nbCasesVidesParLigne) { System.out.print(val); }
-        //System.out.print("\n");
-
-        //recherche de la meilleur ligne à compléter
-        //parcour total à la recherche du max
-        Hauteur = unTakuzu.getHeightGrille();
-        bestLigne = -1; maxNbCasesVidesLignes = -1;
-        for (int i = 0; i < Hauteur; i++)
-        {
-            int val = nbCasesVidesParLigne[i];
-
-            if (val < Hauteur) {//ligne avec trou(s)
-                if (val > maxNbCasesVidesLignes) {
-                    bestLigne = i;
-                    maxNbCasesVidesLignes = val;
-                }
-            }
-        }
-
-        //recherche de la meilleur colonne à compléter
-        //parcour total à la recherche du max
         Largeur = unTakuzu.getWidthGrille();
-        bestCol = -1; maxNbCasesVidesColonnes = -1;
-        for (int i = 0; i < Largeur; i++)
-        {
-            int val = nbCasesVidesParColonne[i];
+        Hauteur = unTakuzu.getHeightGrille();
 
-            if (val < Largeur) {//colonne avec trou(s)
-                if (val > maxNbCasesVidesColonnes) {
-                    bestCol = i;
-                    maxNbCasesVidesColonnes = val;
+        //recherche de la ligne la moins vide avec son nombre de case vide
+        bestLigne = 0;
+        maxNbSurLigne = 0;
+        nb = 0;
+        for (int indiceLigne = 0; indiceLigne < Hauteur; indiceLigne++) {
+            for (int indiceCol = 0; indiceCol < Largeur; indiceCol++) {
+                if (unTakuzu.getValue(indiceLigne,indiceCol) != -1) {
+                    nb++;
+                }
+            }
+
+            if (nb > maxNbSurLigne && nb < Largeur) {
+                maxNbSurLigne = nb;
+                bestLigne = indiceLigne;
+            }
+
+            nb = 0;
+        }
+
+        //recherche de la colonne la moins vide avec son nombre de case vide
+        bestCol = 0;
+        maxNbSurCol = 0;
+        nb = 0;
+        for (int indiceCol = 0; indiceCol < Hauteur; indiceCol++) {
+            for (int indiceLigne = 0; indiceLigne < Largeur; indiceLigne++) {
+                if (unTakuzu.getValue(indiceLigne,indiceCol) != -1)
+                    nb++;
+            }
+
+            if (nb > maxNbSurCol && nb < Hauteur) {
+                maxNbSurCol = nb;
+                bestCol = indiceCol;
+            }
+
+            nb = 0;
+        }
+
+        //Qui est la moins vide entre la meilleure ligne et la meilleur colonne ?
+        int caseGauche, caseDroite, caseM;
+        if (maxNbSurLigne > maxNbSurCol) {
+            //recherche d'une case vide sur la meilleur ligne
+
+            //boucle de recherce stratégique, on essaie de placer la future hypothes entre 2 cases déjà remplit en espérant faire travailler les algo de résolution simple
+            for (int indiceCol = 0; indiceCol < Largeur; indiceCol++) {
+
+                caseM = unTakuzu.getValue(bestLigne, indiceCol);
+                caseGauche = unTakuzu.getValue(bestLigne, indiceCol-1);
+                caseDroite = unTakuzu.getValue(bestLigne, indiceCol+1);
+                //recherce d'un emplacement stratégique qui est à côté d'une autre case remplit
+                if ((caseM == -1 &&  caseGauche != -1 && caseDroite != -1))
+                {
+                    //System.out.println(bestLigne +""+ indiceCol);
+                    return new int[]{bestLigne,indiceCol};
+                }
+            }
+
+            //boucle de recherce stratégique, on essaie de placer la future hypothes à côté d'une case déjà remplit en espérant faire travailler les algo de résolution simple
+            for (int indiceCol = 0; indiceCol < Largeur; indiceCol++) {
+
+                caseM = unTakuzu.getValue(bestLigne, indiceCol);
+                caseGauche = unTakuzu.getValue(bestLigne, indiceCol-1);
+                caseDroite = unTakuzu.getValue(bestLigne, indiceCol+1);
+
+                if ((caseM == -1 &&  caseGauche != -1) || (caseM == -1 && caseDroite != -1))
+                {
+                    //System.out.println(bestLigne +""+ indiceCol);
+                    return new int[]{bestLigne,indiceCol};
+                }
+            }
+
+            //juste au cas où la colonne est vide
+            for (int indiceCol = 0; indiceCol < Largeur; indiceCol++) {
+                if (unTakuzu.getValue(bestLigne, indiceCol) == -1)
+                {
+                    //System.out.println(bestLigne +""+ indiceCol);
+                    return new int[]{bestLigne,indiceCol};
                 }
             }
         }
-        //System.out.println("bestCol :" + bestCol + " " + "bestLigne :" + bestLigne);
-        //System.out.println("maxNbCasesVidesColonnes :" + maxNbCasesVidesColonnes + " " + "maxNbCasesVidesLignes :" + maxNbCasesVidesLignes);
-        //maintenant on sait quels lignes et colonnes sont les plus remplies
+        else {
+            //recherche d'une case vide sur la meilleur colonne
 
-        if (maxNbCasesVidesLignes >= maxNbCasesVidesColonnes) {
-            //System.out.println("1er cas");
+            //boucle de recherce stratégique, on essaie de placer la future hypothes entre 2 cases déjà remplit pour profiter des algo de résolution simple
+            for (int indiceLigne = 0; indiceLigne < Hauteur; indiceLigne++) {
 
-            //on prend la 1er coordonnée de case qui correspond à la ligne la plus remplit
-            long endTime = System.currentTimeMillis();
-            //System.out.println("HypothesesIntelligent execution time: " + (endTime-startTime) + "ms");
-            return coordDeToutesLesCasesVides.get(bestLigne).get(0);
-        }
-        //else {
-        //System.out.println("2e cas");
-        for (LinkedList<int[]> uneLigne : coordDeToutesLesCasesVides) {
-            for (int[] uneCoordonnee : uneLigne) {
+                caseM = unTakuzu.getValue(indiceLigne, bestCol);
+                caseGauche = unTakuzu.getValue(indiceLigne-1, bestCol);
+                caseDroite = unTakuzu.getValue(indiceLigne+1, bestCol);
 
-                //on prend la 1er coordonnée de case qui correspond à la colonne la plus remplit
-                if (uneCoordonnee[1] == bestCol) {
-                    //System.out.println(uneCoordonnee[0] + " " + uneCoordonnee[1]);
-                    long endTime = System.currentTimeMillis();
-                    //System.out.println("HypothesesIntelligent execution time: " + (endTime-startTime) + "ms");
-                    return uneCoordonnee;
+                if ((caseM == -1 && caseGauche != -1 && caseDroite != -1)) {
+                    //System.out.println(indiceLigne + "" + bestCol);
+                    return new int[]{indiceLigne, bestCol};
+                }
+            }
+
+            //boucle de recherce stratégique, on essaie de placer la future hypothes à côté d'une case déjà remplit pour profiter des algo de résolution simple
+            for (int indiceLigne = 0; indiceLigne < Hauteur; indiceLigne++) {
+
+                caseM = unTakuzu.getValue(indiceLigne, bestCol);
+                caseGauche = unTakuzu.getValue(indiceLigne-1, bestCol);
+                caseDroite = unTakuzu.getValue(indiceLigne+1, bestCol);
+
+                if ((caseM == -1 && caseGauche != -1) || (caseM == -1 && caseDroite != -1)) {
+                    //System.out.println(indiceLigne + "" + bestCol);
+                    return new int[]{indiceLigne, bestCol};
+                }
+            }
+
+            //juste au cas où la colonne est vide
+            for (int indiceLigne = 0; indiceLigne < Hauteur; indiceLigne++) {
+                if (unTakuzu.getValue(indiceLigne, bestCol) == -1) {
+                    //System.out.println(indiceLigne + "" + bestCol);
+                    return new int[]{indiceLigne, bestCol};
                 }
             }
         }
-        //}
 
         return null;
     }
 
     private void faireHypothese(Takuzu unTakuzu) {
-        //System.out.println("Fait une hypothèse");
         //faire une sauvegarde
         Takuzu takuzuSuivant = unTakuzu.cloneTakuzu();
         backupTakuzu.addFirst(unTakuzu);
 
         //faire une hypothèses
-        int[] infoHypothese =  faireUneHypotheseAux(takuzuSuivant);
+        int[] infoHypothese = faireUneHypotheseAux(takuzuSuivant);
         backupTakuzu.addFirst(takuzuSuivant);
         backupHypotheses.addFirst(infoHypothese);
     }
@@ -188,7 +214,6 @@ public class HypothesesIntelligent implements Solveur {
         Takuzu takuzuPrecedent = backupTakuzu.pollFirst();
         int[] infoHypothese = backupHypotheses.pollFirst();
 
-        //System.out.println("Revient en arrière car hypothèses conduit à takuzu invalide");
 
         //l'hypothèse était de mettre un 0, donc on fait l'inverse (car l'hypothèse était fausse)
         if (takuzuPrecedent != null) //il n'y a plus de takuzu, on a tout essayé, le takuzu de base était non-valide

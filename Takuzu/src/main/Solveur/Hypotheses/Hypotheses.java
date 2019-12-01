@@ -11,12 +11,20 @@ public class Hypotheses implements Solveur {
     private Solveur lesSolveursSimples;
     private Deque<Takuzu> backupTakuzu;
     private Deque<int[]> backupHypotheses;
+    private Deque<Takuzu> path;
 
 
     public Hypotheses() {
         this.lesSolveursSimples = new MaitreSolveur();
         this.backupTakuzu = new ArrayDeque<>();
         this.backupHypotheses = new ArrayDeque<>();
+        this.path = new ArrayDeque<>();
+    }
+
+    public void afficherChemin() {
+        while (!path.isEmpty()) {
+            path.pollLast().affichage();
+        }
     }
 
     @Override
@@ -24,7 +32,8 @@ public class Hypotheses implements Solveur {
         System.out.println("Dans Hypotheses");
         long startTime = System.currentTimeMillis();
 
-        backupTakuzu.add(takuzu.cloneTakuzu());
+        Takuzu clone = takuzu.cloneTakuzu();
+        backupTakuzu.add(clone);
 
         Takuzu takuzuCourant;
 
@@ -36,7 +45,7 @@ public class Hypotheses implements Solveur {
             takuzuCourant = backupTakuzu.pollFirst();
             //System.out.println("J'essaie de le résoudre normalement");
             takuzuCourant.seResoudre(lesSolveursSimples);
-            //takuzu.affichage();
+            path.addFirst(takuzuCourant.cloneTakuzu());
 
             if (takuzuCourant.estValide())
             {
@@ -78,17 +87,20 @@ public class Hypotheses implements Solveur {
         //faire une sauvegarde
         Takuzu takuzuSuivant = unTakuzu.cloneTakuzu();
         backupTakuzu.addFirst(unTakuzu);
+        path.addFirst(takuzuSuivant.cloneTakuzu());
 
         //faire une hypothèses
         int[] infoHypothese = faireUneHypotheseAux(takuzuSuivant);
         backupTakuzu.addFirst(takuzuSuivant);
         backupHypotheses.addFirst(infoHypothese);
+        path.addFirst(takuzuSuivant.cloneTakuzu());
     }
 
     private boolean faireHypotheseInverse() {
         //takuzuPrecedent est le Takuzu juste en dessous dans la pile, celui qu'on a sauvegarder avant de faire l'hypothèse
         Takuzu takuzuPrecedent = backupTakuzu.pollFirst();
         int[] infoHypothese = backupHypotheses.pollFirst();
+        path.pollFirst();path.pollFirst();
 
         //System.out.println("Revient en arrière car hypothèses conduit à takuzu invalide");
 
