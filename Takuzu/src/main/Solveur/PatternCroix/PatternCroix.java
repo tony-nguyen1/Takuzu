@@ -16,8 +16,8 @@ public class PatternCroix implements Solveur {
         boolean grdCroixATravailler, petiteCroixATravailler;
         //ces variables contiennent les valeurs des cases proches de 1 case
 
-        height = takuzu.getHeightGrille();
-        width = takuzu.getWidthGrille();
+        height = takuzu.getTailleGrille();
+        width = takuzu.getTailleGrille();
 
         //on regarde les cases 1 par 1
         for (int i = 0; i < height; i++)

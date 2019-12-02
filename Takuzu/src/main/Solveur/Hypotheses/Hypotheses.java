@@ -53,6 +53,7 @@ public class Hypotheses implements Solveur {
                     System.out.println("J'ai trouvé le gagnant");
                     takuzu.remplirLaDifference(takuzuCourant); //Maintenant le takuzu de base, passé en paramètre est gagnant
                     sortie = true;
+                    System.out.println("Compteur : " + backupTakuzu.size());
                 } else {//valide mais pas gagnant
                     //System.out.println("Pas encore gagnant");
                     faireHypothese(takuzuCourant);

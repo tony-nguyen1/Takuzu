@@ -13,76 +13,17 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="javafx-sdk-11.0" level="project" />
     <orderEntry type="library" name="javafx.swing" level="project" />
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://D:/javafx-sdk-11.0.2/lib/javafx-swt.jar!/" />
+          <root url="file://$USER_HOME$/Desktop/lib" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://D:/javafx-sdk-11.0.2/lib/javafx.web.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://D:/javafx-sdk-11.0.2/lib/javafx.fxml.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://D:/javafx-sdk-11.0.2/lib/javafx.graphics.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://D:/javafx-sdk-11.0.2/lib/javafx.controls.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://D:/javafx-sdk-11.0.2/lib/javafx.swing.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://D:/javafx-sdk-11.0.2/lib/javafx.media.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://D:/javafx-sdk-11.0.2/lib/javafx.base.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
+        <SOURCES>
+          <root url="file://$USER_HOME$/Desktop/lib" />
+        </SOURCES>
+        <jarDirectory url="file://$USER_HOME$/Desktop/lib" recursive="false" />
+        <jarDirectory url="file://$USER_HOME$/Desktop/lib" recursive="false" type="SOURCES" />
       </library>
     </orderEntry>
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-engine:5.4.0-M1" level="project" />
@@ -94,6 +35,21 @@
     <orderEntry type="library" name="Maven: org.junit.jupiter:junit-jupiter-api:5.4.0-M1" level="project" />
     <orderEntry type="library" name="Maven: org.opentest4j:opentest4j:1.1.1" level="project" />
     <orderEntry type="library" name="Maven: org.junit.platform:junit-platform-commons:1.4.0-M1" level="project" />
-    <orderEntry type="library" exported="" name="javafx-swt" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file:///opt/javafx-sdk-12.0.1/lib" />
+        </CLASSES>
+        <JAVADOC />
+        <NATIVE>
+          <root url="file:///opt/javafx-sdk-12.0.1/lib" />
+        </NATIVE>
+        <SOURCES>
+          <root url="file:///opt/javafx-sdk-12.0.1/lib" />
+        </SOURCES>
+        <jarDirectory url="file:///opt/javafx-sdk-12.0.1/lib" recursive="false" />
+        <jarDirectory url="file:///opt/javafx-sdk-12.0.1/lib" recursive="false" type="SOURCES" />
+      </library>
+    </orderEntry>
   </component>
 </module>

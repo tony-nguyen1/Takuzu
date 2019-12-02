@@ -21,8 +21,8 @@ public class GenerateurTakuzuFacile implements Generateur {
         this.rand = new Random();
         this.lesSolveursSimples = new MaitreSolveur();
         this.takuzuResolut = takuzuGagnant;
-        this.hauteur = takuzuGagnant.getHeightGrille();
-        this.largeur = takuzuGagnant.getWidthGrille();
+        this.hauteur = takuzuGagnant.getTailleGrille();
+        this.largeur = takuzuGagnant.getTailleGrille();
     }
 
     public Takuzu generer() {

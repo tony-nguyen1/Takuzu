@@ -40,7 +40,7 @@ public class Fenetre extends JFrame{
         this.fontSize = determineFontSize();
 
         takuzu = new Takuzu(tailleTakuzu); //création d'un takuzu
-        gridLayout = new GridLayout(takuzu.getHeightGrille(), takuzu.getWidthGrille(), 1, 1); //création d'une grille
+        gridLayout = new GridLayout(takuzu.getTailleGrille(), takuzu.getTailleGrille(), 1, 1); //création d'une grille
         pan = new JPanel(gridLayout); //création d'un panel contenant la grille.
         bsolution = new JButton("Solution"); //création d'un bouton solution.
         undo = new JButton("Undo");
