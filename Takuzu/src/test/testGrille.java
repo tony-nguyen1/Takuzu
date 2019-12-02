@@ -1,34 +1,22 @@
-import main.Grille;
+
 import main.Takuzu;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 
-
 public class testGrille {
-    private Grille g;
+    private Takuzu g;
 
     @BeforeEach
     void setup() {
 
-        g = new Grille(2, 4);
+        g = new Takuzu(2);
 
-        /*
-        try {
-            g = new Grille(2,2);
-        }
-        catch (OddDimensionsGrilleException e)
-        {
-            System.out.println("Grille creation has failed.");
-            System.err.println(e.getMessage());
-            e.printStackTrace();
-        }
-         */
 
         for (int i = 0; i < 2; i++)
         {
@@ -141,7 +129,7 @@ public class testGrille {
         assertFalse(g.isRowFull(0));
         assertFalse(g.isRowFull(1));
     }
-
+/*
     @Test
     public void test_compteNbCaseParLigne_when_empty() {
         int[] actual = g.compteNbCaseRemplitParLigne();
@@ -184,89 +172,6 @@ public class testGrille {
         assertEquals(0,actual[3]);
     }
 
-    @Test
-    public void test_rechercheCasesVideAux_when_grille_is_empty(){
-        LinkedList<int[]> abc = g.rechercheCasesVideAux(0);
+ */
 
-        assertEquals(4,abc.size());//4 cases sur ma ligne
-
-        int cpt = 0;
-        for (int[] i : abc) {
-            System.out.println(i[0] + " " + i[1]);
-
-
-            assertEquals(0,i[0]);
-            assertEquals(cpt, i[1]);
-
-            cpt++;
-        }
-    }
-
-    @Test
-    public void test_rechercheCasesVideSurToutesLigne_when_grille_is_empty(){
-        LinkedList<LinkedList<int[]>> abc = g.rechercheCasesVide();
-
-        assertEquals(2,abc.size()); //2 lignes sur ma grille
-
-        int i, j;
-        i = 0;
-        j = 0;
-        for (LinkedList<int[]> a : abc) {
-            assertEquals(4,a.size());//4 cases sur ma ligne
-
-            j = 0;
-            for (int[] coord : a) {
-                System.out.println(coord[0] + " " + coord[1]);
-                assertEquals(i, coord[0]);
-                assertEquals(j, coord[1]);
-
-                j++;
-            }
-            i++;
-        }
-    }
-
-    @Test
-    public void test_rechercheCasesVideSurToutesLigne_when_grille_is_empty_and_bigger(){
-        Takuzu t = new Takuzu(6);
-        t.preRemplissage3();
-        g = t.getGrille();
-        t.affichage();
-
-        LinkedList<LinkedList<int[]>> abc = g.rechercheCasesVide();
-
-        assertEquals(6,abc.size());
-
-        int i, j;
-        i = 0;
-        j = 0;
-        for (LinkedList<int[]> a : abc) {
-
-            j = 0;
-            for (int[] coord : a) {
-                System.out.println(coord[0] + " " + coord[1]);
-                /*assertEquals(i, coord[0]);
-                assertEquals(j, coord[1]);*/
-
-                j++;
-            }
-            i++;
-        }
-    }
-
-    /*@Test
-    public void test_rechercheCasesVide2Aux() {
-        g.setValue(0,0,0);
-
-        LinkedList<int[]> actual = g.rechercheCasesVide2Aux(0);
-
-        for (int[] i : actual) {
-            System.out.println(i[0] + " " + i[1]);
-        }
-
-        assertEquals(1, actual.size());
-
-        assertEquals(1, actual.get(0)[0]);
-        assertEquals(0, actual.get(0)[1]);
-    }*/
 }

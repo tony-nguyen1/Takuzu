@@ -1,6 +1,5 @@
 package main.Generateur.Facile;
 
-import main.CustomsExceptions.OddDimensionsGrilleException;
 import main.Generateur.Generateur;
 import main.Solveur.Hypotheses.Hypotheses;
 import main.Solveur.MaitreSolveur.MaitreSolveur;

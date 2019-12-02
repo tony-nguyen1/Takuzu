@@ -21,8 +21,8 @@ public class Backtrack{
     }
 
     private void ajoutListe(Takuzu tak) {
-        int column = tak.getGrille().getHEIGHT();
-        int row = tak.getGrille().getWIDTH();
+        int column = tak.getTailleGrille();
+        int row = tak.getTailleGrille();
 
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < column; j++) {

@@ -47,8 +47,8 @@ public class GenerateurTakuzuDifficile implements Generateur {
     private ArrayList<int[]> listToutesCasesOccupe(Takuzu unTakuzu) {
         ArrayList<int[]> listCaseOccupe = new ArrayList<>();
 
-        for (int i = 0; i < unTakuzu.getHeightGrille(); i++) {
-            for (int j = 0; j < unTakuzu.getWidthGrille(); j++) {
+        for (int i = 0; i < unTakuzu.getTailleGrille(); i++) {
+            for (int j = 0; j < unTakuzu.getTailleGrille(); j++) {
                 if (unTakuzu.getValue(i,j) != -1) {
                     listCaseOccupe.add(new int[]{i,j});
                 }

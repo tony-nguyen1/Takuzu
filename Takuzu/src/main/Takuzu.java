@@ -3,51 +3,74 @@ package main;
 import main.Generateur.Generateur;
 import main.Solveur.Solveur;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 
 public class Takuzu {
-    private Grille grille;
+    private int[][] grille;
+    private final int TAILLE;
 
     public Takuzu(int i) {
-        grille = new Grille(i, i);
+        grille = new int[i][i];
+        fill(-1);
+        TAILLE = i;
     }
 
-    //Nouveau constructeur que j'ai ajouté pour pouvoir utiliser une grille non vide >_>
-    public Takuzu(Grille grid){
-        this.grille = grid;
+    public void play0(int ligne, int colonne){
+        this.setValue(ligne, colonne, 0);
     }
 
-    public void play(int ligne, int colonne, int value)
-    {
-        grille.setValue(ligne, colonne, value);
+    public void play1(int ligne, int colonne) {
+        this.setValue(ligne, colonne, 1);
     }
 
-    public Grille getGrille() { return grille; }
+    public int suppr(int ligne, int colonne) {
+        int val = this.getValue(ligne,colonne);
+        this.setValue(ligne,colonne,-1);
+        return val;
+    }
 
-    //Reimplémentation de la solution de dépannage xddd
-    public int getValue(int ligne, int colonne) {
-        if (ligne < 0 || ligne >= getHeightGrille() || colonne < 0 || colonne >= getWidthGrille()) {
+    public int getTailleGrille() { return TAILLE; }
+
+    public int[][] getGrille() {
+        return grille;
+    }
+
+    public int compteValeurLigne(int i, int val) {
+        int compteurValeur = 0;
+        for (int j = 0; j < TAILLE; j++) {
+            if (grille[i][j] == val)
+                compteurValeur++;
+        }
+        return compteurValeur;
+    }
+
+        public int compteValeurColonne(int i, int val) {
+            int compteValeur = 0;
+            for (int j = 0; j < TAILLE; j++) {
+                if (grille[j][i] == val)
+                    compteValeur++;
+            }
+            return compteValeur;
+        }
+
+        public static int inverseVal(int i){
+        if (i == 0)
+            return 1;
+        else if(i == 1)
+            return 0;
+        else
             return -1;
         }
-        return grille.getValue(ligne, colonne);
-    }
-
-    public int getHeightGrille() { return grille.getHEIGHT(); }
-
-    public int getWidthGrille() { return grille.getWIDTH(); }
-
-    ///////////////////////////////////////////////////////////////////////////////////////////
-    //                            ICI les règles du jeu
 
 
     /**
-     *
-     * Sert à verifier qu'il n'y a pas plus de 0 que de 1
-     *
+     * Sert à verifier qu'il n'y a pas plus de 0 que de 1 dans la ligne y
      */
     public boolean checkRowBalance(int y) {
         int nb0 = 0, nb1 = 0;
-        for (int i = 0; i < getWidthGrille(); i++) {
+        for (int i = 0; i < getTailleGrille(); i++) {
 
             if (getValue(y, i) == 0) {
                 nb0++;
@@ -56,16 +79,20 @@ public class Takuzu {
                 nb1++;
             }
         }
-        return nb0 <= getWidthGrille() / 2 && nb1 <= getWidthGrille() / 2;
+        return nb0 <= getTailleGrille() / 2 && nb1 <= getTailleGrille() / 2;
     }
 
 
+    /**
+     * @param ligne que l'on va comparer avec les autres
+     * @return vrai si la ligne ne correspond à aucune autre ligne, faux sinon
+     */
     public boolean checkRowUnicite(int ligne) {
-        for (int i = 0; i < this.getHeightGrille(); i++) {
+        for (int i = 0; i < this.getTailleGrille(); i++) {
             if (i == ligne) {
                 continue;
             }
-            if (this.getGrille().equals2Row(ligne, i)) {
+            if (this.equals2Row(ligne, i)) {
                 return false;
             }
         }
@@ -73,18 +100,13 @@ public class Takuzu {
         return true;
     }
 
-    /**
-     * @pré-requis la colonne x est déjà remplis
-     * Compare la colonne x avec les autres colonne remplit
-     *
-     * @param x the column that we compare to others column
-     * @return true si la colonne est unique, faux sinon
-     */
 
-    //Grosso merdo j'ai refait la fonction, elle est meilleure dans le sens ou elle verifie également les takuzus non complet
+    /**
+     * Sert à verifier qu'il n'y a pas plus de 0 que de 1 dans la colonne y
+     */
     public boolean checkColumnBalance(int x){
         int nb0 = 0, nb1 = 0;
-        for (int i = 0; i < getWidthGrille(); i++){
+        for (int i = 0; i < getTailleGrille(); i++){
             //ligne , colonne
             if (getValue(i, x) == 0){
                 nb0++;
@@ -93,17 +115,21 @@ public class Takuzu {
                 nb1++;
             }
         }
-        return nb0 <= getWidthGrille() / 2 && nb1 <= getWidthGrille() / 2;
+        return nb0 <= getTailleGrille() / 2 && nb1 <= getTailleGrille() / 2;
     }
 
 
-    //La meme fonction qu'en haut, mais en plus simple et plus pratique à utiliser
+    /**
+     * Compare la colonne x avec les autres colonne remplit
+     *
+     * @return vrai si la colonne est unique, faux sinon
+     */
     public boolean checkColumnUnicite(int ligne) {
-        for (int i = 0; i < this.getWidthGrille(); i++) {
+        for (int i = 0; i < this.getTailleGrille(); i++) {
             if (i == ligne) {
                 continue;
             }
-            if (this.getGrille().equals2Column(ligne, i)) {
+            if (equals2Column(ligne, i)) {
                 return false;
             }
         }
@@ -118,9 +144,21 @@ public class Takuzu {
      * @return vrai si valide
      */
     public boolean estValide() {
-        for (int i = 0; i < getHeightGrille(); i++) {
-            for (int j = 0; j < getWidthGrille(); j++) {
-                //Si la valeur est nulle autant la sauter xddd
+
+        for (int i = 0; i < getTailleGrille(); i++){
+            if (!checkRowBalance(i)){
+                return false;
+            }
+
+            if (!checkColumnBalance(i)){
+                return false;
+            }
+
+        }
+
+        for (int i = 0; i < getTailleGrille(); i++) {
+            for (int j = 0; j < getTailleGrille(); j++) {
+                //Si la valeur est nulle autant la sauter
                 if (getValue(i, j) == -1) {
                     continue;
                 }
@@ -131,82 +169,306 @@ public class Takuzu {
                 if (getValue(i, j) == getValue(i, j + 1) && getValue(i, j) == getValue(i, j - 1)) {
                     return false;
                 }
+
             }
         }
 
-        for (int i = 0; i < getHeightGrille(); i++) {
-            if (grille.isRowFull(i))
+
+        for (int i = 0; i < getTailleGrille(); i++) {
+            if (isRowFull(i))
                 if (!checkRowUnicite(i)) {
                     return false;
-                }
-        }
-
-        for (int i = 0; i < getWidthGrille(); i++) {
-            if (grille.isColumnFull(i))
+            }
+            if (isColumnFull(i))
                 if (!checkColumnUnicite(i)) {
                     return false;
                 }
         }
-
-        for (int i = 0; i < getWidthGrille(); i++){
-            if (!checkColumnBalance(i)){
-                return false;
-            }
-            //Vu qu'un Takuzu est un carré, je me permet de faire ca
-            if (!checkRowBalance(i)){
-                return false;
-            }
-        }
-
         return true;
     }
 
 
+    /**
+     *
+     * @return vrai si le takuzu est valide et complet
+     */
     public boolean estGagnant() {
-        return estValide() && estTotalementRemplit();
+        return estTotalementRemplit() && estValide();
     }
 
-    //                         FIN des règles du jeu
-    ////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Affiche une sortie console de this
+     */
     public void affichage() {
         System.out.println("Takuzu:\n");
-        grille.affichage();
+        System.out.println(this.toString());
     }
 
-    //public void affichageGraphique() { grille.affichageGraphique(); }
+    @Override
+    public String toString() {
+        String res = "";
+        for (int x = 0; x < TAILLE; x++) {
+            for (int y = 0; y < TAILLE; y++) {
+                if (grille[x][y]>=0) {
+                    res = res.concat(String.valueOf(grille[x][y])).concat(" ");
+                }else{
+                    res = res.concat("* ");
+                }
+            }
+            res = res.concat("\n");
+        }
+        return "Grille{\n" + res + "}\n";
+    }
 
-    //FIXME optimiser ça
     /**
      * Crée une deep copie de this.
-     *
      * @return un Takuzu
      */
     public Takuzu cloneTakuzu() {
-        Grille grilleBis = new Grille(this.getWidthGrille(), getHeightGrille());
-        for (int i = 0; i < this.getHeightGrille(); i++) {
-            for (int j = 0; j < this.getWidthGrille(); j++) {
-                grilleBis.setValue(i, j, this.getValue(i, j));
+        Takuzu TakuzuBis = new Takuzu(getTailleGrille());
+        for (int i = 0; i < this.getTailleGrille(); i++) {
+            for (int j = 0; j < this.getTailleGrille(); j++) {
+                TakuzuBis.setValue(i, j, this.getValue(i, j));
             }
         }
-        return new Takuzu(grilleBis);
+        return TakuzuBis;
     }
 
-    public void play0(int ligne, int colonne) {
-        grille.setValue(ligne, colonne, 0);
-    }
 
-    public void play1(int ligne, int colonne) {
-        grille.setValue(ligne, colonne, 1);
-    }
-
-    public int suppr(int ligne, int colonne) {
-        int val = grille.getValue(ligne,colonne);
-        grille.setValue(ligne,colonne,-1);
-        return val;
+    /**
+     * @param ligne
+     * @param colonne
+     * @param inverse
+     * Sert à jouer l'inverse du nombre, est utilisé dans certaines fonctions
+     */
+    public void playInverse(int ligne, int colonne, int inverse)
+    {
+        if (inverse == 1)
+            setValue(ligne, colonne, 0);
+        else if (inverse == 0)
+            setValue(ligne, colonne, 1);
+        else
+            System.err.println(inverse + "pas bonne valeur");
     }
 
     /**
-     * @pré-requis this doit avoir une grille "vide" et de taille 6x6.
+     * @param y La ligne que l'on va tester
+     * @return vrai si la ligne ne contient pas de case vide (-1)
+     */
+
+    public boolean isRowFull(int y){
+        for(int i = 0; i < TAILLE; i++)
+        {
+            if (grille[y][i] == -1)
+                return false;
+        }
+        return true;
+    }
+
+    /**
+     *
+     * @param x la colonne que l'on va tester
+     * @return vrai si la colonne ne contient pas de case vide (-1)
+     */
+
+    public boolean isColumnFull(int x)
+    {
+        for (int i = 0; i < TAILLE; i++)
+        {
+            if (grille[i][x] == -1)
+                return false;
+        }
+        return true;
+    }
+
+
+    /**
+     *
+     * @return false si la grille contient des -1
+     */
+    public boolean estTotalementRemplit() {
+            for (int i = 0; i < TAILLE; i++) {
+                for (int j = 0; j < TAILLE; j++) {
+                    if (grille[i][j] == -1) return false;
+                }
+            }
+
+            return true;
+        }
+
+
+    /**
+     *
+     * @param numLigne la ligne qui va être remplie
+     * @param val la valeur avec laquelle on va remplir la ligne
+     * @return vrai si la ligne a été modifié, faux sinon
+     */
+    @SuppressWarnings("Duplicates")
+    public boolean remplirLigneDe(int numLigne, int val) {
+        boolean didSomething = false;
+        for (int i = 0; i < TAILLE; i++) {
+            if (grille[numLigne][i] == -1) {
+                setValue(numLigne, i, val);
+                didSomething = true;
+            }
+        }
+        return didSomething;
+    }
+
+    @SuppressWarnings("Duplicates")
+    public boolean remplirColonneDe(int numColonne, int val) {
+        boolean didSomething = false;
+        for (int i = 0; i < TAILLE; i++) {
+            if (grille[i][numColonne] == -1) {
+                setValue(i, numColonne, val);
+                didSomething = true;
+            }
+        }
+        return didSomething;
+    }
+
+    public boolean seResoudre(Solveur unSolveur) { return unSolveur.resoudre(this); }
+
+    public static Takuzu genererUnTakuzu(Generateur unGenerateur) {
+        return unGenerateur.generer();
+    }
+
+    /**
+     *
+     * @return la position de la première case vide trouvée, sinon retourne null dans le où il y'en a pas
+     */
+
+    public int[] trouver1erCaseVide() {
+        for (int ord = 0; ord < TAILLE; ord++) {
+            for (int abs = 0; abs < TAILLE; abs++) {
+
+                if (this.getValue(ord, abs) == -1) {
+                    return new int[]{ord, abs};
+                }
+            }
+        }
+        return null;
+    }
+
+    /*
+    public int[] trouverMeilleurCase() {
+        ArrayList liste = new ArrayList();
+        int i = 0;
+
+        for (int ord = 0; ord < TAILLE; ord++) {
+            for (int abs = 0; abs < TAILLE; abs++) {
+
+                if (this.getValue(ord, abs) == -1) {
+                    i++;
+                }
+            }
+            if (i != 0){
+                i = 99;
+            }
+            i = 0;
+        }
+
+
+
+    }
+
+    public int pluspetit(ArrayList<Integer> liste) {
+
+        int smallest = liste.get(0);
+
+        for (int i=1;i<liste.size();i++) {
+            if(liste.get(i) < smallest) {
+                smallest = liste.get(i);
+            }
+        }
+
+        return smallest;
+    }
+    */
+
+    /**
+     *
+     * @param takuzuRempli le takuzu déjà rempli que l'on va utiliser pour prendre les valeurs
+     * @return faux si le takuzuRempli diffère de this dans les cases remplis (c'est à dire autre que -1), sinon retourne vrai
+     */
+    public boolean remplirLaDifference(Takuzu takuzuRempli) {
+
+            //Verification de la taille des deux takuzus
+            if (takuzuRempli.getTailleGrille() != this.TAILLE || takuzuRempli.getTailleGrille() != this.TAILLE) {
+                return false;//throw new RuntimeException("Pas la même grille");
+            }
+
+            //Retourne faux si une valeur déjà rempli diffère de "takuzuRempli"
+            for (int i = 0; i < TAILLE; i++) {
+                for (int j = 0; j < TAILLE; j++) {
+                    if (this.getValue(i, j) != -1) {
+                        if (takuzuRempli.getValue(i, j) != this.getValue(i, j))
+                            return false;
+                    }
+                }
+            }
+
+            //Recopie takuzuRempli dans this
+            for (int i = 0; i < TAILLE; i++) {
+                for (int j = 0; j < TAILLE; j++) {
+                    this.setValue(i,j,takuzuRempli.getValue(i,j));
+                }
+            }
+            return true;
+        }
+
+    public void fill(int value){
+        for (int[] ligne : grille) {
+            Arrays.fill(ligne, value);
+        }
+    }
+
+    public void setValue(int hauteur, int largeur, int value) {
+        this.grille[hauteur][largeur] = value;
+    }
+
+    /**
+     *
+     * @param ligne
+     * @param colonne
+     * @return -1 si la ligne / colonne dépasse le tableau, sinon retourne la valeur se situant à ladite case
+     */
+    public int getValue(int ligne, int colonne) {
+        if (ligne < 0 || ligne >= getTailleGrille() || colonne < 0 || colonne >= getTailleGrille()) {
+            return -1;
+        }
+        return this.grille[ligne][colonne];
+    }
+
+    /**
+     *
+     * @param i l'index d'une ligne de la grille
+     * @param ii l'index d'une ligne de la grille
+     * @return true ssi la ligne n°i et n°ii sont identiques
+     */
+    public boolean equals2Row(int i, int ii)
+    {
+        return java.util.Arrays.equals(grille[i], grille[ii]);
+    }
+
+    public boolean equals2Column(int i, int ii)
+    {
+        ArrayList colonne1 = new ArrayList();
+        ArrayList colonne2 = new ArrayList();
+
+        for (int[] ligne : grille){
+            colonne1.add(ligne[i]);
+        }
+        for (int[] ligne : grille){
+            colonne2.add(ligne[ii]);
+        }
+        return colonne1.equals(colonne2);
+    }
+
+
+    /**
+     * Des fonctions pour remplir des takuzus
      */
     public void preRemplissage() {
         //1er ligne
@@ -279,6 +541,7 @@ public class Takuzu {
         return reponse;
     }
 
+
     public void preRemplissage2() {
         //1er ligne
         play0(0,0);
@@ -350,6 +613,7 @@ public class Takuzu {
         return reponse;
     }
 
+
     public void preRemplissage3() {
         //1er ligne
         play0(0,1);
@@ -375,7 +639,7 @@ public class Takuzu {
     }
 
     public void preRemplissage4() {
-        //C'est tellement simple qu'on doit foutre des 8*8 maintenant xdd
+
         play0(0, 1);
         play1(1, 2);
         play0(2, 4);
@@ -472,47 +736,4 @@ public class Takuzu {
         play1(13,10);
     }
 
-    public void playInverse(int ligne, int colonne, int inverse)
-    {
-        if (inverse == 1)
-            grille.setValue(ligne, colonne, 0);
-        else if (inverse == 0)
-            grille.setValue(ligne, colonne, 1);
-        else
-            System.err.println(inverse + "pas bonne valeur");
-    }
-
-    public boolean estTotalementRemplit() {
-        return grille.estTotalementRemplit();
-    }
-
-    public boolean remplirLigneDe(int numLigne, int val) {
-        return grille.remplirLigneDe(numLigne,val);
-    }
-
-    public boolean remplirColonneDe(int numColonne, int val) {
-        return grille.remplirColonneDe(numColonne,val);
-    }
-
-    public boolean seResoudre(Solveur unSolveur) { return unSolveur.resoudre(this); }
-
-    public static Takuzu genererUnTakuzu(Generateur unGenerateur) {
-        return unGenerateur.generer();
-    }
-
-    public int[] trouver1erCaseVide() {
-        return grille.trouver1erCaseVide();
-    }
-
-    public boolean remplirLaDifference(Takuzu unTakuzu) {
-        return grille.remplirLaDifference(unTakuzu.getGrille());
-    }
-
-    public int[] compteNbCaseRemplitParLigne() { return grille.compteNbCaseRemplitParLigne(); }
-
-    public int[] compteNbCaseRemplitParColonne() { return grille.compteNbCaseRemplitParColonne(); }
-
-    public LinkedList<LinkedList<int[]>> rechercheCasesVide() {
-        return grille.rechercheCasesVide();
-    }
 }
