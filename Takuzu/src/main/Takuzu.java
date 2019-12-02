@@ -351,6 +351,42 @@ public class Takuzu {
         return null;
     }
 
+    /*
+    public int[] trouverMeilleurCase() {
+        ArrayList liste = new ArrayList();
+        int i = 0;
+
+        for (int ord = 0; ord < TAILLE; ord++) {
+            for (int abs = 0; abs < TAILLE; abs++) {
+
+                if (this.getValue(ord, abs) == -1) {
+                    i++;
+                }
+            }
+            if (i != 0){
+                i = 99;
+            }
+            i = 0;
+        }
+
+
+
+    }
+
+    public int pluspetit(ArrayList<Integer> liste) {
+
+        int smallest = liste.get(0);
+
+        for (int i=1;i<liste.size();i++) {
+            if(liste.get(i) < smallest) {
+                smallest = liste.get(i);
+            }
+        }
+
+        return smallest;
+    }
+    */
+
     /**
      *
      * @param takuzuRempli le takuzu déjà rempli que l'on va utiliser pour prendre les valeurs
