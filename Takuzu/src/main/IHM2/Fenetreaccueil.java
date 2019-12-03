@@ -7,16 +7,19 @@ import java.awt.event.*;
 
 public class Fenetreaccueil extends JFrame{
     private Fenetre fen;
-    private JButton bouton1;
+    private JButton boutonjouer;
+    private JButton boutonquitter;
     private JPanel pan;
     private int largeurFenetre;
     private int hauteurFenetre;
+    private String fontName = "Verdana";
 
     public Fenetreaccueil(int largeurFenetre, int hauteurFenetre){
         this.largeurFenetre = largeurFenetre;
         this.hauteurFenetre = hauteurFenetre;
-        pan = new JPanel(); //création d'un panel contenant la grille.
-        bouton1 = new JButton("Jouer"); //création d'un bouton solution.
+        pan = new JPanel(); //création d'un panel.
+        boutonjouer = new JButton("Jouer"); //création d'un bouton jouer.
+        boutonquitter = new JButton("Quitter"); //création d'un bouton quitter.
 
     }
 
@@ -26,10 +29,11 @@ public class Fenetreaccueil extends JFrame{
         this.setSize(largeurFenetre,hauteurFenetre);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
-
-        bouton1.setBackground(Color.lightGray);
-        bouton1.setBounds(200,150, 300, 200);
-        bouton1.addMouseListener(new MouseAdapter() {
+        pan.setBackground(Color.lightGray);
+        boutonjouer.setBackground(Color.yellow);
+        boutonjouer.setBounds(200,150, 300, 200);
+        boutonjouer.setFont(new Font(fontName, Font.BOLD, 18));
+        boutonjouer.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 dispose();
@@ -37,7 +41,17 @@ public class Fenetreaccueil extends JFrame{
                 fen.creerFenetre();
             }
         });
-        pan.add(bouton1);
+        boutonquitter.setBackground(Color.yellow);
+        boutonquitter.setBounds(400,300, 300, 200);
+        boutonquitter.setFont(new Font(fontName, Font.BOLD, 18));
+        boutonquitter.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                dispose();
+            }
+        });
+        pan.add(boutonjouer);
+        pan.add(boutonquitter);
 
 
         setContentPane(pan);
