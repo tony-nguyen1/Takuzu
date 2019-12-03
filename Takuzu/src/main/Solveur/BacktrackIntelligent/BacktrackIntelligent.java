@@ -12,6 +12,7 @@ public class BacktrackIntelligent implements Solveur {
 
     Deque<Takuzu> backupTakuzu;
     Takuzu gagnant = null;
+    int i = 0;
 
     public BacktrackIntelligent() {
         backupTakuzu = new LinkedList<>();
@@ -24,7 +25,8 @@ public class BacktrackIntelligent implements Solveur {
     private void ajoutListe(Takuzu tak) {
         int[] coord;
 
-        coord = tak.trouver1erCaseVide();
+        coord = tak.trouverMeilleurCase();
+
 
         Takuzu tak0 = tak.cloneTakuzu();
         Takuzu tak1 = tak.cloneTakuzu();
@@ -32,8 +34,6 @@ public class BacktrackIntelligent implements Solveur {
         tak1.play1(coord[0],coord[1]);
         backupTakuzu.add(tak0);
         backupTakuzu.add(tak1);
-
-
     }
 
     @Override
@@ -70,6 +70,7 @@ public class BacktrackIntelligent implements Solveur {
             }
 
             ajoutListe(takuzuBis);
+            //takuzuBis.affichage();
         }
         return false;
     }

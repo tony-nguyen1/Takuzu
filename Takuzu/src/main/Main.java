@@ -16,6 +16,6 @@ public class Main {
        //takuzu.seResoudre(new BacktrackIntelligent());
 
        takuzu.affichage();//takuzu.affichageGraphique();
-        System.out.println(takuzu.compteValeurLigne(0, 1));
+        System.out.println(takuzu.trouverMeilleurCase());
     }
 }

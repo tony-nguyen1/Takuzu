@@ -6,8 +6,8 @@ import main.Takuzu;
 
 public class AppHypotheses {
     public static void main(String[] args) {
-        Takuzu takuzu = new Takuzu(8);
-        takuzu.preRemplissage4();
+        Takuzu takuzu = new Takuzu(14);
+        takuzu.preRemplissagePourBenchMarkEntreNous();
 
         System.out.println("Dans le main");
 
@@ -15,7 +15,7 @@ public class AppHypotheses {
         takuzu.seResoudre(hypotheses);
 
         System.out.println("Chemin");
-        hypotheses.afficherChemin();
+        //hypotheses.afficherChemin();
 
         System.out.println("Fin du programme");
     }

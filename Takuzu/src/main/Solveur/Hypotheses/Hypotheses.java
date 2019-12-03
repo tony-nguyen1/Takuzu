@@ -77,7 +77,7 @@ public class Hypotheses implements Solveur {
     private int[] faireUneHypotheseAux(Takuzu takuzu) {
         int[] coordonee;
 
-        coordonee = takuzu.trouver1erCaseVide();
+        coordonee = takuzu.trouverMeilleurCase();
         takuzu.play0(coordonee[0],coordonee[1]);
 
         return coordonee;

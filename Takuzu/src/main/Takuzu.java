@@ -351,41 +351,120 @@ public class Takuzu {
         return null;
     }
 
-    /*
-    public int[] trouverMeilleurCase() {
-        ArrayList liste = new ArrayList();
-        int i = 0;
+
+    public int trouverMeilleurCaseColonne() {
+        ArrayList<Integer> liste = new ArrayList();
+
+        int i = 0, plusPetit, plusPetiteColonne = 0;
+
+        //On compte le nombre de case vide pour chaque ligne
+        for (int ord = 0; ord < TAILLE; ord++) {
+            for (int abs = 0; abs < TAILLE; abs++) {
+                if (this.getValue(abs, ord) == -1) {
+                    i++;
+                }
+            }
+            //On les ajoute
+            liste.add(i);
+
+            //Si on a i == 1 alors on sait qu'on doit jouer sur cette ligne
+            //Donc ca ne sert à rien de continuer à chercher
+            if (i == 1)
+                break;
+
+            //On réinitialise à zéro la valeur de i
+            i = 0;
+        }
+
+        //On remplit la valeur plusPetit avec la toute première de la liste
+        plusPetit = liste.get(0);
+
+        //On cherche la plus petite valeur parmi la liste
+        while (!liste.isEmpty()){
+
+            //S'il s'avère que la première ligne a 0 emplacement dispo, alors on prend la suivante
+            if (plusPetit == 0){
+                plusPetit = liste.get(0);
+                plusPetiteColonne = i;
+            }
+
+            if (plusPetit > liste.get(0) && liste.get(0) != 0) {
+                plusPetiteColonne = i;
+            }
+            liste.remove(0);
+
+            i++;
+        }
+        return plusPetiteColonne;
+    }
+
+    public int trouverMeilleurCaseLigne() {
+        ArrayList<Integer> liste = new ArrayList();
+
+        int i = 0, plusPetit, plusPetiteLigne = 0;
 
         for (int ord = 0; ord < TAILLE; ord++) {
             for (int abs = 0; abs < TAILLE; abs++) {
-
                 if (this.getValue(ord, abs) == -1) {
                     i++;
                 }
             }
-            if (i != 0){
-                i = 99;
-            }
+            liste.add(i);
+
+
+            if (i == 1)
+                break;
+
             i = 0;
         }
+        plusPetit = liste.get(0);
 
+        while (!liste.isEmpty()){
 
-
-    }
-
-    public int pluspetit(ArrayList<Integer> liste) {
-
-        int smallest = liste.get(0);
-
-        for (int i=1;i<liste.size();i++) {
-            if(liste.get(i) < smallest) {
-                smallest = liste.get(i);
+            if (plusPetit == 0){
+                plusPetit = liste.get(0);
+                plusPetiteLigne = i;
             }
+
+            if (plusPetit > liste.get(0) && liste.get(0) != 0) {
+                plusPetiteLigne = i;
+            }
+            liste.remove(0);
+
+            i++;
         }
 
-        return smallest;
+        return plusPetiteLigne;
     }
-    */
+
+    public int [] trouverMeilleurCase() {
+        //int ligne = trouverMeilleurCaseLigne();
+        int colonne = trouverMeilleurCaseColonne();
+/*
+
+        if (ligne > colonne) {
+            for (int i = 0; i < TAILLE; i++) {
+
+                if (grille[ligne][i] == -1) {
+                    return new int[]{ligne, i};
+                }
+            }
+        } else {
+
+ */
+        for (int i = 0; i < TAILLE; i++) {
+
+
+                if (grille[i][colonne] == -1) {
+                    return new int[]{i, colonne};
+                }
+            }
+
+
+
+        return null;
+    }
+
 
     /**
      *
@@ -472,7 +551,7 @@ public class Takuzu {
      */
     public void preRemplissage() {
         //1er ligne
-        play0(0,0);
+        //play0(0,0);
         play0(1,0);
         play1(4,0);
         play1(5,0);
