@@ -6,8 +6,8 @@ import main.Takuzu;
 
 public class AppHypotheses {
     public static void main(String[] args) {
-        Takuzu takuzu = new Takuzu(8);
-        takuzu.preRemplissage4();
+        Takuzu takuzu = new Takuzu(14);
+        takuzu.preRemplissagePourBenchMarkEntreNous();
 
         System.out.println("Dans le main");
 
