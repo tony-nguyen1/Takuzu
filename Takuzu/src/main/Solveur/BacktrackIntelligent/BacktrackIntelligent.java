@@ -1,5 +1,6 @@
 package main.Solveur.BacktrackIntelligent;
 
+import main.Case;
 import main.Solveur.Equilibre.Equilibre;
 import main.Solveur.PatternCroix.PatternCroix;
 import main.Solveur.Solveur;
@@ -21,18 +22,18 @@ public class BacktrackIntelligent implements Solveur {
         return gagnant;
     }
 
-    private void ajoutListe(Takuzu tak) {
-        int[] coord;
 
-        coord = tak.trouver1erCaseVide();
+    private void ajoutListe(Takuzu tak) {
+        Case caseAJouer;
+
+        caseAJouer = tak.trouverMeilleurCase();
 
         Takuzu tak0 = tak.cloneTakuzu();
         Takuzu tak1 = tak.cloneTakuzu();
-        tak0.play0(coord[0],coord[1]);
-        tak1.play1(coord[0],coord[1]);
+        tak0.play0(caseAJouer.getLigne(), caseAJouer.getColonne());
+        tak1.play1(caseAJouer.getLigne(), caseAJouer.getColonne());
         backupTakuzu.add(tak0);
         backupTakuzu.add(tak1);
-
 
     }
 

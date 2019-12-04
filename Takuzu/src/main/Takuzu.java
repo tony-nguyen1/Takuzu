@@ -46,23 +46,23 @@ public class Takuzu {
         return compteurValeur;
     }
 
-        public int compteValeurColonne(int i, int val) {
-            int compteValeur = 0;
-            for (int j = 0; j < TAILLE; j++) {
-                if (grille[j][i] == val)
-                    compteValeur++;
-            }
-            return compteValeur;
+    public int compteValeurColonne(int i, int val) {
+        int compteValeur = 0;
+        for (int j = 0; j < TAILLE; j++) {
+            if (grille[j][i] == val)
+                compteValeur++;
         }
+        return compteValeur;
+    }
 
-        public static int inverseVal(int i){
+    public static int inverseVal(int i){
         if (i == 0)
             return 1;
         else if(i == 1)
             return 0;
         else
             return -1;
-        }
+    }
 
 
     /**
@@ -178,7 +178,7 @@ public class Takuzu {
             if (isRowFull(i))
                 if (!checkRowUnicite(i)) {
                     return false;
-            }
+                }
             if (isColumnFull(i))
                 if (!checkColumnUnicite(i)) {
                     return false;
@@ -288,14 +288,14 @@ public class Takuzu {
      * @return false si la grille contient des -1
      */
     public boolean estTotalementRemplit() {
-            for (int i = 0; i < TAILLE; i++) {
-                for (int j = 0; j < TAILLE; j++) {
-                    if (grille[i][j] == -1) return false;
-                }
+        for (int i = 0; i < TAILLE; i++) {
+            for (int j = 0; j < TAILLE; j++) {
+                if (grille[i][j] == -1) return false;
             }
-
-            return true;
         }
+
+        return true;
+    }
 
 
     /**
@@ -351,41 +351,74 @@ public class Takuzu {
         return null;
     }
 
-    /*
-    public int[] trouverMeilleurCase() {
-        ArrayList liste = new ArrayList();
-        int i = 0;
 
-        for (int ord = 0; ord < TAILLE; ord++) {
-            for (int abs = 0; abs < TAILLE; abs++) {
+    /**
+     *
+     * @return une case vide se situant dans la ligne / colonne contenant le moins de case vide
+     *
+     * Comme son nom l'indique, cette fonction trouve la "meilleure" case vide à jouer en comparant le nombre de case vide entre chaque colonne et chaque ligne et choisi
+     * la ligne / colonne ayant le moins de case
+     */
+    public Case trouverMeilleurCase() {
 
-                if (this.getValue(ord, abs) == -1) {
-                    i++;
+        int nombreCaseVideColonne = 0;
+        int nombreCaseVideLigne = 0;
+        int plusPetit = 128;
+
+        Case case1 = new Case(-1, -1);
+        Case case2 = new Case(-1, -1);
+        Case caseàJouer = new Case(-1, -1);
+
+        for (int abs = 0; abs < TAILLE; abs++){
+            for (int ord = 0; ord < TAILLE; ord++){
+
+                if (grille[ord][abs] == -1){
+                    nombreCaseVideLigne++;
+                    case1.setLigne(ord);
+                    case1.setColonne(abs);
                 }
+
+                if (grille[abs][ord] == -1){
+                    nombreCaseVideColonne++;
+                    case2.setLigne(abs);
+                    case2.setColonne(ord);
+                }
+
+                if (nombreCaseVideColonne == 0){
+                    nombreCaseVideColonne = 64;
+                }
+                if (nombreCaseVideLigne == 0){
+                    nombreCaseVideLigne = 64;
+                }
+
+                if (nombreCaseVideColonne <= plusPetit){
+                    plusPetit = nombreCaseVideColonne;
+                    caseàJouer = case1.clone();
+                }
+
+                if (nombreCaseVideLigne <= plusPetit){
+                    plusPetit = nombreCaseVideLigne;
+                    caseàJouer = case2.clone();
+                }
+
+                nombreCaseVideLigne = 0;
+                nombreCaseVideColonne = 0;
             }
-            if (i != 0){
-                i = 99;
-            }
-            i = 0;
+
+
+
         }
+/*
+        System.out.println("case ligne" + case1);
+        System.out.println("case colonne" + case2);
+        System.out.println("case a jouer " + caseàJouer);
+        affichage();
 
-
+ */
+        return caseàJouer;
 
     }
 
-    public int pluspetit(ArrayList<Integer> liste) {
-
-        int smallest = liste.get(0);
-
-        for (int i=1;i<liste.size();i++) {
-            if(liste.get(i) < smallest) {
-                smallest = liste.get(i);
-            }
-        }
-
-        return smallest;
-    }
-    */
 
     /**
      *
@@ -394,29 +427,29 @@ public class Takuzu {
      */
     public boolean remplirLaDifference(Takuzu takuzuRempli) {
 
-            //Verification de la taille des deux takuzus
-            if (takuzuRempli.getTailleGrille() != this.TAILLE || takuzuRempli.getTailleGrille() != this.TAILLE) {
-                return false;//throw new RuntimeException("Pas la même grille");
-            }
-
-            //Retourne faux si une valeur déjà rempli diffère de "takuzuRempli"
-            for (int i = 0; i < TAILLE; i++) {
-                for (int j = 0; j < TAILLE; j++) {
-                    if (this.getValue(i, j) != -1) {
-                        if (takuzuRempli.getValue(i, j) != this.getValue(i, j))
-                            return false;
-                    }
-                }
-            }
-
-            //Recopie takuzuRempli dans this
-            for (int i = 0; i < TAILLE; i++) {
-                for (int j = 0; j < TAILLE; j++) {
-                    this.setValue(i,j,takuzuRempli.getValue(i,j));
-                }
-            }
-            return true;
+        //Verification de la taille des deux takuzus
+        if (takuzuRempli.getTailleGrille() != this.TAILLE || takuzuRempli.getTailleGrille() != this.TAILLE) {
+            return false;//throw new RuntimeException("Pas la même grille");
         }
+
+        //Retourne faux si une valeur déjà rempli diffère de "takuzuRempli"
+        for (int i = 0; i < TAILLE; i++) {
+            for (int j = 0; j < TAILLE; j++) {
+                if (this.getValue(i, j) != -1) {
+                    if (takuzuRempli.getValue(i, j) != this.getValue(i, j))
+                        return false;
+                }
+            }
+        }
+
+        //Recopie takuzuRempli dans this
+        for (int i = 0; i < TAILLE; i++) {
+            for (int j = 0; j < TAILLE; j++) {
+                this.setValue(i,j,takuzuRempli.getValue(i,j));
+            }
+        }
+        return true;
+    }
 
     public void fill(int value){
         for (int[] ligne : grille) {
@@ -472,7 +505,7 @@ public class Takuzu {
      */
     public void preRemplissage() {
         //1er ligne
-        play0(0,0);
+        //play0(0,0);
         play0(1,0);
         play1(4,0);
         play1(5,0);
