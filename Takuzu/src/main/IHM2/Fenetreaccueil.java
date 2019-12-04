@@ -10,6 +10,8 @@ public class Fenetreaccueil extends JFrame{
     private JButton boutonjouer;
     private JButton boutonquitter;
     private JPanel pan;
+
+    private JLabel titrejeu;
     private int largeurFenetre;
     private int hauteurFenetre;
     private String fontName = "Verdana";
@@ -18,8 +20,9 @@ public class Fenetreaccueil extends JFrame{
         this.largeurFenetre = largeurFenetre;
         this.hauteurFenetre = hauteurFenetre;
         pan = new JPanel(); //création d'un panel.
-        boutonjouer = new JButton("Jouer"); //création d'un bouton jouer.
-        boutonquitter = new JButton("Quitter"); //création d'un bouton quitter.
+        titrejeu = new JLabel("TAKUZU");
+        boutonjouer = new JButton("JOUER"); //création d'un bouton jouer.
+        boutonquitter = new JButton("QUITTER"); //création d'un bouton quitter.
 
     }
 
@@ -30,9 +33,10 @@ public class Fenetreaccueil extends JFrame{
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
         pan.setBackground(Color.lightGray);
-        boutonjouer.setBackground(Color.yellow);
-        boutonjouer.setBounds(200,150, 300, 200);
-        boutonjouer.setFont(new Font(fontName, Font.BOLD, 18));
+        titrejeu.setFont(new Font(fontName, Font.BOLD, 23));
+        boutonjouer.setBackground(Color.white);
+        boutonjouer.setBounds(120,hauteurFenetre - 300, 300, 200);
+        boutonjouer.setFont(new Font(fontName, Font.BOLD, 25));
         boutonjouer.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -41,20 +45,20 @@ public class Fenetreaccueil extends JFrame{
                 fen.creerFenetre();
             }
         });
-        boutonquitter.setBackground(Color.yellow);
-        boutonquitter.setBounds(400,300, 300, 200);
-        boutonquitter.setFont(new Font(fontName, Font.BOLD, 18));
+        boutonquitter.setBackground(Color.white);
+        boutonquitter.setBounds(580,hauteurFenetre - 300, 300, 200);
+        boutonquitter.setFont(new Font(fontName, Font.BOLD, 25));
         boutonquitter.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 dispose();
             }
         });
+        setContentPane(pan);
+
         pan.add(boutonjouer);
         pan.add(boutonquitter);
-
-
-        setContentPane(pan);
+        pan.add(titrejeu);
         this.setVisible(true);
     }
 }

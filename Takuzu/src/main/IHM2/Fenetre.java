@@ -17,11 +17,12 @@ public class Fenetre extends JFrame{
     private Takuzu takuzu;
     private Takuzu takuzuBackup;
     private GridLayout gridLayout;
+    private FenetreRegles fenetreRegles;
     private JPanel pan; //panel pour la grille
     private JPanel panelboutons; //panel pour le niveau
-    private JButton bsolution, undo, undoJusquaSolution;
-    private JComboBox jComboBox;
-    private Object[] elements = new Object[]{"Facile", "Difficile"};
+    private JButton bsolution, undo, bregles, undoJusquaSolution;
+    /*private JComboBox jComboBox;
+    private Object[] elements = new Object[]{"Facile", "Difficile"};*/
     private int tailleTakuzu;
     private int largeurFenetre;
     private int hauteurFenetre;
@@ -44,9 +45,9 @@ public class Fenetre extends JFrame{
         pan = new JPanel(gridLayout); //création d'un panel contenant la grille.
         bsolution = new JButton("Solution"); //création d'un bouton solution.
         undo = new JButton("Undo");
-        jComboBox = new JComboBox(elements);
+        //jComboBox = new JComboBox(elements);
         panelboutons = new JPanel();
-
+        bregles = new JButton("Règles");
     }
 
     public void creerFenetre(){
@@ -57,13 +58,13 @@ public class Fenetre extends JFrame{
         panelboutons.setBackground(Color.darkGray);
         panelboutons.setLayout(null);
         panelboutons.add(bsolution);
-        panelboutons.add(jComboBox);
+        //panelboutons.add(jComboBox);
         panelboutons.add(undo);
-
-        bsolution.setBounds(0, hauteurFenetre - 200, 125, 100);
-        jComboBox.setBounds(0, hauteurFenetre - 500, 125, 80);
+        panelboutons.add(bregles);
+        bsolution.setBounds(0, hauteurFenetre - 300, 125, 100);
+        //jComboBox.setBounds(0, hauteurFenetre - 500, 125, 80);
         undo.setBounds(0, hauteurFenetre - 700, 125, 100);
-
+        bregles.setBounds(0, hauteurFenetre - 500, 125, 100);
 
 
         this.setTitle("Jeu du Takuzu"); //titre de la fenêtre
@@ -74,7 +75,7 @@ public class Fenetre extends JFrame{
         //pan.setBorder(blackline);
         this.remplirGrille(takuzu); //utilisation de la méthode remplirgrille()
         takuzuBackup = takuzu.cloneTakuzu();
-        jComboBox.setBackground(Color.lightGray);
+        /*jComboBox.setBackground(Color.lightGray);
         jComboBox.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -85,10 +86,9 @@ public class Fenetre extends JFrame{
                     viderGrille();
                 }
             }
-        });
+        });*/
         bsolution.setBackground(Color.orange); //modification de couleur du bouton "solution"
         bsolution.setFont(new Font(fontName, Font.BOLD, 18)); //modification de la police du bouton "solution"
-
         bsolution.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -110,7 +110,8 @@ public class Fenetre extends JFrame{
                 }
             }
         });
-
+        undo.setBackground(Color.orange); //modification de couleur du bouton "solution"
+        undo.setFont(new Font(fontName, Font.BOLD, 18));
         undo.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -124,6 +125,16 @@ public class Fenetre extends JFrame{
                 }
             }
             }});
+
+        bregles.setBackground(Color.orange); //modification de couleur du bouton "solution"
+        bregles.setFont(new Font(fontName, Font.BOLD, 18)); //modification de la police du bouton "solution"
+        bregles.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                fenetreRegles = new FenetreRegles();
+                fenetreRegles.creerFenetre();
+            }
+        });
         //bsolution.addActionListener(this);
         //Border blackline = BorderFactory.createLineBorder(Color.lightGray,1);
         //panbsol.add(bsolution);
