@@ -36,8 +36,8 @@ public class Fenetre extends JFrame{
         DequeTakuzu = new ArrayDeque<>();
 
         this.tailleTakuzu = tailleTakuzu;
-        this.largeurFenetre = largeurFenetre;
-        this.hauteurFenetre = hauteurFenetre;
+        this.largeurFenetre = 800;
+        this.hauteurFenetre = 800;
         this.fontSize = determineFontSize();
 
         takuzu = new Takuzu(tailleTakuzu); //création d'un takuzu
@@ -87,7 +87,7 @@ public class Fenetre extends JFrame{
                 }
             }
         });*/
-        bsolution.setBackground(Color.orange); //modification de couleur du bouton "solution"
+        bsolution.setBackground(new Color(148,159,230)); //modification de couleur du bouton "solution"
         bsolution.setFont(new Font(fontName, Font.BOLD, 18)); //modification de la police du bouton "solution"
         bsolution.addMouseListener(new MouseAdapter() {
             @Override
@@ -110,7 +110,7 @@ public class Fenetre extends JFrame{
                 }
             }
         });
-        undo.setBackground(Color.orange); //modification de couleur du bouton "solution"
+        undo.setBackground(new Color(148,159,230)); //modification de couleur du bouton "solution"
         undo.setFont(new Font(fontName, Font.BOLD, 18));
         undo.addMouseListener(new MouseAdapter() {
             @Override
@@ -126,7 +126,7 @@ public class Fenetre extends JFrame{
             }
             }});
 
-        bregles.setBackground(Color.orange); //modification de couleur du bouton "solution"
+        bregles.setBackground(new Color(148,159,230)); //modification de couleur du bouton "solution"
         bregles.setFont(new Font(fontName, Font.BOLD, 18)); //modification de la police du bouton "solution"
         bregles.addMouseListener(new MouseAdapter() {
             @Override
@@ -250,6 +250,14 @@ public class Fenetre extends JFrame{
         else if (tailleTakuzu == 16)
             return 25;
         else return 10;
+    }
+
+    public int getLargeurFenetre(){
+        return largeurFenetre;
+    }
+
+    public int getHauteurFenetre(){
+        return hauteurFenetre;
     }
 
 }
