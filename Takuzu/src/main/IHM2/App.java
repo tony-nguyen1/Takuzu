@@ -14,7 +14,7 @@ import main.Takuzu;
         public static void main(String[] args) {
             Fenetreaccueil fen2= new Fenetreaccueil(1000,800);
             //Fenetre fen = new Fenetre(8, 1000, 800);
-           fen2.creerFenetre();
+            fen2.creerFenetre();
 
             /*FenetreNiveau fenetreniveau = new FenetreNiveau();
             fenetreniveau.creerFenetre();*/

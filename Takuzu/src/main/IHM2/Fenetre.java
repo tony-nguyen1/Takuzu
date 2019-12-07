@@ -18,9 +18,10 @@ public class Fenetre extends JFrame{
     private Takuzu takuzuBackup;
     private GridLayout gridLayout;
     private FenetreRegles fenetreRegles;
+    private FenetreNiveau fenetreNiveau;
     private JPanel pan; //panel pour la grille
     private JPanel panelboutons; //panel pour le niveau
-    private JButton bsolution, undo, bregles, undoJusquaSolution;
+    private JButton bsolution, undo, bregles, bniveau, undoJusquaSolution;
     /*private JComboBox jComboBox;
     private Object[] elements = new Object[]{"Facile", "Difficile"};*/
     private int tailleTakuzu;
@@ -45,12 +46,13 @@ public class Fenetre extends JFrame{
         pan = new JPanel(gridLayout); //création d'un panel contenant la grille.
         bsolution = new JButton("Solution"); //création d'un bouton solution.
         undo = new JButton("Undo");
+        bniveau = new JButton("Niveau");
         //jComboBox = new JComboBox(elements);
         panelboutons = new JPanel();
         bregles = new JButton("Règles");
     }
 
-    public void creerFenetre(){
+    public void creerFenetre() {
 
         pan.setPreferredSize(new Dimension(largeurFenetre - 125, hauteurFenetre));//le panel pan ne prend qu'une partie du panel de la fenêtre.
         pan.setBackground(Color.lightGray); // modification de couleur du panel
@@ -61,10 +63,12 @@ public class Fenetre extends JFrame{
         //panelboutons.add(jComboBox);
         panelboutons.add(undo);
         panelboutons.add(bregles);
-        bsolution.setBounds(0, hauteurFenetre - 300, 125, 100);
-        //jComboBox.setBounds(0, hauteurFenetre - 500, 125, 80);
-        undo.setBounds(0, hauteurFenetre - 700, 125, 100);
-        bregles.setBounds(0, hauteurFenetre - 500, 125, 100);
+        panelboutons.add(bniveau);
+        bsolution.setBounds(0, hauteurFenetre - 200, 125, 100);
+        //jComboBox.setBounds(0, hauteurFenetre - 00, 125, 80);
+        bregles.setBounds(0, hauteurFenetre - 400, 125, 100);
+        undo.setBounds(0, hauteurFenetre - 600, 125, 100);
+        bniveau.setBounds(0, 0, 125, 100);
 
 
         this.setTitle("Jeu du Takuzu"); //titre de la fenêtre
@@ -87,7 +91,7 @@ public class Fenetre extends JFrame{
                 }
             }
         });*/
-        bsolution.setBackground(new Color(148,159,230)); //modification de couleur du bouton "solution"
+        bsolution.setBackground(new Color(148, 159, 230)); //modification de couleur du bouton "solution"
         bsolution.setFont(new Font(fontName, Font.BOLD, 18)); //modification de la police du bouton "solution"
         bsolution.addMouseListener(new MouseAdapter() {
             @Override
@@ -100,8 +104,7 @@ public class Fenetre extends JFrame{
                     if (resolution) { //S'il a réussi à résoudre
                         takuzu.affichage();
                         remplirGrille(takuzu);
-                    }
-                    else {
+                    } else {
                         System.out.println("La résolution à partir de ce qui a été fait est un echec, nous allons donc reprendre le takuzu initial");
                         takuzuBackup.seResoudre(new Hypotheses());
                         takuzuBackup.affichage();
@@ -110,23 +113,24 @@ public class Fenetre extends JFrame{
                 }
             }
         });
-        undo.setBackground(new Color(148,159,230)); //modification de couleur du bouton "solution"
+        undo.setBackground(new Color(148, 159, 230)); //modification de couleur du bouton "solution"
         undo.setFont(new Font(fontName, Font.BOLD, 18));
         undo.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-            if (e.getClickCount() > 0){
+                if (e.getClickCount() > 0) {
 
-                if (!DequeTakuzu.isEmpty()){
-                    System.out.println("Undoing");
-                    takuzu = DequeTakuzu.poll();
-                    viderGrille();
-                    remplirGrille(takuzu);
+                    if (!DequeTakuzu.isEmpty()) {
+                        System.out.println("Undoing");
+                        takuzu = DequeTakuzu.poll();
+                        viderGrille();
+                        remplirGrille(takuzu);
+                    }
                 }
             }
-            }});
+        });
 
-        bregles.setBackground(new Color(148,159,230)); //modification de couleur du bouton "solution"
+        bregles.setBackground(new Color(148, 159, 230)); //modification de couleur du bouton "solution"
         bregles.setFont(new Font(fontName, Font.BOLD, 18)); //modification de la police du bouton "solution"
         bregles.addMouseListener(new MouseAdapter() {
             @Override
@@ -138,7 +142,16 @@ public class Fenetre extends JFrame{
         //bsolution.addActionListener(this);
         //Border blackline = BorderFactory.createLineBorder(Color.lightGray,1);
         //panbsol.add(bsolution);
-
+        bniveau.setBackground(new Color(148, 159, 230)); //modification de couleur du bouton "solution"
+        bniveau.setFont(new Font(fontName, Font.BOLD, 18)); //modification de la police du bouton "solution"
+        bniveau.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                dispose();
+                fenetreNiveau = new FenetreNiveau();
+                fenetreNiveau.creerFenetre();
+            }
+        });
        // this.getContentPane().add(panbsol,BorderLayout.EAST);
         this.getContentPane().add(panelboutons);
         this.getContentPane().add(pan, BorderLayout.WEST); //ajout du panel Pane
@@ -259,5 +272,7 @@ public class Fenetre extends JFrame{
     public int getHauteurFenetre(){
         return hauteurFenetre;
     }
-
+    public Takuzu getTakuzu(){
+        return takuzu;
+    }
 }

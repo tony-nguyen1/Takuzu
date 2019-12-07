@@ -1,9 +1,13 @@
 package main.IHM2;
 
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import main.Generateur.Facile.*;
+import main.Generateur.*;
+import main.Generateur.Difficile.*;
 
 public class FenetreNiveau extends JFrame{
 
@@ -15,6 +19,8 @@ public class FenetreNiveau extends JFrame{
     private int largeurFenetre;
     private int hauteurFenetre;
     private String fontName = "Verdana";
+    private GenerateurTakuzuFacile genfacile;
+    private GenerateurTakuzuDifficile gendifficile;
 
 
     public FenetreNiveau() {
@@ -27,7 +33,7 @@ public class FenetreNiveau extends JFrame{
     }
 
     public void creerFenetre(){
-            //pan.setLayout(null);
+            pan.setLayout(null);
             this.setTitle("Niveaux");
             this.setSize(largeurFenetre,hauteurFenetre);
             setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -35,11 +41,16 @@ public class FenetreNiveau extends JFrame{
             pan.setBackground(Color.lightGray);
             niveau1.setBackground(Color.white);
             //niveau1.setBounds(120,hauteurFenetre - 300, 150, 150);
-            niveau1.setFont(new Font(fontName, Font.BOLD, 25));
+            niveau1.setFont(new Font(fontName, Font.BOLD, 40));
             niveau1.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+            niveau1.setBounds(100, 0, 200, 100);
+            niveau1.setFocusPainted(false);
+            niveau1.setBorderPainted(false);
+            niveau1.setContentAreaFilled(false);
             niveau1.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                // faire en sorte que ça génère une grille facile
                 dispose();
                 fen = new Fenetre(8,1000, 800);
                 fen.creerFenetre();
@@ -47,12 +58,39 @@ public class FenetreNiveau extends JFrame{
         });
             niveau2.setBackground(Color.white);
             //niveau2.setBounds(580,hauteurFenetre - 300, 150, 150);
-            niveau2.setFont(new Font(fontName, Font.BOLD, 25));
+            niveau2.setFont(new Font(fontName, Font.BOLD, 40));
             niveau2.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+            niveau2.setBounds(100,150, 200, 100);
+            niveau2.setFocusPainted(false);
+            niveau2.setBorderPainted(false);
+            niveau2.setContentAreaFilled(false);
+            niveau2.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // faire en sorte que ça génère une grille moyenne
+                dispose();
+                fen = new Fenetre(8,1000, 800);
+                fen.creerFenetre();
+            }
+        });
             niveau3.setBackground(Color.white);
             //niveau3.setBounds(580,hauteurFenetre - 300, 150, 150);
-            niveau3.setFont(new Font(fontName, Font.BOLD, 25));
+            niveau3.setFont(new Font(fontName, Font.BOLD, 40));
             niveau3.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+            niveau3.setBounds(100, 300, 200, 100);
+            niveau3.setFocusPainted(false);
+            niveau3.setBorderPainted(false);
+            niveau3.setContentAreaFilled(false);
+            niveau3.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // faire en sorte que ça génère une grille difficile
+                dispose();
+                fen = new Fenetre(8,1000, 800);
+                genfacile = new GenerateurTakuzuFacile(8,fen.getTakuzu());
+                fen.creerFenetre();
+            }
+        });
             setContentPane(pan);
             pan.add(niveau1);
             pan.add(niveau2);
