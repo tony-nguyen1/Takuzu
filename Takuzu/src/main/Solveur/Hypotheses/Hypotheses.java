@@ -13,7 +13,6 @@ public class Hypotheses implements Solveur {
     private Deque<int[]> backupHypotheses;
     private Deque<Takuzu> path;
 
-
     public Hypotheses() {
         this.lesSolveursSimples = new MaitreSolveur();
         this.backupTakuzu = new ArrayDeque<>();
@@ -43,27 +42,35 @@ public class Hypotheses implements Solveur {
         while (!backupTakuzu.isEmpty() && !sortie)
         {
             takuzuCourant = backupTakuzu.pollFirst();
-            //System.out.println("J'essaie de le résoudre normalement");
-            takuzuCourant.seResoudre(lesSolveursSimples);
-            path.addFirst(takuzuCourant.cloneTakuzu());
 
             if (takuzuCourant.estValide())
             {
+                System.out.println("valide");
+                takuzuCourant.affichage();
+                path.addFirst(takuzuCourant.cloneTakuzu());
+                takuzuCourant.seResoudre(lesSolveursSimples);
+                System.out.println("résolution simple");
+                takuzuCourant.affichage();
+                path.addFirst(takuzuCourant.cloneTakuzu());
                 if (takuzuCourant.estTotalementRemplit()) {//takuzuCourant est gagnant
                     System.out.println("J'ai trouvé le gagnant");
                     takuzu.remplirLaDifference(takuzuCourant); //Maintenant le takuzu de base, passé en paramètre est gagnant
+                    takuzuCourant.affichage();
                     sortie = true;
-                    System.out.println("Compteur : " + backupTakuzu.size());
                 } else {//valide mais pas gagnant
-                    //System.out.println("Pas encore gagnant");
+                    System.out.println("pas gagnant");
                     faireHypothese(takuzuCourant);
                 }
             } else {//takuzuCourant est invalide
                 //"faire l'inverse"
+                System.out.print("pas valide ");
+                path.pollFirst();
+                takuzuCourant.affichage();
                 if (/*échouer à*/!faireHypotheseInverse()) { return false; }
             }
 
             cpt++;
+            System.out.println("Taile de la pile : " + backupTakuzu.size());
         }
 
         reset();
@@ -80,36 +87,36 @@ public class Hypotheses implements Solveur {
         coordonee = takuzu.trouver1erCaseVide();
         takuzu.play0(coordonee[0],coordonee[1]);
 
+        System.out.println("après hypothèse");
+        takuzu.affichage();
+
         return coordonee;
     }
 
     private void faireHypothese(Takuzu unTakuzu) {
-        //System.out.println("Fait une hypothèse");
         //faire une sauvegarde
         Takuzu takuzuSuivant = unTakuzu.cloneTakuzu();
         backupTakuzu.addFirst(unTakuzu);
-        path.addFirst(takuzuSuivant.cloneTakuzu());
 
         //faire une hypothèses
         int[] infoHypothese = faireUneHypotheseAux(takuzuSuivant);
         backupTakuzu.addFirst(takuzuSuivant);
         backupHypotheses.addFirst(infoHypothese);
-        path.addFirst(takuzuSuivant.cloneTakuzu());
     }
 
     private boolean faireHypotheseInverse() {
         //takuzuPrecedent est le Takuzu juste en dessous dans la pile, celui qu'on a sauvegarder avant de faire l'hypothèse
         Takuzu takuzuPrecedent = backupTakuzu.pollFirst();
         int[] infoHypothese = backupHypotheses.pollFirst();
-        path.pollFirst();path.pollFirst();
-
-        //System.out.println("Revient en arrière car hypothèses conduit à takuzu invalide");
 
         //l'hypothèse était de mettre un 0, donc on fait l'inverse (car l'hypothèse était fausse)
         if (takuzuPrecedent != null) //il n'y a plus de takuzu, on a tout essayé, le takuzu de base était non-valide
             takuzuPrecedent.play1(infoHypothese[0],infoHypothese[1]);//au même endroit
         else
             return false;
+
+        System.out.println("après fausse hypothèse");
+        takuzuPrecedent.affichage();
 
         backupTakuzu.addFirst(takuzuPrecedent);
         return true;

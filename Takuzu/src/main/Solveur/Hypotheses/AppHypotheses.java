@@ -9,13 +9,12 @@ public class AppHypotheses {
         Takuzu takuzu = new Takuzu(14);
         takuzu.preRemplissagePourBenchMarkEntreNous();
 
-        System.out.println("Dans le main");
-
         Hypotheses hypotheses = new Hypotheses();
         takuzu.seResoudre(hypotheses);
 
-        System.out.println("Chemin");
-        hypotheses.afficherChemin();
+        takuzu.affichage();
+        /*System.out.println("Chemin");
+        hypotheses.afficherChemin();*/
 
         System.out.println("Fin du programme");
     }

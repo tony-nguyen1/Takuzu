@@ -90,7 +90,7 @@ public class Takuzu {
     public boolean checkRowUnicite(int ligne) {
         for (int i = 0; i < this.getTailleGrille(); i++) {
             if (i == ligne) {
-                continue;
+                continue;//"passer à l'itération de boucle suivante"
             }
             if (this.equals2Row(ligne, i)) {
                 return false;
@@ -144,7 +144,7 @@ public class Takuzu {
      * @return vrai si valide
      */
     public boolean estValide() {
-
+        //même nombre de 0 et de 1 sur chaque lignes
         for (int i = 0; i < getTailleGrille(); i++){
             if (!checkRowBalance(i)){
                 return false;
@@ -156,6 +156,7 @@ public class Takuzu {
 
         }
 
+        //pas 3* la même valeur
         for (int i = 0; i < getTailleGrille(); i++) {
             for (int j = 0; j < getTailleGrille(); j++) {
                 //Si la valeur est nulle autant la sauter
@@ -173,7 +174,7 @@ public class Takuzu {
             }
         }
 
-
+        //pas de séquence identique, chaque ligne et colonne unique
         for (int i = 0; i < getTailleGrille(); i++) {
             if (isRowFull(i))
                 if (!checkRowUnicite(i)) {
@@ -475,10 +476,11 @@ public class Takuzu {
     }
 
     /**
+     * Compare la ligne i et ii.
      *
      * @param i l'index d'une ligne de la grille
      * @param ii l'index d'une ligne de la grille
-     * @return true ssi la ligne n°i et n°ii sont identiques
+     * @return true ssi la ligne n°i et n°ii sont identiques, false sinon
      */
     public boolean equals2Row(int i, int ii)
     {
