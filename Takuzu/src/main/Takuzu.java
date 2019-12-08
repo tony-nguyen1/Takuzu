@@ -340,12 +340,12 @@ public class Takuzu {
      * @return la position de la première case vide trouvée, sinon retourne null dans le où il y'en a pas
      */
 
-    public int[] trouver1erCaseVide() {
+    public Case trouver1erCaseVide() {
         for (int ord = 0; ord < TAILLE; ord++) {
             for (int abs = 0; abs < TAILLE; abs++) {
 
                 if (this.getValue(ord, abs) == -1) {
-                    return new int[]{ord, abs};
+                    return new Case(ord, abs);
                 }
             }
         }
