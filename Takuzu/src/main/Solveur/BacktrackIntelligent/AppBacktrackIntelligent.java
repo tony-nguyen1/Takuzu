@@ -8,8 +8,8 @@ import main.Takuzu;
 public class AppBacktrackIntelligent {
     public static void main(String[] args) {
 
-        Takuzu takuzu = new Takuzu(14);
-        takuzu.preRemplissagePourBenchMarkEntreNous();
+        Takuzu takuzu = new Takuzu(10);
+        //takuzu.preRemplissagePourBenchMarkEntreNous();
         takuzu.affichage();
 
 

@@ -6,13 +6,14 @@ import main.Takuzu;
 
 public class AppHypotheses {
     public static void main(String[] args) {
-        Takuzu takuzu = new Takuzu(14);
-        takuzu.preRemplissagePourBenchMarkEntreNous();
+        Takuzu takuzu = new Takuzu(10);
+        //takuzu.play0(0,0);
+        //takuzu.preRemplissagePourBenchMarkEntreNous();
 
         Hypotheses hypotheses = new Hypotheses();
         takuzu.seResoudre(hypotheses);
+        System.out.println(takuzu.estValide());
 
-        takuzu.affichage();
         /*System.out.println("Chemin");
         hypotheses.afficherChemin();*/
 
