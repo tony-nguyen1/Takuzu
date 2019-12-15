@@ -3,6 +3,9 @@ package main;
 import main.Generateur.Generateur;
 import main.Solveur.Solveur;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -153,7 +156,6 @@ public class Takuzu {
             if (!checkColumnBalance(i)){
                 return false;
             }
-
         }
 
         //pas 3* la même valeur
@@ -769,6 +771,74 @@ public class Takuzu {
         play1(13,0);
         play1(13,9);
         play1(13,10);
+    }
+
+    /***
+     * Sauvegarde dans un fichier txt le takuzu this sous forme d'1 chaîne de caractères.
+     * format :
+     *      1er ligne : taille du takuzu
+     *      2e ligne ; contenu du takuzu
+     *
+     * @return 0 si tout c'est bien passé, 1 sinon
+     */
+    public int save(String pathName){
+        //préparation pour l'écriture
+        PrintWriter writer = null;
+        try {
+            writer = new PrintWriter(pathName, "UTF-8");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return 1;
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return 1;
+        }
+
+        writer.println(TAILLE);
+
+        //préparation de la chaine de caractère correspondant à this takuzu sur 1 seul ligne
+        String takuzuString = "";
+        for (int i = 0; i < TAILLE; i++) {
+            for (int j = 0; j < TAILLE; j++) {
+                if (this.getValue(i,j) == -1)
+                    takuzuString = takuzuString + "2";
+                else
+                    takuzuString = takuzuString + this.getValue(i,j);
+            }
+        }
+        writer.println(takuzuString);
+        writer.close();
+
+        return 0;
+    }
+
+    public static Takuzu load(String pathName) {
+        java.util.Scanner lecteur = null;
+        java.io.File fichier = new java.io.File(pathName);
+        try {
+            lecteur = new java.util.Scanner(fichier);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        int taille = Integer.parseInt(lecteur.nextLine());
+
+        String contenu = lecteur.nextLine();
+        Takuzu takuzuLoaded = new Takuzu(taille);
+        char value;
+        for (int i = 0; i < taille; i++) {
+            for (int j = 0; j < taille; j++) {
+                value = contenu.charAt(i*taille+j);
+
+                if ('0' == value) {
+                    takuzuLoaded.play0(i,j);
+                }
+                else if (value == '1'){
+                    takuzuLoaded.play1(i,j);
+                }
+            }
+        }
+        return takuzuLoaded;
     }
 
 }
