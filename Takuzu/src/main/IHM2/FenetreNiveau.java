@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import main.Generateur.Facile.*;
 import main.Generateur.*;
 import main.Generateur.Difficile.*;
+import main.Takuzu;
 
 public class FenetreNiveau extends JFrame{
 
@@ -52,8 +53,22 @@ public class FenetreNiveau extends JFrame{
             public void mouseClicked(MouseEvent e) {
                 // faire en sorte que ça génère une grille facile
                 dispose();
-                fen = new Fenetre(8,1000, 800);
-                fen.creerFenetre();
+                Takuzu t = new Takuzu(8);
+                t.preRemplissage();
+                Fenetre f = new Fenetre(t);
+                f.creerFenetre();
+
+                /*
+                dispose();
+
+                Generateur g = new GenerateurTakuzuFacile(20, Takuzu.getPreRemplissageAnswer2());
+                Takuzu t = g.generer();
+
+                t.preRemplissage();
+                Fenetre f = new Fenetre(t);
+                f.creerFenetre();
+
+                 */
             }
         });
             niveau2.setBackground(Color.white);
@@ -69,8 +84,10 @@ public class FenetreNiveau extends JFrame{
             public void mouseClicked(MouseEvent e) {
                 // faire en sorte que ça génère une grille moyenne
                 dispose();
-                fen = new Fenetre(8,1000, 800);
-                fen.creerFenetre();
+                Takuzu t = new Takuzu(8);
+                t.preRemplissage();
+                Fenetre f = new Fenetre(t);
+                f.creerFenetre();
             }
         });
             niveau3.setBackground(Color.white);
@@ -85,11 +102,25 @@ public class FenetreNiveau extends JFrame{
             @Override
             public void mouseClicked(MouseEvent e) {
                 // faire en sorte que ça génère une grille difficile
+                /*
                 dispose();
-                fen = new Fenetre(8,1000, 800);
-                genfacile = new GenerateurTakuzuFacile(8,fen.getTakuzu());
-                fen.creerFenetre();
+
+                GenerateurTakuzuDifficile g = new GenerateurTakuzuDifficile(14, 0);
+                Takuzu t = g.generer();
+
+                t.preRemplissage();
+                Fenetre f = new Fenetre(t);
+                f.creerFenetre();
+
+                 */
+                dispose();
+                Takuzu t = new Takuzu(8);
+                t.preRemplissage();
+                Fenetre f = new Fenetre(t);
+                f.creerFenetre();
             }
+
+
         });
             setContentPane(pan);
             pan.add(niveau1);

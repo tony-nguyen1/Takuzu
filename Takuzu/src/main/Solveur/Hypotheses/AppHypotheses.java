@@ -6,9 +6,9 @@ import main.Takuzu;
 
 public class AppHypotheses {
     public static void main(String[] args) {
-        Takuzu takuzu = new Takuzu(10);
+        Takuzu takuzu = new Takuzu(20);
         //takuzu.play0(0,0);
-        //takuzu.preRemplissagePourBenchMarkEntreNous();
+        takuzu.preRemplissagePourBenchMarkEntreNous();
 
         Hypotheses hypotheses = new Hypotheses();
         takuzu.seResoudre(hypotheses);
