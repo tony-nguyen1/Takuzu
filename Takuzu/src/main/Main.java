@@ -17,10 +17,17 @@ public class Main {
        takuzu.preRemplissage3();
        takuzu.affichage();
 
+       Takuzu takuzuBis = new Takuzu(10);
+       takuzuBis.preRemplissage4();
+
+        System.out.println(takuzuBis.equals(takuzu));
+
+        /*
        takuzu.save("./Ressources/mon-fichier.txt");
 
        Takuzu takuzuCharge = Takuzu.load("./Ressources/mon-fichier.txt");
        takuzuCharge.affichage();
+        */
     }
 
 }

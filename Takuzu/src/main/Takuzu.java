@@ -9,6 +9,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.Objects;
 
 public class Takuzu {
     private int[][] grille;
@@ -503,6 +504,27 @@ public class Takuzu {
         return colonne1.equals(colonne2);
     }
 
+    /**
+     *
+     * @param o
+     * @return true si les deux takuzus sont les memes
+     */
+
+    public boolean equals(Takuzu o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (TAILLE != o.getTailleGrille()){
+            return false;
+        }
+        for (int i = 0; i < TAILLE; i++){
+            for (int j = 0; j < TAILLE; j++){
+                if (this.getValue(i, j) != o.getValue(i, j)){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
     /**
      * Des fonctions pour remplir des takuzus

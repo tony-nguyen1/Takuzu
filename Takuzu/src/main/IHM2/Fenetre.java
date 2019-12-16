@@ -120,11 +120,21 @@ public class Fenetre extends JFrame{
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() > 0) {
 
+                    if (DequeTakuzu.isEmpty()){
+                        DequeTakuzu.add(takuzuBackup);
+                        System.out.println("empty");
+                    }
+
                     if (!DequeTakuzu.isEmpty()) {
                         System.out.println("Undoing");
                         takuzu = DequeTakuzu.poll();
+
+                        takuzu.affichage();
                         viderGrille();
-                        remplirGrille(takuzu);
+                        //recreer Grille
+                        remplirGrille(takuzuBackup);
+                        //remplir les boutons
+                        remplirLaDifference(takuzu);
                     }
                 }
             }
@@ -160,21 +170,19 @@ public class Fenetre extends JFrame{
     }
 
     public void remplirGrille(Takuzu takuzu) {
-        System.out.println(takuzu);
+        //System.out.println(takuzu);
         int value;
         for (int x = 0; x < tailleTakuzu; x++) { //parcours de la grille
-            for (int y = 0; y < tailleTakuzu; y++) {
-                value = takuzu.getValue(x, y);
-                if (value == 0 || value == 1) {
+                    for (int y = 0; y < tailleTakuzu; y++) {
+                        value = this.takuzu.getValue(x, y);
+                        if (value == 0 || value == 1) {
                     JPanel ptest = new JPanel(); //création d'un panel pour chaque case.
                     JLabel label = new JLabel(Integer.toString(value), SwingConstants.CENTER); //création d'un label avec la valeur 1 ou 0.
                     label.setFont(new Font(fontName, Font.BOLD, fontSize)); //modification de la police
                     ptest.add(label); //ajout des labels avec la valeur 1 ou 0 dans les panels ptest
                     ptest.setBackground(Color.WHITE);
                     pan.add(ptest); // ajout de tous les panels avec un 1 ou 0 dans pan.
-                }
-
-                else {
+                } else {
                     JButton bouton = new JButton();//création d'un bouton si pas de valeur
                     pan.add(bouton); //ajout du bouton dans le pan
                     bouton.setContentAreaFilled(false);
@@ -183,60 +191,93 @@ public class Fenetre extends JFrame{
                         public void mouseClicked(MouseEvent e) {
                             JLabel label = new JLabel();
                             bouton.setOpaque(true);
+                            Takuzu takuzuAvantClic = takuzu.cloneTakuzu();
 
                             //Grace a ces formules magiques on trouve la valeur de X et de Y par rapport au Takuzu, on peut donc faire le lien entre le panel et le takuzu désormais
-                            int boutonX = bouton.getX()/(pan.getSize().width/tailleTakuzu);
-                            int boutonY =  bouton.getY()/(pan.getSize().height/tailleTakuzu);
+                            int boutonX = bouton.getX() / (pan.getSize().width / tailleTakuzu);
+                            int boutonY = bouton.getY() / (pan.getSize().height / tailleTakuzu);
                             int i = 0;
 
-                            if (e.getClickCount()%2 == 1) {
+                            if (e.getClickCount() % 2 == 1) {
                                 label.setText("0");
                                 label.setFont(new Font(fontName, Font.BOLD, fontSize));
-                                takuzu.play0(boutonY, boutonX);
+                                takuzuAvantClic.play0(boutonY, boutonX);
+                                DequeTakuzu.add(takuzuAvantClic);
 
-                            }
-                            else {
+                            } else {
                                 label.setText("1");
                                 label.setFont(new Font(fontName, Font.BOLD, fontSize));
-                                takuzu.play1(boutonY, boutonX);
+                                takuzuAvantClic.play1(boutonY, boutonX);
+                                DequeTakuzu.add(takuzuAvantClic);
                             }
                             bouton.setText(label.getText());
                             bouton.setFont(label.getFont());
 
 
-                            if (!takuzu.estValide()){
+                            if (!takuzuAvantClic.estValide()) {
                                 bouton.setBackground(Color.red);
-                            }
 
-                            else {
+                            } else {
                                 //C'est juste pour déterminer les bonnes cases et les recolorier
-                                for (int z = 0; z < tailleTakuzu*tailleTakuzu; z++){
+                                for (int z = 0; z < tailleTakuzu * tailleTakuzu; z++) {
                                     int ligne, colonne;
                                     //C'est pour faire le lien entre la grille et le takuzu afin de colorier UNIQUEMENT les cases dont le joueur a joué dessus
-                                    ligne = z/tailleTakuzu;
-                                    colonne = z%tailleTakuzu;
-                                    if (takuzuBackup.getValue(ligne, colonne) == -1){
+                                    ligne = z / tailleTakuzu;
+                                    colonne = z % tailleTakuzu;
+                                    if (takuzuBackup.getValue(ligne, colonne) == -1) {
                                         pan.getComponent(z).setBackground(Color.lightGray);
                                     }
                                 }
 
-                                DequeTakuzu.add(takuzu.cloneTakuzu());
-                            }
 
 
-                            if (takuzu.estGagnant()){
-                                for (int z = 0; z < tailleTakuzu*tailleTakuzu; z++){
-                                    pan.getComponent(z).setBackground(Color.orange);
+
+
+                                if (takuzuAvantClic.estGagnant()) {
+                                    for (int z = 0; z < tailleTakuzu * tailleTakuzu; z++) {
+                                        pan.getComponent(z).setBackground(Color.orange);
+                                    }
                                 }
-                            }
 
+                            }
                         }
                     });
 
                 }
-
             }
         }
+    }
+
+    public void remplirLaDifference(Takuzu takuzuBis){
+        int value;
+        int compteurComposant = 0;
+
+        for (int x = 0; x < tailleTakuzu; x++) { //parcours de la grille
+            for (int y = 0; y < tailleTakuzu; y++) {
+
+                value = takuzuBis.getValue(x, y);
+
+                //Si la case n'était pas rempli initialement
+                if ((value == 0 || value == 1) && takuzu.getValue(x, y) == -1) {
+                    //Un cast parce qu'on est certain que l'élement est un bouton
+                    JButton bouton = (JButton)pan.getComponent(compteurComposant);
+                    //Un autre cast pour passer de string à int
+                    String valeur = String.valueOf(value);
+
+                    JLabel label = new JLabel();
+                    label.setText(valeur);
+                    label.setFont(new Font(fontName, Font.BOLD, fontSize));
+
+                    bouton.setText(label.getText());
+                    bouton.setFont(label.getFont());
+
+
+                }
+
+                compteurComposant++;
+            }
+        }
+
     }
 
     public void viderGrille() {
