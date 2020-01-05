@@ -5,7 +5,9 @@ import main.Takuzu;
 
 public class AppTakuzuDifficile {
     public static void  main (String[] argv) {
-        GenerateurTakuzuDifficile g = new GenerateurTakuzuDifficile(14, 0);
+        Takuzu tak = new Takuzu(14);
+        tak.preRemplissagePourBenchMarkEntreNous();
+        GenerateurTakuzuDifficile g = new GenerateurTakuzuDifficile(tak);
 
         Takuzu takuzu = g.generer();
         System.out.println("Takuzu générer :");

@@ -804,6 +804,7 @@ public class Takuzu {
      * @return 0 si tout c'est bien passé, 1 sinon
      */
     public int save(String pathName){
+        System.out.println("ici");
         //préparation pour l'écriture
         PrintWriter writer = null;
         try {
@@ -830,6 +831,7 @@ public class Takuzu {
         }
         writer.println(takuzuString);
         writer.close();
+        System.out.println(pathName);
 
         return 0;
     }
@@ -861,6 +863,18 @@ public class Takuzu {
             }
         }
         return takuzuLoaded;
+    }
+
+    public int nbCaseRemplie() {
+        int nbCase = 0;
+        for (int i = 0; i < TAILLE; i ++) {
+            for (int j = 0; j < TAILLE; j++) {
+                if (getValue(i,j) != -1) {
+                    nbCase++;
+                }
+            }
+        }
+        return nbCase;
     }
 
 }

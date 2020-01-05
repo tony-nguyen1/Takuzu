@@ -7,7 +7,7 @@ import main.Takuzu;
 
 public class AppTestFacile {
     public static void main(String[] args) {
-        Generateur g = new GenerateurTakuzuFacile(20, Takuzu.getPreRemplissageAnswer2());
+        Generateur g = new GenerateurTakuzuFacile(Takuzu.getPreRemplissageAnswer2());
 
         Takuzu takuzuFacile = g.generer();
         System.out.println("Takuzu générer :");
