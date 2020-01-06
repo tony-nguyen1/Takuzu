@@ -334,6 +334,8 @@ public class Takuzu {
 
     public boolean seResoudre(Solveur unSolveur) { return unSolveur.resoudre(this); }
 
+    public static Takuzu seResoudre(Generateur unGenerateur) { return unGenerateur.generer(); }
+
     public static Takuzu genererUnTakuzu(Generateur unGenerateur) {
         return unGenerateur.generer();
     }
@@ -831,7 +833,7 @@ public class Takuzu {
         }
         writer.println(takuzuString);
         writer.close();
-        System.out.println(pathName);
+        System.out.println("saving to " + pathName);
 
         return 0;
     }

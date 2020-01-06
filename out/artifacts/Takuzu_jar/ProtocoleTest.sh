@@ -1,6 +1,6 @@
 #!/bin/bash
-i=14
-max=16
+i=4
+max=20
 while [ $i -le $max ];
 do
 fileResult="result_Takuzu_taille_${i}.txt"

@@ -1,5 +1,6 @@
 package main.Generateur.Difficile;
 
+import main.Generateur.Facile.GenerateurTakuzuFacile;
 import main.Generateur.Generateur;
 import main.Takuzu;
 
@@ -17,7 +18,7 @@ public class GenerateurTakuzuDifficile implements Generateur {
 
     public GenerateurTakuzuDifficile(Takuzu unTakuzu) {
         this.taille = taille;
-        this.nbHypotheses = round(unTakuzu.nbCaseRemplie()*25/100);
+        this.nbHypotheses = round(unTakuzu.nbCaseRemplie()*10/100);
         this.random = new Random();
         this.takuzu = unTakuzu;
     }
@@ -27,11 +28,14 @@ public class GenerateurTakuzuDifficile implements Generateur {
         long startTime = System.currentTimeMillis();
         System.out.println("Dans Generateur Avec Hypotheses");
 
-        Takuzu unTakuzuFacile = takuzu.cloneTakuzu();
+        Generateur generateur = new GenerateurTakuzuFacile(takuzu.cloneTakuzu());
+
+        Takuzu unTakuzuFacile = generateur.generer();
 
         ArrayList<int[]> listCaseOccupe = listToutesCasesOccupe(unTakuzuFacile);
 
         int i = 0;
+        System.out.println(nbHypotheses);
         while (i < nbHypotheses) {
             int[] coord = choisisElementHasard(listCaseOccupe);
             unTakuzuFacile.suppr(coord[0], coord[1]);

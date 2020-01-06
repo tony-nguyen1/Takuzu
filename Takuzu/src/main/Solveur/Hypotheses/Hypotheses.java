@@ -26,15 +26,9 @@ public class Hypotheses implements Solveur {
         this.path = new ArrayDeque<>();
     }
 
-    public void afficherChemin() {
-        while (!path.isEmpty()) {
-            path.pollLast().affichage();
-        }
-    }
-
     @Override
     public boolean resoudre(Takuzu takuzu) {
-        System.out.println("Dans Hypotheses");
+        //System.out.println("Dans Hypotheses");
         long startTime = System.currentTimeMillis();
 
         backupTakuzu.add(takuzu.cloneTakuzu());
@@ -66,9 +60,9 @@ public class Hypotheses implements Solveur {
                 //System.out.println("valide");
 
                 if (takuzuCourant.estTotalementRemplit()) {//takuzuCourant est gagnant
-                    System.out.println("J'ai trouvé le gagnant");
+                    //System.out.println("J'ai trouvé le gagnant");
                     takuzu.remplirLaDifference(takuzuCourant); //Maintenant le takuzu de base, passé en paramètre est gagnant
-                    takuzuCourant.affichage();
+                    //takuzuCourant.affichage();
                     trouveGagnant = true;
                 } else {//valide mais pas gagnant
                     //System.out.println("pas gagnant");
@@ -88,13 +82,13 @@ public class Hypotheses implements Solveur {
         reset();
 
         long endTime = System.currentTimeMillis();
-        System.out.println("tour de boucle : " + cpt);
+        /*System.out.println("tour de boucle : " + cpt);
         System.out.println("temps verification: " + t_verification);
         System.out.println("temps résolution: " + t_resolution);
         System.out.println("temps faireHypotheseInverse(): " + t_faireHypotheseInverse);
         System.out.println("temps faireHypothese(): " + t_faireHypothese);
         System.out.println("temps trouverMeilleurEmplacement(): " + t_trouveMeilleurEmplacement);
-        System.out.println("Hypotheses execution time: " + (endTime-startTime) + "ms");
+        System.out.println("Hypotheses execution time: " + (endTime-startTime) + "ms");*/
         return trouveGagnant;
     }
 

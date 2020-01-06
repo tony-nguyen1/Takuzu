@@ -1,0 +1,25 @@
+Introduction
+
+	Nous allons testé différent algorithmes afin d'évaluer leur temps d'éxécution mais aussi si ils sont capable de résoudre la grille jusqu'à la fin.
+	Pour pouvoir les comparé il est nécessaire d'utiliser les mêmes grilles entre les différents algorithmes pour une taille donné.
+
+Les variantes du protocoles 
+
+	Un set de Takuzu sera généré. Ils seront répartit de tel façon : 10 sans hypothèses et 10 avec hypothèses par taille de grille. La taille de grille va varié entre 4 et 20.
+
+Le protocole
+
+	1er phase : Création des grilles
+	Générer une dizaines de grilles par taille variant entre 4 et 20 à l'avance.
+	Les stockez avec la fonction save() dans un fichier.
+
+	2e phase : Résolution
+	Pour chaque Takuzu, utiliser les classes suivantes : PatternCroix, Equilibre, MaitrSolveur, Hypothese, BacktrackIntelligent afin d'essayer de résoudre la grille.
+
+Mesure des performances et évalutation
+	
+	Observer à la fin des calculs, l'état de la grille (remplit ou non), si c'est gagnant ou non, et le temps d'éxécution.
+	
+	On s'attend à ce que PatternCroix, Equilibre et MaitreSolveur arrive à résoudre les grilles de Takuzu sans hypothèses mais pas à celle avec Hypothèse.
+	
+	Pour Hypothese et BacktrackIntelligent, il est attendu qu'ils arrivent à résoudre toutes les grilles. Il est prévu que le temps prit par Hypothese pour résoudre le problème augmente moins rapidement que le temps prit par BacktrackIntelligent.

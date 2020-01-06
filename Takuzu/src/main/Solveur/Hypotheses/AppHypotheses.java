@@ -1,12 +1,11 @@
 package main.Solveur.Hypotheses;
 
 import main.Solveur.MaitreSolveur.MaitreSolveur;
-import main.Solveur.hypothesesIntelligent.HypothesesIntelligent;
 import main.Takuzu;
 
 public class AppHypotheses {
     public static void main(String[] args) {
-        Takuzu takuzu = new Takuzu(20);
+        Takuzu takuzu = new Takuzu(14);
         //takuzu.play0(0,0);
         takuzu.preRemplissagePourBenchMarkEntreNous();
 

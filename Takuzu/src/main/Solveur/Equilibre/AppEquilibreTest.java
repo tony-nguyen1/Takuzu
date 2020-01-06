@@ -19,9 +19,7 @@ public class AppEquilibreTest {
 
         Solveur sol = new Equilibre();
 
-        for (int i =0; i < 10; i++){
-            sol.resoudre(takuzu);
-        }
+        sol.resoudre(takuzu);
 
 
         takuzu.affichage();

@@ -19,7 +19,7 @@ public class GenerateurTakuzuFacile implements Generateur {
     private Takuzu takuzu;
 
     public GenerateurTakuzuFacile(Takuzu takuzuGagnant) {
-        this.nbCaseRandomASupprimer = round(takuzuGagnant.getTailleGrille()*56/100);
+        this.nbCaseRandomASupprimer = round(takuzuGagnant.getTailleGrille()*30/100);
         this.rand = new Random();
         this.lesSolveursSimples = new MaitreSolveur();
         this.takuzu = takuzuGagnant;

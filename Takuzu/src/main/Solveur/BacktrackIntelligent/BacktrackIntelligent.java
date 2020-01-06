@@ -59,7 +59,7 @@ public class BacktrackIntelligent implements Solveur {
             if (takuzuBis.estGagnant()) {
                 gagnant = takuzuBis;
 
-                System.out.println("Compteur " + backupTakuzu.size());
+                //System.out.println("Compteur " + backupTakuzu.size());
                 takuzu.remplirLaDifference(takuzuBis);
 
                 return true;
