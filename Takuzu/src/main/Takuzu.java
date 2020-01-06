@@ -334,6 +334,8 @@ public class Takuzu {
 
     public boolean seResoudre(Solveur unSolveur) { return unSolveur.resoudre(this); }
 
+    public static Takuzu seResoudre(Generateur unGenerateur) { return unGenerateur.generer(); }
+
     public static Takuzu genererUnTakuzu(Generateur unGenerateur) {
         return unGenerateur.generer();
     }
@@ -804,6 +806,7 @@ public class Takuzu {
      * @return 0 si tout c'est bien passé, 1 sinon
      */
     public int save(String pathName){
+        System.out.println("ici");
         //préparation pour l'écriture
         PrintWriter writer = null;
         try {
@@ -830,6 +833,7 @@ public class Takuzu {
         }
         writer.println(takuzuString);
         writer.close();
+        System.out.println("saving to " + pathName);
 
         return 0;
     }
@@ -861,6 +865,18 @@ public class Takuzu {
             }
         }
         return takuzuLoaded;
+    }
+
+    public int nbCaseRemplie() {
+        int nbCase = 0;
+        for (int i = 0; i < TAILLE; i ++) {
+            for (int j = 0; j < TAILLE; j++) {
+                if (getValue(i,j) != -1) {
+                    nbCase++;
+                }
+            }
+        }
+        return nbCase;
     }
 
 }

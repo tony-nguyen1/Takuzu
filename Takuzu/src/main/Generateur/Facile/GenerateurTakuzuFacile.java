@@ -7,6 +7,8 @@ import main.Takuzu;
 
 import java.util.Random;
 
+import static java.lang.Math.round;
+
 public class GenerateurTakuzuFacile implements Generateur {
 
     private int nbCaseRandomASupprimer;
@@ -14,13 +16,13 @@ public class GenerateurTakuzuFacile implements Generateur {
     private Solveur lesSolveursSimples;
     private int hauteur;
     private int largeur;
-    private Takuzu takuzuResolut;
+    private Takuzu takuzu;
 
-    public GenerateurTakuzuFacile(int nbCaseASupprimerAleatoirement, Takuzu takuzuGagnant) {
-        this.nbCaseRandomASupprimer = nbCaseASupprimerAleatoirement;
+    public GenerateurTakuzuFacile(Takuzu takuzuGagnant) {
+        this.nbCaseRandomASupprimer = round(takuzuGagnant.getTailleGrille()*30/100);
         this.rand = new Random();
         this.lesSolveursSimples = new MaitreSolveur();
-        this.takuzuResolut = takuzuGagnant;
+        this.takuzu = takuzuGagnant;
         this.hauteur = takuzuGagnant.getTailleGrille();
         this.largeur = takuzuGagnant.getTailleGrille();
     }
@@ -48,6 +50,7 @@ public class GenerateurTakuzuFacile implements Generateur {
         //initialisation des types primitifs
         nbCaseSupprimeeAleatoirement = 0;
         cpt = 0;
+        Takuzu takuzuResolut = takuzu.cloneTakuzu();
 
         while((nbCaseSupprimeeAleatoirement < nbCaseRandomASupprimer )) {
 

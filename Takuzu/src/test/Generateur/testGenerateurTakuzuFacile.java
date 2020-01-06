@@ -12,7 +12,7 @@ public class testGenerateurTakuzuFacile {
     @Test
     public void test_if_generateur_is_tested()
     {
-        Takuzu takuzuFacile = Takuzu.genererUnTakuzu(new GenerateurTakuzuFacile(20, Takuzu.getPreRemplissageAnswer2()));
+        Takuzu takuzuFacile = Takuzu.genererUnTakuzu(new GenerateurTakuzuFacile(Takuzu.getPreRemplissageAnswer2()));
         takuzuFacile.affichage();
         assertTrue(takuzuFacile.estValide());
 
