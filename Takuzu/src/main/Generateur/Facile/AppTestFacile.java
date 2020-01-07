@@ -7,11 +7,13 @@ import main.Takuzu;
 
 public class AppTestFacile {
     public static void main(String[] args) {
-        Takuzu takuzu = new Takuzu(14);
-        takuzu.preRemplissagePourBenchMarkEntreNous();
-        Generateur g = new GenerateurTakuzuFacile(takuzu);
 
+        String path = System.getProperty("user.dir");
+        Takuzu tak = Takuzu.load(path + "/Takuzu/Ressources/takuzu_taille_14.txt");
+
+        Generateur g = new GenerateurTakuzuFacile(tak);
         Takuzu takuzuFacile = g.generer();
+
         System.out.println("Takuzu générer :");
         takuzuFacile.affichage();
 
