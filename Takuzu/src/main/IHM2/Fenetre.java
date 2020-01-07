@@ -1,6 +1,7 @@
 package main.IHM2;
 
 
+import main.Case;
 import main.Solveur.BacktrackIntelligent.BacktrackIntelligent;
 import main.Solveur.Hypotheses.Hypotheses;
 import main.Solveur.MaitreSolveur.MaitreSolveur;
@@ -31,11 +32,13 @@ public class Fenetre extends JFrame{
     private int fontSize;
 
     private Deque<Takuzu> DequeTakuzu;
+    private Deque<Case> DequeCaseJoue;
 
     private String fontName = "Verdana";
 
     public Fenetre(Takuzu t) {
         DequeTakuzu = new ArrayDeque<>();
+        DequeCaseJoue = new ArrayDeque<>();
         this.largeurFenetre = 800;
         this.hauteurFenetre = 800;
 
@@ -117,14 +120,8 @@ public class Fenetre extends JFrame{
                     if (!DequeTakuzu.isEmpty()) {
                         takuzu = DequeTakuzu.pollLast();
                         remplirGrilleDifference(takuzu);
-
-                        //Retire le rouge au cas ou le takuzu ne serait plus valide
-                        if (takuzu.estValide()){
-                            colorieGris();
-                        }
-
                     }
-
+                    colorieGrisCaseValide();
                 }
             }
         });
@@ -210,6 +207,7 @@ public class Fenetre extends JFrame{
                                 ptest.setText(label.getText());
                                 ptest.setFont(label.getFont());
                                 DequeTakuzu.add(takuzuASauvegarder);
+                                DequeCaseJoue.add(new Case(boutonY, boutonX));
                             }
 
                             //Colorie en rouge la case non valide
@@ -225,9 +223,7 @@ public class Fenetre extends JFrame{
                             //Faire un stack de case, foutre les cases joué dessus et vérifier chacune d'entre elle à chaque move pour les recolorier et retirer celles qui ont
                             //été supprimé avec un "undo" / ou les supprimer si un bouton solution a été joué
 
-                            //Si le takuzu est valide, alors le recolorie en gris
-                            if (takuzu.estValide())
-                                colorieGris();
+                            colorieGrisCaseValide();
 
 
                             //Colorie en orange si le takuzu est gagnant
@@ -281,16 +277,22 @@ public class Fenetre extends JFrame{
 
     }
 
+
     /**
-     * Fonction qui sert à colorier tout en gris dans le cas les cases étaient pas rempli initialement (en gros ca sert à retirer le rouge qui est mis quand la case n'est pas valide)
+     * Fonction qui sert à colorier en grille toutes les cases valides
      */
-    private void colorieGris(){
+    private void colorieGrisCaseValide() {
         for (int z = 0; z < tailleTakuzu * tailleTakuzu; z++) {
             int ligne, colonne;
             //C'est pour faire le lien entre la grille et le takuzu afin de colorier UNIQUEMENT les cases dont le joueur a joué dessus
             ligne = z / tailleTakuzu;
             colonne = z % tailleTakuzu;
             if (takuzuBackup.getValue(ligne, colonne) == -1) {
+                if (takuzu.estCaseValide(ligne, colonne)) {
+                    pan.getComponent(z).setBackground(Color.lightGray);
+                }
+            }
+            if (takuzu.getValue(ligne, colonne) == -1){
                 pan.getComponent(z).setBackground(Color.lightGray);
             }
         }
