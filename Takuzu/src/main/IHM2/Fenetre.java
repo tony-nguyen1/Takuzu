@@ -87,18 +87,19 @@ public class Fenetre extends JFrame{
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() > 0) {
                     //takuzu.affichage();
-                    //viderGrille();
+                    viderGrille();
 
                     boolean resolution = takuzu.seResoudre(new Hypotheses());
                     if (resolution) { //S'il a réussi à résoudre
-                        remplirGrilleDifference(takuzu);
+                        //remplirGrilleDifference(takuzu);
+                        creerGrille();
 
                     } else {
                         System.out.println("La résolution à partir de ce qui a été fait est un echec, nous allons donc reprendre le takuzu initial");
                         Takuzu takuzuBackupBis = takuzuBackup.cloneTakuzu();
                         takuzuBackupBis.seResoudre(new Hypotheses());
                         takuzu = takuzuBackupBis;
-                        remplirGrilleDifference(takuzuBackupBis);
+                        creerGrille();
 
                     }
                 }
