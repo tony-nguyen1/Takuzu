@@ -120,7 +120,7 @@ public class FenetreTaille extends JFrame{
                 dispose();
                 Takuzu t = new Takuzu(8);
                 t.preRemplissage();
-                Fenetre f = new Fenetre(t);
+                FenetreNiveau f = new FenetreNiveau();
                 f.creerFenetre();
             }
 

@@ -16,7 +16,6 @@ public class FenetreNiveau extends JFrame{
     private JPanel pan;
     private JButton niveau1;
     private JButton niveau2;
-    private JButton niveau3;
     private int largeurFenetre;
     private int hauteurFenetre;
     private String fontName = "Verdana";
@@ -25,12 +24,11 @@ public class FenetreNiveau extends JFrame{
 
 
     public FenetreNiveau() {
-        this.largeurFenetre = 400;
-        this.hauteurFenetre = 520;
+        this.largeurFenetre = 300;
+        this.hauteurFenetre = 400;
         pan = new JPanel();
         niveau1 = new JButton("Facile"); //création d'un bouton fde niveau facile.
-        niveau2 = new JButton("Moyen"); //création d'un bouton de niveau moyen.
-        niveau3 = new JButton("Difficile"); //création d'un bouton de niveau difficile
+        niveau2 = new JButton("Difficile"); //création d'un bouton de niveau difficile
     }
 
     public void creerFenetre(){
@@ -44,7 +42,7 @@ public class FenetreNiveau extends JFrame{
             //niveau1.setBounds(120,hauteurFenetre - 300, 150, 150);
             niveau1.setFont(new Font(fontName, Font.BOLD, 40));
             niveau1.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-            niveau1.setBounds(100, 0, 200, 100);
+            niveau1.setBounds(50, 50, 200, 100);
             niveau1.setFocusPainted(false);
             niveau1.setBorderPainted(false);
             niveau1.setContentAreaFilled(false);
@@ -72,33 +70,14 @@ public class FenetreNiveau extends JFrame{
             }
         });
             niveau2.setBackground(Color.white);
-            //niveau2.setBounds(580,hauteurFenetre - 300, 150, 150);
+            //niveau3.setBounds(580,hauteurFenetre - 300, 150, 150);
             niveau2.setFont(new Font(fontName, Font.BOLD, 40));
             niveau2.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-            niveau2.setBounds(100,150, 200, 100);
+            niveau2.setBounds(50, 200, 200, 100);
             niveau2.setFocusPainted(false);
             niveau2.setBorderPainted(false);
             niveau2.setContentAreaFilled(false);
             niveau2.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                // faire en sorte que ça génère une grille moyenne
-                dispose();
-                Takuzu t = new Takuzu(8);
-                t.preRemplissage();
-                Fenetre f = new Fenetre(t);
-                f.creerFenetre();
-            }
-        });
-            niveau3.setBackground(Color.white);
-            //niveau3.setBounds(580,hauteurFenetre - 300, 150, 150);
-            niveau3.setFont(new Font(fontName, Font.BOLD, 40));
-            niveau3.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-            niveau3.setBounds(100, 300, 200, 100);
-            niveau3.setFocusPainted(false);
-            niveau3.setBorderPainted(false);
-            niveau3.setContentAreaFilled(false);
-            niveau3.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 // faire en sorte que ça génère une grille difficile
@@ -125,7 +104,6 @@ public class FenetreNiveau extends JFrame{
             setContentPane(pan);
             pan.add(niveau1);
             pan.add(niveau2);
-            pan.add(niveau3);
             this.setVisible(true);
         }
 }
