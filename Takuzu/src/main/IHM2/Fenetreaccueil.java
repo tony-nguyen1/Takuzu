@@ -6,7 +6,7 @@ import java.awt.event.*;
 
 
 public class Fenetreaccueil extends JFrame{
-    private FenetreNiveau fen;
+    private FenetreTaille fen;
     private JButton boutonjouer;
     private JButton boutonquitter;
     private JPanel pan;
@@ -44,7 +44,7 @@ public class Fenetreaccueil extends JFrame{
             @Override
             public void mouseClicked(MouseEvent e) {
                 dispose();
-                fen = new FenetreNiveau();
+                fen = new FenetreTaille();
                 fen.creerFenetre();
             }
         });
