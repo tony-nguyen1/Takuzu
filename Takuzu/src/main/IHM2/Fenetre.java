@@ -87,17 +87,19 @@ public class Fenetre extends JFrame{
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() > 0) {
                     //takuzu.affichage();
-                    viderGrille();
+                    //viderGrille();
 
                     boolean resolution = takuzu.seResoudre(new Hypotheses());
                     if (resolution) { //S'il a réussi à résoudre
-                        takuzu.affichage();
-                        //remplirGrille(takuzu);
+                        remplirGrilleDifference(takuzu);
+
                     } else {
                         System.out.println("La résolution à partir de ce qui a été fait est un echec, nous allons donc reprendre le takuzu initial");
-                        takuzuBackup.seResoudre(new Hypotheses());
-                        takuzuBackup.affichage();
-                        //remplirGrille(takuzuBackup);
+                        Takuzu takuzuBackupBis = takuzuBackup.cloneTakuzu();
+                        takuzuBackupBis.seResoudre(new Hypotheses());
+                        takuzu = takuzuBackupBis;
+                        remplirGrilleDifference(takuzuBackupBis);
+
                     }
                 }
             }
@@ -209,15 +211,23 @@ public class Fenetre extends JFrame{
                                 DequeTakuzu.add(takuzuASauvegarder);
                             }
 
-                            //Colorie en rouge si le Takuzu n'est plus valide
-                            if (!takuzu.estValide()){
+                            //Colorie en rouge la case non valide
+                            if (!takuzu.estCaseValide(boutonY, boutonX)){
                                 ptest.setBackground(Color.RED);
                             }
 
-                            //Sinon recolorie en gris
+                            //Colorie en gris sinon
                             else {
-                                colorieGris();
+                                ptest.setBackground(Color.lightGray);
                             }
+
+                            //Faire un stack de case, foutre les cases joué dessus et vérifier chacune d'entre elle à chaque move pour les recolorier et retirer celles qui ont
+                            //été supprimé avec un "undo" / ou les supprimer si un bouton solution a été joué
+
+                            //Si le takuzu est valide, alors le recolorie en gris
+                            if (takuzu.estValide())
+                                colorieGris();
+
 
                             //Colorie en orange si le takuzu est gagnant
                             if (takuzu.estGagnant()){

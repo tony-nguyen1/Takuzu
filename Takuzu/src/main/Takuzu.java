@@ -141,13 +141,64 @@ public class Takuzu {
         return true;
     }
 
+    public boolean estCaseValide(int ligne, int colonne){
+
+        //même nombre de 0 et de 1 sur chaque lignes
+        if (!checkRowBalance(ligne)){
+            return false;
+        }
+
+        if (!checkColumnBalance(colonne)){
+            return false;
+        }
+
+        //pas 3* la même valeur
+
+            if (getValue(ligne, colonne) == getValue(ligne + 1, colonne) && getValue(ligne, colonne) == getValue(ligne - 1, colonne)) {
+                return false;
+            }
+            if (getValue(ligne, colonne) == getValue(ligne, colonne + 1) && getValue(ligne, colonne) == getValue(ligne, colonne - 1)) {
+                return false;
+            }
+
+            if (getValue(ligne, colonne) == getValue(ligne, colonne + 1) && getValue(ligne, colonne) == getValue(ligne, colonne + 2)) {
+                return false;
+            }
+
+            if (getValue(ligne, colonne) == getValue(ligne, colonne - 1) && getValue(ligne, colonne) == getValue(ligne, colonne - 2)) {
+                return false;
+            }
+
+            if (getValue(ligne, colonne) == getValue(ligne + 1, colonne) && getValue(ligne, colonne) == getValue(ligne + 2, colonne)) {
+                return false;
+            }
+
+            if (getValue(ligne, colonne) == getValue(ligne - 1, colonne) && getValue(ligne, colonne) == getValue(ligne - 2, colonne)) {
+                return false;
+            }
+
+
+        //pas de séquence identique, chaque ligne et colonne unique
+        if (isRowFull(ligne))
+            if (!checkRowUnicite(ligne)) {
+                return false;
+            }
+
+        if (isColumnFull(colonne))
+            if (!checkColumnUnicite(colonne)) {
+                return false;
+            }
+        return true;
+    }
 
     /**
      * Verifie si le Takuzu est valide ou non
      *
      * @return vrai si valide
      */
+
     public boolean estValide() {
+
         //même nombre de 0 et de 1 sur chaque lignes
         for (int i = 0; i < getTailleGrille(); i++){
             if (!checkRowBalance(i)){
@@ -174,6 +225,7 @@ public class Takuzu {
                     return false;
                 }
 
+
             }
         }
 
@@ -191,6 +243,20 @@ public class Takuzu {
         return true;
     }
 
+    //Bien que plus propre à la lecture, ce bout de code a des performances qui sont 3 fois pire que la version "moche", donc je prefère la désactiver
+    /*
+        for (int i = 0; i < getTailleGrille(); i++) {
+            for (int j = 0; j < getTailleGrille(); j++) {
+                if (!estCaseValide(i, j))
+                    return false;
+            }
+        }
+        return true;
+
+
+    }
+
+          */
 
     /**
      *
@@ -527,6 +593,8 @@ public class Takuzu {
         }
         return true;
     }
+
+
 
     /**
      * Des fonctions pour remplir des takuzus

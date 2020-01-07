@@ -81,14 +81,16 @@ public class Hypotheses implements Solveur {
 
         reset();
 
-        long endTime = System.currentTimeMillis();
-        /*System.out.println("tour de boucle : " + cpt);
+
+        /*long endTime = System.currentTimeMillis();
+        System.out.println("tour de boucle : " + cpt);
         System.out.println("temps verification: " + t_verification);
         System.out.println("temps résolution: " + t_resolution);
         System.out.println("temps faireHypotheseInverse(): " + t_faireHypotheseInverse);
         System.out.println("temps faireHypothese(): " + t_faireHypothese);
         System.out.println("temps trouverMeilleurEmplacement(): " + t_trouveMeilleurEmplacement);
-        System.out.println("Hypotheses execution time: " + (endTime-startTime) + "ms");*/
+        System.out.println("Hypotheses execution time: " + (endTime-startTime) + "ms");
+         */
         return trouveGagnant;
     }
 
