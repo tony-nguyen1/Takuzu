@@ -38,7 +38,7 @@ public class FenetreTaille extends JFrame{
         taille6 = new JButton("14x14"); //création d'un bouton 14 par 14
         taille7 = new JButton("16x16"); //création d'un bouton 16 par 16
         taille8 = new JButton("18x18"); //création d'un bouton 18 par 18
-        taille9 = new JButton("20*20");
+        taille9 = new JButton("20x20");
     }
 
     public void creerFenetre(){
