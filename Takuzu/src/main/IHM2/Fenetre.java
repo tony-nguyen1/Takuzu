@@ -20,7 +20,7 @@ public class Fenetre extends JFrame{
     private Takuzu takuzuBackup;
     private GridLayout gridLayout;
     private FenetreRegles fenetreRegles;
-    private FenetreNiveau fenetreNiveau;
+    private FenetreTaille fenetreTaille;
     private JPanel pan; //panel pour la grille
     private JPanel panelboutons; //panel pour le niveau
     private JButton bsolution, undo, bregles, bniveau, undoJusquaSolution;
@@ -143,9 +143,10 @@ public class Fenetre extends JFrame{
         bniveau.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                ///////////////////////
                 dispose();
-                fenetreNiveau = new FenetreNiveau();
-                fenetreNiveau.creerFenetre();
+                fenetreTaille = new FenetreTaille();
+                fenetreTaille.creerFenetre();
             }
         });
 
@@ -309,19 +310,23 @@ public class Fenetre extends JFrame{
     }
 
     private int determineFontSize(){
+        if (tailleTakuzu == 4)
+            return 180;
         if (tailleTakuzu == 6)
-            return 75;
+            return 90;
         else if (tailleTakuzu == 8)
             return 60;
         else if (tailleTakuzu == 10)
             return 45;
         else if (tailleTakuzu == 12)
-            return 35;
-        else if (tailleTakuzu == 14)
             return 30;
+        else if (tailleTakuzu == 14)
+            return 15;
         else if (tailleTakuzu == 16)
-            return 25;
-        else return 10;
+            return 10;
+        else if (tailleTakuzu == 18)
+            return 4;
+        else return 5;
     }
 
     public int getLargeurFenetre(){

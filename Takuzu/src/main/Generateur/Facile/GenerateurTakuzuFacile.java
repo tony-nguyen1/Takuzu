@@ -37,7 +37,7 @@ public class GenerateurTakuzuFacile implements Generateur {
 
         long endTime = System.currentTimeMillis();
 
-        System.out.println("Generateur Takuzu Facile generer() execution time: " + (endTime-startTime) + "ms");
+        //System.out.println("Generateur Takuzu Facile generer() execution time: " + (endTime-startTime) + "ms");
 
         return unNouveauEtBeauTakuzuSimplifie;
     }
@@ -75,13 +75,13 @@ public class GenerateurTakuzuFacile implements Generateur {
             cpt++;
         }
         takuzuResolut.affichage();
-        System.out.println("nbCaseSupprimeeAleatoirement = " + nbCaseSupprimeeAleatoirement);
+        //System.out.println("nbCaseSupprimeeAleatoirement = " + nbCaseSupprimeeAleatoirement);
         //System.out.println("Tour de boucle : " + cpt);
         return takuzuResolut;
     }
 
     private Takuzu enleverToutesLesCasesInutiles(Takuzu unTakuzu) {
-        System.out.println("Début enleverToutesLesCasesInutiles");
+        //System.out.println("Début enleverToutesLesCasesInutiles");
         boolean pause, sarreter;
         int valeurEnlever, i, j, cpt, nbCaseInutileTotal, nbCaseEnleverCeTour;
 
@@ -153,7 +153,7 @@ public class GenerateurTakuzuFacile implements Generateur {
                     //System.out.println("Fin à i j  " + i + " " + j);
                 }
             }
-            System.out.println("nbCaseEnleverCeTour = " + nbCaseEnleverCeTour);
+            //System.out.println("nbCaseEnleverCeTour = " + nbCaseEnleverCeTour);
             if (nbCaseEnleverCeTour > 1)
             {
                 sarreter = false;
@@ -163,8 +163,8 @@ public class GenerateurTakuzuFacile implements Generateur {
                 sarreter = true;
             }
         }
-        System.out.println("nbCaseInutileTotal = " + nbCaseInutileTotal);
-        System.out.println("Fin enleverToutesLesCasesInutiles");
+        //System.out.println("nbCaseInutileTotal = " + nbCaseInutileTotal);
+        //System.out.println("Fin enleverToutesLesCasesInutiles");
         return unTakuzu;
     }
 

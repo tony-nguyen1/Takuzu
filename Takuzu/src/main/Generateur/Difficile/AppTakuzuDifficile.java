@@ -15,7 +15,7 @@ public class AppTakuzuDifficile {
         GenerateurTakuzuDifficile g = new GenerateurTakuzuDifficile(tak);
 
         Takuzu takuzu = g.generer();
-        System.out.println("Takuzu générer :");
+        System.out.println("Takuzu généré :");
         takuzu.affichage();
 
         long startTime = System.currentTimeMillis();

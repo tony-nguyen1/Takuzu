@@ -1,5 +1,7 @@
 package main.IHM2;
 
+import main.Generateur.Facile.GenerateurTakuzuFacile;
+import main.Generateur.Generateur;
 import main.Takuzu;
 
 import javax.swing.*;
@@ -38,6 +40,7 @@ public class FenetreTaille extends JFrame{
     }
 
     public void creerFenetre(){
+
         pan.setLayout(null);
         this.setTitle("Taille");
         this.setSize(largeurFenetre,hauteurFenetre);
@@ -55,26 +58,14 @@ public class FenetreTaille extends JFrame{
         taille1.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                // faire en sorte que ça génère une grille facile
+
                 dispose();
-                Takuzu t = new Takuzu(8);
-                t.preRemplissage();
-                FenetreNiveau f = new FenetreNiveau();
+                FenetreNiveau f = new FenetreNiveau(4);
                 f.creerFenetre();
 
-                /*
-                dispose();
-
-                Generateur g = new GenerateurTakuzuFacile(20, Takuzu.getPreRemplissageAnswer2());
-                Takuzu t = g.generer();
-
-                t.preRemplissage();
-                Fenetre f = new Fenetre(t);
-                f.creerFenetre();
-
-                 */
             }
         });
+
         taille2.setBackground(Color.white);
         //niveau2.setBounds(580,hauteurFenetre - 300, 150, 150);
         taille2.setFont(new Font(fontName, Font.BOLD, 40));
@@ -86,11 +77,9 @@ public class FenetreTaille extends JFrame{
         taille2.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                // faire en sorte que ça génère une grille moyenne
+
                 dispose();
-                Takuzu t = new Takuzu(8);
-                t.preRemplissage();
-                FenetreNiveau f = new FenetreNiveau();
+                FenetreNiveau f = new FenetreNiveau(6);
                 f.creerFenetre();
             }
         });
@@ -105,22 +94,9 @@ public class FenetreTaille extends JFrame{
         taille3.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                // faire en sorte que ça génère une grille difficile
-                /*
+
                 dispose();
-
-                GenerateurTakuzuDifficile g = new GenerateurTakuzuDifficile(14, 0);
-                Takuzu t = g.generer();
-
-                t.preRemplissage();
-                Fenetre f = new Fenetre(t);
-                f.creerFenetre();
-
-                 */
-                dispose();
-                Takuzu t = new Takuzu(8);
-                t.preRemplissage();
-                FenetreNiveau f = new FenetreNiveau();
+                FenetreNiveau f = new FenetreNiveau(8);
                 f.creerFenetre();
             }
 
@@ -137,33 +113,13 @@ public class FenetreTaille extends JFrame{
         taille4.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                // faire en sorte que ça génère une grille moyenne
+
                 dispose();
-                Takuzu t = new Takuzu(8);
-                t.preRemplissage();
-                FenetreNiveau f = new FenetreNiveau();
+                FenetreNiveau f = new FenetreNiveau(10);
                 f.creerFenetre();
             }
         });
-        taille4.setBackground(Color.white);
-        //niveau2.setBounds(580,hauteurFenetre - 300, 150, 150);
-        taille4.setFont(new Font(fontName, Font.BOLD, 40));
-        taille4.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        taille4.setBounds(0,300, 200, 100);
-        taille4.setFocusPainted(false);
-        taille4.setBorderPainted(false);
-        taille4.setContentAreaFilled(false);
-        taille4.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                // faire en sorte que ça génère une grille moyenne
-                dispose();
-                Takuzu t = new Takuzu(8);
-                t.preRemplissage();
-                FenetreNiveau f = new FenetreNiveau();
-                f.creerFenetre();
-            }
-        });
+
         taille5.setBackground(Color.white);
         //niveau2.setBounds(580,hauteurFenetre - 300, 150, 150);
         taille5.setFont(new Font(fontName, Font.BOLD, 40));
@@ -175,14 +131,13 @@ public class FenetreTaille extends JFrame{
         taille5.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                // faire en sorte que ça génère une grille moyenne
+
                 dispose();
-                Takuzu t = new Takuzu(8);
-                t.preRemplissage();
-                FenetreNiveau f = new FenetreNiveau();
+                FenetreNiveau f = new FenetreNiveau(12);
                 f.creerFenetre();
             }
         });
+
         taille6.setBackground(Color.white);
         //niveau2.setBounds(580,hauteurFenetre - 300, 150, 150);
         taille6.setFont(new Font(fontName, Font.BOLD, 40));
@@ -194,11 +149,9 @@ public class FenetreTaille extends JFrame{
         taille6.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                // faire en sorte que ça génère une grille moyenne
+
                 dispose();
-                Takuzu t = new Takuzu(8);
-                t.preRemplissage();
-                FenetreNiveau f = new FenetreNiveau();
+                FenetreNiveau f = new FenetreNiveau(14);
                 f.creerFenetre();
             }
         });
@@ -213,11 +166,9 @@ public class FenetreTaille extends JFrame{
         taille7.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                // faire en sorte que ça génère une grille moyenne
+
                 dispose();
-                Takuzu t = new Takuzu(8);
-                t.preRemplissage();
-                FenetreNiveau f = new FenetreNiveau();
+                FenetreNiveau f = new FenetreNiveau(16);
                 f.creerFenetre();
             }
         });
@@ -232,11 +183,9 @@ public class FenetreTaille extends JFrame{
         taille8.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                // faire en sorte que ça génère une grille moyenne
+
                 dispose();
-                Takuzu t = new Takuzu(8);
-                t.preRemplissage();
-                FenetreNiveau f = new FenetreNiveau();
+                FenetreNiveau f = new FenetreNiveau(18);
                 f.creerFenetre();
             }
         });

@@ -9,7 +9,7 @@ public class AppTestFacile {
     public static void main(String[] args) {
 
         String path = System.getProperty("user.dir");
-        Takuzu tak = Takuzu.load(path + "/Takuzu/Ressources/takuzu_taille_14.txt");
+        Takuzu tak = Takuzu.load(path + "/Takuzu/Ressources/takuzu_taille_4.txt");
 
         Generateur g = new GenerateurTakuzuFacile(tak);
         Takuzu takuzuFacile = g.generer();
