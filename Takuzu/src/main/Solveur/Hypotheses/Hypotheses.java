@@ -111,6 +111,7 @@ public class Hypotheses implements Solveur {
         backupHypotheses.addFirst(infoHypothese);
         long endTime = System.currentTimeMillis();
         t_faireHypothese += (endTime-startTime);
+        
     }
 
     private boolean faireHypotheseInverse() {
