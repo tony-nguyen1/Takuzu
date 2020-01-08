@@ -26,7 +26,7 @@ public class GenerateurTakuzuDifficile implements Generateur {
     @Override
     public Takuzu generer() {
         long startTime = System.currentTimeMillis();
-        System.out.println("Dans Generateur Avec Hypotheses");
+        //System.out.println("Dans Generateur Avec Hypotheses");
 
         Generateur generateur = new GenerateurTakuzuFacile(takuzu.cloneTakuzu());
 
@@ -35,7 +35,7 @@ public class GenerateurTakuzuDifficile implements Generateur {
         ArrayList<int[]> listCaseOccupe = listToutesCasesOccupe(unTakuzuFacile);
 
         int i = 0;
-        System.out.println(nbHypotheses);
+        //System.out.println(nbHypotheses);
         while (i < nbHypotheses) {
             int[] coord = choisisElementHasard(listCaseOccupe);
             unTakuzuFacile.suppr(coord[0], coord[1]);
@@ -44,7 +44,7 @@ public class GenerateurTakuzuDifficile implements Generateur {
         }
 
         long endTime = System.currentTimeMillis();
-        System.out.println("Generateur Takuzu avec hypotheses generer() execution time: " + (endTime-startTime) + "ms");
+        //System.out.println("Generateur Takuzu avec hypotheses generer() execution time: " + (endTime-startTime) + "ms");
 
         return unTakuzuFacile;
     }

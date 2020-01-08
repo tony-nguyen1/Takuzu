@@ -74,7 +74,7 @@ public class GenerateurTakuzuFacile implements Generateur {
             }
             cpt++;
         }
-        takuzuResolut.affichage();
+        //takuzuResolut.affichage();
         //System.out.println("nbCaseSupprimeeAleatoirement = " + nbCaseSupprimeeAleatoirement);
         //System.out.println("Tour de boucle : " + cpt);
         return takuzuResolut;
