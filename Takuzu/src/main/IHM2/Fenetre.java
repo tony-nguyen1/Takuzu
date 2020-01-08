@@ -35,7 +35,8 @@ public class Fenetre extends JFrame{
     private Deque<Takuzu> DequeTakuzu;
     private Deque<Case> DequeCaseJoue;
 
-    private String fontName = "Verdana";
+
+    private String fontName = "Corbel";
 
     public Fenetre(Takuzu t) {
         DequeTakuzu = new ArrayDeque<>();
@@ -66,7 +67,7 @@ public class Fenetre extends JFrame{
         this.setLocationRelativeTo(null); //la fenêtre s'ouvre au centre de l'écran
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //arrête tout le processus quand on clique sur la croix rouge
 
-        pan.setPreferredSize(new Dimension(largeurFenetre - 125, hauteurFenetre));//le panel pan ne prend qu'une partie du panel de la fenêtre.
+        pan.setPreferredSize(new Dimension(largeurFenetre - 140, hauteurFenetre));//le panel pan ne prend qu'une partie du panel de la fenêtre.
         pan.setBackground(Color.lightGray); // modification de couleur du panel
 
         panelboutons.setBackground(Color.darkGray);
@@ -85,7 +86,7 @@ public class Fenetre extends JFrame{
     public void creerBouton(){
         //Bouton solution
         bsolution.setBackground(new Color(148, 159, 230)); //modification de couleur du bouton "solution"
-        bsolution.setFont(new Font(fontName, Font.BOLD, 18)); //modification de la police du bouton "solution"
+        bsolution.setFont(new Font(fontName, Font.BOLD, 25)); //modification de la police du bouton "solution"
         bsolution.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -113,7 +114,7 @@ public class Fenetre extends JFrame{
 
         //Bouton undo
         undo.setBackground(new Color(148, 159, 230)); //modification de couleur du bouton "solution"
-        undo.setFont(new Font(fontName, Font.BOLD, 18));
+        undo.setFont(new Font(fontName, Font.BOLD, 25));
         undo.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -133,7 +134,7 @@ public class Fenetre extends JFrame{
 
         //Bouton des règles
         bregles.setBackground(new Color(148, 159, 230)); //modification de couleur du bouton "solution"
-        bregles.setFont(new Font(fontName, Font.BOLD, 18)); //modification de la police du bouton "solution"
+        bregles.setFont(new Font(fontName, Font.BOLD, 25)); //modification de la police du bouton "solution"
         bregles.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -144,7 +145,7 @@ public class Fenetre extends JFrame{
 
         //Bouton de la selection de niveau
         bniveau.setBackground(new Color(148, 159, 230)); //modification de couleur du bouton "solution"
-        bniveau.setFont(new Font(fontName, Font.BOLD, 18)); //modification de la police du bouton "solution"
+        bniveau.setFont(new Font(fontName, Font.BOLD, 25)); //modification de la police du bouton "solution"
         bniveau.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -178,7 +179,7 @@ public class Fenetre extends JFrame{
 
                 if (value == 0 || value == 1) {
                     JLabel label = new JLabel(Integer.toString(value), SwingConstants.CENTER); //création d'un label avec la valeur 1 ou 0.
-                    label.setFont(new Font(fontName, Font.BOLD, fontSize)); //modification de la police
+                    label.setFont(new Font("Verdana", Font.BOLD, fontSize)); //modification de la police
                     ptest.add(label); //ajout des labels avec la valeur 1 ou 0 dans les panels ptest
                     ptest.setBackground(Color.WHITE);
                 }
@@ -264,7 +265,7 @@ public class Fenetre extends JFrame{
         for (int x = 0; x < tailleTakuzu; x++) { //parcours de la grille
             for (int y = 0; y < tailleTakuzu; y++) {
                 JLabel label = new JLabel();
-                label.setFont(new Font(fontName, Font.BOLD, fontSize));
+                label.setFont(new Font(fontName, Font.ITALIC, fontSize));
 
                 value = t.getValue(x, y);
 
@@ -319,7 +320,7 @@ public class Fenetre extends JFrame{
 
     private int determineFontSize(){
         if (tailleTakuzu == 4)
-            return 180;
+            return 120;
         if (tailleTakuzu == 6)
             return 90;
         else if (tailleTakuzu == 8)
@@ -333,7 +334,7 @@ public class Fenetre extends JFrame{
         else if (tailleTakuzu == 16)
             return 10;
         else if (tailleTakuzu == 18)
-            return 4;
+            return 10;
         else return 5;
     }
 

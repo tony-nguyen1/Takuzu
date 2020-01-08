@@ -26,7 +26,7 @@ public class FenetreTaille extends JFrame{
     private String fontName = "Verdana";
 
     public FenetreTaille() {
-        this.largeurFenetre = 400;
+        this.largeurFenetre = 420;
         this.hauteurFenetre = 450;
         pan = new JPanel();
         taille1 = new JButton("4x4"); //création d'un bouton 4 par 4.
@@ -46,10 +46,10 @@ public class FenetreTaille extends JFrame{
         this.setSize(largeurFenetre,hauteurFenetre);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
-        pan.setBackground(Color.lightGray);
-        taille1.setBackground(Color.white);
-        //niveau1.setBounds(120,hauteurFenetre - 300, 150, 150);
-        taille1.setFont(new Font(fontName, Font.BOLD, 40));
+
+
+
+        taille1.setFont(new Font(fontName, Font.PLAIN, 40));
         taille1.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         taille1.setBounds(0, 0, 200, 100);
         taille1.setFocusPainted(false);
@@ -66,9 +66,9 @@ public class FenetreTaille extends JFrame{
             }
         });
 
-        taille2.setBackground(Color.white);
+
         //niveau2.setBounds(580,hauteurFenetre - 300, 150, 150);
-        taille2.setFont(new Font(fontName, Font.BOLD, 40));
+        taille2.setFont(new Font(fontName, Font.PLAIN, 40));
         taille2.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         taille2.setBounds(0,100, 200, 100);
         taille2.setFocusPainted(false);
@@ -83,9 +83,9 @@ public class FenetreTaille extends JFrame{
                 f.creerFenetre();
             }
         });
-        taille3.setBackground(Color.white);
+
         //niveau3.setBounds(580,hauteurFenetre - 300, 150, 150);
-        taille3.setFont(new Font(fontName, Font.BOLD, 40));
+        taille3.setFont(new Font(fontName, Font.PLAIN, 40));
         taille3.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         taille3.setBounds(0, 200, 200, 100);
         taille3.setFocusPainted(false);
@@ -102,9 +102,9 @@ public class FenetreTaille extends JFrame{
 
 
         });
-        taille4.setBackground(Color.white);
+
         //niveau2.setBounds(580,hauteurFenetre - 300, 150, 150);
-        taille4.setFont(new Font(fontName, Font.BOLD, 40));
+        taille4.setFont(new Font(fontName, Font.PLAIN, 40));
         taille4.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         taille4.setBounds(0,300, 200, 100);
         taille4.setFocusPainted(false);
@@ -120,9 +120,9 @@ public class FenetreTaille extends JFrame{
             }
         });
 
-        taille5.setBackground(Color.white);
+
         //niveau2.setBounds(580,hauteurFenetre - 300, 150, 150);
-        taille5.setFont(new Font(fontName, Font.BOLD, 40));
+        taille5.setFont(new Font(fontName, Font.PLAIN, 40));
         taille5.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         taille5.setBounds(200,0, 200, 100);
         taille5.setFocusPainted(false);
@@ -138,9 +138,9 @@ public class FenetreTaille extends JFrame{
             }
         });
 
-        taille6.setBackground(Color.white);
+
         //niveau2.setBounds(580,hauteurFenetre - 300, 150, 150);
-        taille6.setFont(new Font(fontName, Font.BOLD, 40));
+        taille6.setFont(new Font(fontName, Font.PLAIN, 40));
         taille6.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         taille6.setBounds(200,100, 200, 100);
         taille6.setFocusPainted(false);
@@ -155,9 +155,9 @@ public class FenetreTaille extends JFrame{
                 f.creerFenetre();
             }
         });
-        taille7.setBackground(Color.white);
+
         //niveau2.setBounds(580,hauteurFenetre - 300, 150, 150);
-        taille7.setFont(new Font(fontName, Font.BOLD, 40));
+        taille7.setFont(new Font(fontName, Font.PLAIN, 40));
         taille7.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         taille7.setBounds(200,200, 200, 100);
         taille7.setFocusPainted(false);
@@ -172,9 +172,9 @@ public class FenetreTaille extends JFrame{
                 f.creerFenetre();
             }
         });
-        taille8.setBackground(Color.white);
+
         //niveau2.setBounds(580,hauteurFenetre - 300, 150, 150);
-        taille8.setFont(new Font(fontName, Font.BOLD, 40));
+        taille8.setFont(new Font(fontName, Font.PLAIN, 40));
         taille8.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         taille8.setBounds(200,300, 200, 100);
         taille8.setFocusPainted(false);

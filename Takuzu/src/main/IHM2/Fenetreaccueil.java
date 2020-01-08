@@ -14,7 +14,7 @@ public class Fenetreaccueil extends JFrame{
     private JLabel titrejeu;
     private int largeurFenetre;
     private int hauteurFenetre;
-    private String fontName = "Verdana";
+    private String fontName = "Corbel";
 
     public Fenetreaccueil(int largeurFenetre, int hauteurFenetre){
         this.largeurFenetre = largeurFenetre;
@@ -28,15 +28,15 @@ public class Fenetreaccueil extends JFrame{
 
     public void creerFenetre(){
         pan.setLayout(null);
-        this.setTitle("TaKuZu");
+        this.setTitle("Takuzu");
         this.setSize(largeurFenetre,hauteurFenetre);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
-        pan.setBackground(Color.lightGray);
-        titrejeu.setBounds(280, hauteurFenetre -700, 450, 200);
+        //pan.setBackground(Color.lightGray);
+        titrejeu.setBounds(320, hauteurFenetre -700, 450, 200);
         titrejeu.setFont(new Font(fontName, Font.BOLD, 70));
         boutonjouer.setBounds(120,hauteurFenetre - 300, 250, 70);
-        boutonjouer.setFont(new Font(fontName, Font.BOLD, 40));
+        boutonjouer.setFont(new Font(fontName, Font.PLAIN, 60));
         boutonjouer.setFocusPainted(false);
         boutonjouer.setBorderPainted(false);
         boutonjouer.setContentAreaFilled(false);
@@ -50,7 +50,7 @@ public class Fenetreaccueil extends JFrame{
         });
         //boutonquitter.setForeground(new Color(245,230,77));
         boutonquitter.setBounds(580,hauteurFenetre - 300, 250, 70);
-        boutonquitter.setFont(new Font(fontName, Font.BOLD, 40));
+        boutonquitter.setFont(new Font(fontName, Font.PLAIN, 60));
         boutonquitter.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {

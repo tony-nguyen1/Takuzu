@@ -18,7 +18,7 @@ public class FenetreNiveau extends JFrame{
     private JButton niveau2;
     private int largeurFenetre;
     private int hauteurFenetre;
-    private String fontName = "Verdana";
+    private String fontName = "Corbel";
     private GenerateurTakuzuFacile genfacile;
     private GenerateurTakuzuDifficile gendifficile;
     private int taille;
@@ -43,10 +43,8 @@ public class FenetreNiveau extends JFrame{
             this.setSize(largeurFenetre,hauteurFenetre);
             setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             this.setLocationRelativeTo(null);
-            pan.setBackground(Color.lightGray);
-            niveau1.setBackground(Color.white);
-            //niveau1.setBounds(120,hauteurFenetre - 300, 150, 150);
-            niveau1.setFont(new Font(fontName, Font.BOLD, 40));
+
+            niveau1.setFont(new Font(fontName, Font.PLAIN, 40));
             niveau1.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
             niveau1.setBounds(50, 50, 200, 100);
             niveau1.setFocusPainted(false);
@@ -66,7 +64,7 @@ public class FenetreNiveau extends JFrame{
         });
             niveau2.setBackground(Color.white);
             //niveau3.setBounds(580,hauteurFenetre - 300, 150, 150);
-            niveau2.setFont(new Font(fontName, Font.BOLD, 40));
+            niveau2.setFont(new Font(fontName, Font.PLAIN, 40));
             niveau2.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
             niveau2.setBounds(50, 200, 200, 100);
             niveau2.setFocusPainted(false);

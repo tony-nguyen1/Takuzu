@@ -14,7 +14,7 @@ public class AppTestFacile {
         Generateur g = new GenerateurTakuzuFacile(tak);
         Takuzu takuzuFacile = g.generer();
 
-        System.out.println("Takuzu générer :");
+        System.out.println("Takuzu généré :");
         takuzuFacile.affichage();
 
         takuzuFacile.seResoudre(new MaitreSolveur());
