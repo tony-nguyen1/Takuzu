@@ -30,6 +30,7 @@ public class Fenetre extends JFrame{
     private int largeurFenetre;
     private int hauteurFenetre;
     private int fontSize;
+    private Boolean nonResolu = true;
 
     private Deque<Takuzu> DequeTakuzu;
     private Deque<Case> DequeCaseJoue;
@@ -93,8 +94,9 @@ public class Fenetre extends JFrame{
                     viderGrille();
 
                     boolean resolution = takuzu.seResoudre(new Hypotheses());
+                    nonResolu = false;
+
                     if (resolution) { //S'il a réussi à résoudre
-                        //remplirGrilleDifference(takuzu);
                         creerGrille();
 
                     } else {
@@ -117,11 +119,14 @@ public class Fenetre extends JFrame{
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() > 0) {
 
-                    if (!DequeTakuzu.isEmpty()) {
-                        takuzu = DequeTakuzu.pollLast();
-                        remplirGrilleDifference(takuzu);
+                    if (nonResolu){
+                        if (!DequeTakuzu.isEmpty()) {
+                            takuzu = DequeTakuzu.pollLast();
+                            remplirGrilleDifference(takuzu);
+                        }
+                        colorieGrisCaseValide();
                     }
-                    colorieGrisCaseValide();
+
                 }
             }
         });
@@ -143,7 +148,7 @@ public class Fenetre extends JFrame{
         bniveau.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                ///////////////////////
+
                 dispose();
                 fenetreTaille = new FenetreTaille();
                 fenetreTaille.creerFenetre();
@@ -195,20 +200,22 @@ public class Fenetre extends JFrame{
                             //Si on clique une fois on joue un 0, si on reclique on joue un 1
                             if (e.getClickCount() >= 1) {
 
-                                label.setFont(new Font(fontName, Font.BOLD, fontSize));
+                                if (nonResolu) {
+                                    label.setFont(new Font(fontName, Font.BOLD, fontSize));
 
-                                if (ptest.getText().equals("") || ptest.getText().equals("1")) {
-                                    label.setText("0");
-                                    takuzu.play0(boutonY, boutonX);
-                                } else {
-                                    label.setText("1");
-                                    takuzu.play1(boutonY, boutonX);
+                                    if (ptest.getText().equals("") || ptest.getText().equals("1")) {
+                                        label.setText("0");
+                                        takuzu.play0(boutonY, boutonX);
+                                    } else {
+                                        label.setText("1");
+                                        takuzu.play1(boutonY, boutonX);
+                                    }
+
+                                    ptest.setText(label.getText());
+                                    ptest.setFont(label.getFont());
+                                    DequeTakuzu.add(takuzuASauvegarder);
+                                    DequeCaseJoue.add(new Case(boutonY, boutonX));
                                 }
-
-                                ptest.setText(label.getText());
-                                ptest.setFont(label.getFont());
-                                DequeTakuzu.add(takuzuASauvegarder);
-                                DequeCaseJoue.add(new Case(boutonY, boutonX));
                             }
 
                             //Colorie en rouge la case non valide
@@ -231,6 +238,7 @@ public class Fenetre extends JFrame{
                             if (takuzu.estGagnant()){
                                 for (int z = 0; z < tailleTakuzu*tailleTakuzu; z++){
                                     pan.getComponent(z).setBackground(Color.orange);
+                                    nonResolu = false;
                                 }
                             }
 
