@@ -265,7 +265,7 @@ public class Fenetre extends JFrame{
         for (int x = 0; x < tailleTakuzu; x++) { //parcours de la grille
             for (int y = 0; y < tailleTakuzu; y++) {
                 JLabel label = new JLabel();
-                label.setFont(new Font(fontName, Font.ITALIC, fontSize));
+                label.setFont(new Font(fontName, Font.BOLD, fontSize));
 
                 value = t.getValue(x, y);
 
