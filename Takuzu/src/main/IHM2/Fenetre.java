@@ -86,7 +86,7 @@ public class Fenetre extends JFrame{
     public void creerBouton(){
         //Bouton solution
         bsolution.setBackground(new Color(148, 159, 230)); //modification de couleur du bouton "solution"
-        bsolution.setFont(new Font(fontName, Font.BOLD, 25)); //modification de la police du bouton "solution"
+        bsolution.setFont(new Font(fontName, Font.BOLD, 20)); //modification de la police du bouton "solution"
         bsolution.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -114,7 +114,7 @@ public class Fenetre extends JFrame{
 
         //Bouton undo
         undo.setBackground(new Color(148, 159, 230)); //modification de couleur du bouton "solution"
-        undo.setFont(new Font(fontName, Font.BOLD, 25));
+        undo.setFont(new Font(fontName, Font.BOLD, 20));
         undo.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -134,7 +134,7 @@ public class Fenetre extends JFrame{
 
         //Bouton des règles
         bregles.setBackground(new Color(148, 159, 230)); //modification de couleur du bouton "solution"
-        bregles.setFont(new Font(fontName, Font.BOLD, 25)); //modification de la police du bouton "solution"
+        bregles.setFont(new Font(fontName, Font.BOLD, 20)); //modification de la police du bouton "solution"
         bregles.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -145,7 +145,7 @@ public class Fenetre extends JFrame{
 
         //Bouton de la selection de niveau
         bniveau.setBackground(new Color(148, 159, 230)); //modification de couleur du bouton "solution"
-        bniveau.setFont(new Font(fontName, Font.BOLD, 25)); //modification de la police du bouton "solution"
+        bniveau.setFont(new Font(fontName, Font.BOLD, 20)); //modification de la police du bouton "solution"
         bniveau.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -337,7 +337,7 @@ public class Fenetre extends JFrame{
         if (tailleTakuzu == 4)
             return 120;
         if (tailleTakuzu == 6)
-            return 90;
+            return 80;
         else if (tailleTakuzu == 8)
             return 60;
         else if (tailleTakuzu == 10)
