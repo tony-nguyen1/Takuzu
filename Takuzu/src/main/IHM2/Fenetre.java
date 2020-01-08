@@ -175,6 +175,8 @@ public class Fenetre extends JFrame{
             for (int y = 0; y < tailleTakuzu; y++) {
                 value = takuzu.getValue(x, y);
                 JButton ptest = new JButton(); //création d'un bouton pour chaque case.
+                ptest.setLayout(new FlowLayout());
+
 
 
                 if (value == 0 || value == 1) {
@@ -186,10 +188,16 @@ public class Fenetre extends JFrame{
 
                 else{
                     ptest.setContentAreaFilled(false);
+                    JLabel label = new JLabel(""); //création d'un label avec la valeur 1 ou 0.
+                    label.setFont(new Font(fontName, Font.BOLD, fontSize)); //modification de la police
+
+                    ptest.add(label); //ajout des labels avec la valeur 1 ou 0 dans les panels ptest
+
+
                     ptest.addMouseListener(new MouseAdapter() {
                         @Override
                         public void mouseClicked(MouseEvent e) {
-                            JLabel label = new JLabel();
+
                             ptest.setOpaque(true);
                             //On sauvegarde le takuzu afin de l'ajouter dans la pile (pour undo)
                             Takuzu takuzuASauvegarder = takuzu.cloneTakuzu();
@@ -202,18 +210,19 @@ public class Fenetre extends JFrame{
                             if (e.getClickCount() >= 1) {
 
                                 if (nonResolu) {
-                                    label.setFont(new Font(fontName, Font.BOLD, fontSize));
 
-                                    if (ptest.getText().equals("") || ptest.getText().equals("1")) {
-                                        label.setText("0");
+                                    JLabel labelus = (JLabel)ptest.getComponent(0);
+                                    String value = labelus.getText();
+
+                                    if (value.equals("") || value.equals("1")) {
+                                        labelus.setText("0");
                                         takuzu.play0(boutonY, boutonX);
                                     } else {
-                                        label.setText("1");
+                                        labelus.setText("1");
                                         takuzu.play1(boutonY, boutonX);
                                     }
 
-                                    ptest.setText(label.getText());
-                                    ptest.setFont(label.getFont());
+                                    ptest.add(labelus);
                                     DequeTakuzu.add(takuzuASauvegarder);
                                     DequeCaseJoue.add(new Case(boutonY, boutonX));
                                 }
@@ -234,7 +243,6 @@ public class Fenetre extends JFrame{
 
                             colorieGrisCaseValide();
 
-
                             //Colorie en orange si le takuzu est gagnant
                             if (takuzu.estGagnant()){
                                 for (int z = 0; z < tailleTakuzu*tailleTakuzu; z++){
@@ -245,8 +253,12 @@ public class Fenetre extends JFrame{
 
                         }
                     });
+
                 }
+
+
                 //Ajout du bouton à chaque fin d'itération d'une boucle
+
                 pan.add(ptest);
             }
         }
@@ -264,22 +276,25 @@ public class Fenetre extends JFrame{
 
         for (int x = 0; x < tailleTakuzu; x++) { //parcours de la grille
             for (int y = 0; y < tailleTakuzu; y++) {
-                JLabel label = new JLabel();
-                label.setFont(new Font(fontName, Font.BOLD, fontSize));
+
+
 
                 value = t.getValue(x, y);
 
+                JButton bouton = (JButton)pan.getComponent(compteurComposant);
+                JLabel labelus = (JLabel)bouton.getComponent(0);
+
                 if ((value == 0 || value == 1) && takuzuBackup.getValue(x, y) == -1) {
-                    label.setText(String.valueOf(value));
+                    labelus.setText(String.valueOf(value));
                 }
 
                 if ((value == -1)){
-                    label.setText("");
+                    labelus.setText("");
                 }
 
-                JButton bouton = (JButton)pan.getComponent(compteurComposant);
-                bouton.setText(label.getText());
-                bouton.setFont(label.getFont());
+
+                bouton.add(labelus);
+
 
                 compteurComposant++;
             }
@@ -330,12 +345,13 @@ public class Fenetre extends JFrame{
         else if (tailleTakuzu == 12)
             return 30;
         else if (tailleTakuzu == 14)
-            return 15;
+            return 30;
         else if (tailleTakuzu == 16)
-            return 10;
+            return 20;
         else if (tailleTakuzu == 18)
-            return 10;
-        else return 5;
+            return 15;
+
+        else return 15;
     }
 
     public int getLargeurFenetre(){

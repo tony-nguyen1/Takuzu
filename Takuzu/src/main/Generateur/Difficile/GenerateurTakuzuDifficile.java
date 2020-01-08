@@ -39,7 +39,7 @@ public class GenerateurTakuzuDifficile implements Generateur {
         while (i < nbHypotheses) {
             int[] coord = choisisElementHasard(listCaseOccupe);
             unTakuzuFacile.suppr(coord[0], coord[1]);
-            System.out.println(coord[0] + " " + coord[1]);
+            //System.out.println(coord[0] + " " + coord[1]);
             i++;
         }
 

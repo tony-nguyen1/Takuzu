@@ -21,13 +21,14 @@ public class FenetreTaille extends JFrame{
     private JButton taille6;
     private JButton taille7;
     private JButton taille8;
+    private JButton taille9;
     private int largeurFenetre;
     private int hauteurFenetre;
     private String fontName = "Verdana";
 
     public FenetreTaille() {
         this.largeurFenetre = 420;
-        this.hauteurFenetre = 450;
+        this.hauteurFenetre = 550;
         pan = new JPanel();
         taille1 = new JButton("4x4"); //création d'un bouton 4 par 4.
         taille2 = new JButton("6x6"); //création d'un bouton 6 par 6.
@@ -37,6 +38,7 @@ public class FenetreTaille extends JFrame{
         taille6 = new JButton("14x14"); //création d'un bouton 14 par 14
         taille7 = new JButton("16x16"); //création d'un bouton 16 par 16
         taille8 = new JButton("18x18"); //création d'un bouton 18 par 18
+        taille9 = new JButton("20*20");
     }
 
     public void creerFenetre(){
@@ -189,6 +191,24 @@ public class FenetreTaille extends JFrame{
                 f.creerFenetre();
             }
         });
+
+        taille9.setFont(new Font(fontName, Font.PLAIN, 40));
+        taille9.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        taille9.setBounds(100,400, 200, 100);
+        taille9.setFocusPainted(false);
+        taille9.setBorderPainted(false);
+        taille9.setContentAreaFilled(false);
+        taille9.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+                dispose();
+                FenetreNiveau f = new FenetreNiveau(20);
+                f.creerFenetre();
+            }
+        });
+
+
         setContentPane(pan);
         pan.add(taille1);
         pan.add(taille2);
@@ -199,6 +219,7 @@ public class FenetreTaille extends JFrame{
         pan.add(taille6);
         pan.add(taille7);
         pan.add(taille8);
+        pan.add(taille9);
         this.setVisible(true);
     }
 }
