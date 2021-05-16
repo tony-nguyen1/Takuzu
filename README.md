@@ -24,7 +24,7 @@ En collaboration avec Pierre-Antoine CHERON - Nassim EZZAMARI - Mathieu GRIMAUD 
 
 requiert javaFX, maven et java
 
-dans le terminal se deplacer dans le dossier du projet.
+dans le terminal se deplacer dans le dossier du projet puis dans le sous dossier Takuzu.
 
 la commande: 
 ```bash
