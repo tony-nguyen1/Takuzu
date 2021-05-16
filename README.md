@@ -22,7 +22,17 @@ En collaboration avec Pierre-Antoine CHERON - Nassim EZZAMARI - Mathieu GRIMAUD 
 
 ## Lancer le projet
 
-requiert javaFX, maven et java
+requiert java
+
+telecharger la derniere release dans la section dediee de github.
+Executer le fichier en double cliquant dessus, si le systeme vous demande avec quel programme ouvrir choisissez Java.
+ou en CLI:
+```bash
+java -jar "chemin du fichier.jar"
+``` 
+
+## Creer un executable
+necessite javaFX, maven et Java.
 
 dans le terminal se deplacer dans le dossier du projet puis dans le sous dossier Takuzu.
 
@@ -30,7 +40,7 @@ la commande:
 ```bash
 mvn package
 ```
-permet de creer le fichier executable java (.jar) dans le dossier ./target
+permet de creer le fichier executable java (takuzu.jar) dans le dossier ./target
 
 on peut ensuite le lancer avec la commande
 ```bash
@@ -38,5 +48,5 @@ java -jar "chemin du fichier.jar"
 ```
 par exemple
 ```bash
-java -jar ./target/Takuzu-1.0-SNAPSHOT.jar
+java -jar ./target/takuzu.jar
 ```
