@@ -1,6 +1,5 @@
 package takuzu.IHM2;
 
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -10,7 +9,7 @@ import takuzu.Generateur.*;
 import takuzu.Generateur.Difficile.*;
 import takuzu.Takuzu;
 
-public class FenetreNiveau extends JFrame{
+public class FenetreNiveau extends JFrame {
 
     // private Fenetre fen;
     private JPanel pan;
@@ -29,28 +28,30 @@ public class FenetreNiveau extends JFrame{
         this.largeurFenetre = 300;
         this.hauteurFenetre = 400;
         pan = new JPanel();
-        niveau1 = new JButton("Facile"); //création d'un bouton fde niveau facile.
-        niveau2 = new JButton("Difficile"); //création d'un bouton de niveau difficile
+        niveau1 = new JButton("Facile"); // création d'un bouton fde niveau facile.
+        niveau2 = new JButton("Difficile"); // création d'un bouton de niveau difficile
         taille = t;
     }
 
-    public void creerFenetre(){
+    public void creerFenetre() {
 
-            Takuzu tak = Takuzu.load(path + "/Takuzu/Ressources/takuzu_taille_" + taille + ".txt");
+        // System.out.println("chemin de user.dir" + path);
+        Takuzu tak = Takuzu.load("/Ressources/takuzu_taille_" + taille + ".txt");
+        // Takuzu tak = Takuzu.load(path + "/Ressources/takuzu_taille_" + taille + ".txt");
 
-            pan.setLayout(null);
-            this.setTitle("Niveaux");
-            this.setSize(largeurFenetre,hauteurFenetre);
-            setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            this.setLocationRelativeTo(null);
+        pan.setLayout(null);
+        this.setTitle("Niveaux");
+        this.setSize(largeurFenetre, hauteurFenetre);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setLocationRelativeTo(null);
 
-            niveau1.setFont(new Font(fontName, Font.PLAIN, 40));
-            niveau1.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-            niveau1.setBounds(50, 50, 200, 100);
-            niveau1.setFocusPainted(false);
-            niveau1.setBorderPainted(false);
-            niveau1.setContentAreaFilled(false);
-            niveau1.addMouseListener(new MouseAdapter() {
+        niveau1.setFont(new Font(fontName, Font.PLAIN, 40));
+        niveau1.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        niveau1.setBounds(50, 50, 200, 100);
+        niveau1.setFocusPainted(false);
+        niveau1.setBorderPainted(false);
+        niveau1.setContentAreaFilled(false);
+        niveau1.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
 
@@ -62,15 +63,15 @@ public class FenetreNiveau extends JFrame{
                 f.creerFenetre();
             }
         });
-            niveau2.setBackground(Color.white);
-            //niveau3.setBounds(580,hauteurFenetre - 300, 150, 150);
-            niveau2.setFont(new Font(fontName, Font.PLAIN, 40));
-            niveau2.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-            niveau2.setBounds(50, 200, 200, 100);
-            niveau2.setFocusPainted(false);
-            niveau2.setBorderPainted(false);
-            niveau2.setContentAreaFilled(false);
-            niveau2.addMouseListener(new MouseAdapter() {
+        niveau2.setBackground(Color.white);
+        // niveau3.setBounds(580,hauteurFenetre - 300, 150, 150);
+        niveau2.setFont(new Font(fontName, Font.PLAIN, 40));
+        niveau2.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        niveau2.setBounds(50, 200, 200, 100);
+        niveau2.setFocusPainted(false);
+        niveau2.setBorderPainted(false);
+        niveau2.setContentAreaFilled(false);
+        niveau2.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
 
@@ -83,11 +84,10 @@ public class FenetreNiveau extends JFrame{
 
             }
 
-
         });
-            setContentPane(pan);
-            pan.add(niveau1);
-            pan.add(niveau2);
-            this.setVisible(true);
-        }
+        setContentPane(pan);
+        pan.add(niveau1);
+        pan.add(niveau2);
+        this.setVisible(true);
+    }
 }

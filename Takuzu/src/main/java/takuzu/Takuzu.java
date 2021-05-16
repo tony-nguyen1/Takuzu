@@ -1,6 +1,7 @@
 package takuzu;
 
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -906,16 +907,19 @@ public class Takuzu {
 
     public static Takuzu load(String pathName) {
         java.util.Scanner lecteur = null;
-        java.io.File fichier = new java.io.File(pathName);
-        try {
+        // java.io.File fichier = new java.io.File(pathName);
+        InputStream fichier = Takuzu.class.getResourceAsStream(pathName);
+        // try {
             lecteur = new java.util.Scanner(fichier);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        // } 
+        // catch (FileNotFoundException e) {
+        //     e.printStackTrace();
+        // }
 
         int taille = Integer.parseInt(lecteur.nextLine());
 
         String contenu = lecteur.nextLine();
+        lecteur.close();
         Takuzu takuzuLoaded = new Takuzu(taille);
         char value;
         for (int i = 0; i < taille; i++) {
