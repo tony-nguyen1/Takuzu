@@ -4,7 +4,7 @@ Projet <a href="https://fr.wikipedia.org/wiki/Takuzu">Takuzu</a> tuteuré par <a
 En collaboration avec Pierre-Antoine CHERON - Nassim EZZAMARI - Mathieu GRIMAUD - Tony NGUYEN.
 
 
-<h2>Règle</h2>
+## Règle
 
 <p>
 	Il peut s'agir de grilles allant de 6x6 à 14x14 en général, mais pouvant très bien avoir un nombre de colonnes et de lignes différent (voire différents entre eux pourvu qu'ils soient pairs). Chaque grille ne contient que des 0 et des 1, et doit être complétée en respectant trois règles :
@@ -19,3 +19,24 @@ En collaboration avec Pierre-Antoine CHERON - Nassim EZZAMARI - Mathieu GRIMAUD 
 <h2>UML class diagram for Takuzu project by Pierre-Antoine</h2>
 
 <img src="./Takuzu/Ressources/Main3.svg" alt="UML class diagram for Takuzu project by Pierre-Antoine">
+
+## Lancer le projet
+
+requiert javaFX, maven et java
+
+dans le terminal se deplacer dans le dossier du projet.
+
+la commande: 
+```bash
+mvn package
+```
+permet de creer le fichier executable java (.jar) dans le dossier Takuzu/target
+
+on peut ensuite le lancer avec la commande
+```bash
+java -jar "chemin du fichier.jar"
+```
+par exemple
+```bash
+java -jar Takuzu/target/Takuzu-1.0-SNAPSHOT.jar
+```
