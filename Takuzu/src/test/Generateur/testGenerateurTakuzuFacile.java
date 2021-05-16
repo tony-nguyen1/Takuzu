@@ -1,8 +1,8 @@
 package Generateur;
 
-import main.Generateur.Facile.GenerateurTakuzuFacile;
-import main.Solveur.MaitreSolveur.MaitreSolveur;
-import main.Takuzu;
+import takuzu.Generateur.Facile.GenerateurTakuzuFacile;
+import takuzu.Solveur.MaitreSolveur.MaitreSolveur;
+import takuzu.Takuzu;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;

@@ -1,7 +1,7 @@
 package Solveur;
 
-import main.Solveur.PatternCroix.PatternCroix;
-import main.Takuzu;
+import takuzu.Solveur.PatternCroix.PatternCroix;
+import takuzu.Takuzu;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

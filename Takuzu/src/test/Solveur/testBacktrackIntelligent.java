@@ -1,7 +1,7 @@
 package Solveur;
 
-import main.Solveur.BacktrackIntelligent.BacktrackIntelligent;
-import main.Takuzu;
+import takuzu.Solveur.BacktrackIntelligent.BacktrackIntelligent;
+import takuzu.Takuzu;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;

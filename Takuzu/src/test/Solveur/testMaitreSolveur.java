@@ -1,7 +1,7 @@
 package Solveur;
 
-import main.Solveur.MaitreSolveur.MaitreSolveur;
-import main.Takuzu;
+import takuzu.Solveur.MaitreSolveur.MaitreSolveur;
+import takuzu.Takuzu;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
