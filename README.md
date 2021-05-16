@@ -30,7 +30,7 @@ la commande:
 ```bash
 mvn package
 ```
-permet de creer le fichier executable java (.jar) dans le dossier Takuzu/target
+permet de creer le fichier executable java (.jar) dans le dossier ./target
 
 on peut ensuite le lancer avec la commande
 ```bash
@@ -38,5 +38,5 @@ java -jar "chemin du fichier.jar"
 ```
 par exemple
 ```bash
-java -jar Takuzu/target/Takuzu-1.0-SNAPSHOT.jar
+java -jar ./target/Takuzu-1.0-SNAPSHOT.jar
 ```
